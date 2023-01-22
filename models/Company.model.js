@@ -11,4 +11,6 @@ const companyModel = new Schema(
   }
 );
 
-module.exports = model("Company", companyModel);
+const Company = model("Company", companyModel);
+
+module.exports = Company;
