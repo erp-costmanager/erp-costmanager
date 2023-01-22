@@ -1,0 +1,26 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.home-container__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-container__cta {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-container__cta__link {
+  margin: 5px 0;
+  padding: 5px 0;
+  width: 200px;
+
+  text-align: center;
+  border: 1px solid #000;
+}
