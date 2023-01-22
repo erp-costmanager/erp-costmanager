@@ -25,8 +25,8 @@ const projectName = "erp-costmanager";
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 
 // 👇 Start handling routes here
-const indexRoutes = require("./routes/index.routes");
-app.use("/", indexRoutes);
+const homeRoutes = require("./routes/home.routes");
+app.use("/", homeRoutes);
 
 const signupRoutes = require("./routes/signup.routes");
 app.use("/", signupRoutes);
