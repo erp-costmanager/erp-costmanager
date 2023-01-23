@@ -1,0 +1,35 @@
+<p>
+  <a
+    class="btn btn-primary new-purchase-collapse-btn"
+    data-bs-toggle="collapse"
+    href="#collapseExample"
+    role="button"
+    aria-expanded="false"
+    aria-controls="collapseExample"
+  >
+    Request new purchase
+  </a>
+
+</p>
+<div class="collapse collapse-container" id="collapseExample">
+  <div class="card card-body">
+    <form
+      class="new-purchase-form"
+      action="/employee/newPurchase"
+      method="post"
+    >
+      <label for="item">Item</label>
+      <input type="text" name="item" id="item" />
+      <label for="cost">Cost</label>
+      <input type="text" name="cost" id="cost" />
+      <button class="new-purchase-form__btn">Submit</button>
+    </form>
+  </div>
+</div>
+
+<section class="requested-purchases">
+  <h4 class="requested-purchases__title">Requested purchases</h3>
+  <div class="request-purchases__list">
+    {{!-- @TODO: Add {{#each}} helper to display all requested purchases in the db --}}
+  </div>
+</section>
