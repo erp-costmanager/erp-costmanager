@@ -114,6 +114,11 @@ const postLogin = async (req,res,next) => {
   }
 }
 
+const logout = async (req, res, next) => {
+  req.session.destroy(error => if(error) next(error))
+  res.redirect('/login')
+}
+
 module.exports = {
   getUserSignup,
   postUserSignup,
@@ -121,4 +126,5 @@ module.exports = {
   postCompanySignup,
   getLogin,
   postLogin,
+  logout
 };
