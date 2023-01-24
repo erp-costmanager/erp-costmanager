@@ -11,8 +11,11 @@ const postUserSignup = async (req, res, next) => {
     //@TODO: Update the routes to render the correct page when the user has signed up, based on their role. Admins go straight in, but Users have to wait for approval.
     const { company, email, firstName, lastName, password } = req.body;
 
-    if (!company || !email || !password || !firstName  || !lastName) {
-      res.render('auth/login', { style: 'auth/login.css', errorMessage: 'All fields are required'})
+    if (!company || !email || !password || !firstName || !lastName) {
+      res.render("auth/login", {
+        style: "auth/login.css",
+        errorMessage: "All fields are required",
+      });
       return;
     }
 
@@ -46,7 +49,7 @@ const postUserSignup = async (req, res, next) => {
     console.log("Successfully created a new user: ", newUser);
     res.redirect("/login");
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
@@ -59,8 +62,11 @@ const postCompanySignup = async (req, res, next) => {
 
     const { company, email, firstName, lastName, password } = req.body;
 
-    if (!company || !email || !password || !firstName  || !lastName) {
-      res.render('auth/login', { style: 'auth/login.css', errorMessage: 'All fields are required'})
+    if (!company || !email || !password || !firstName || !lastName) {
+      res.render("auth/login", {
+        style: "auth/login.css",
+        errorMessage: "All fields are required",
+      });
       return;
     }
 
@@ -87,39 +93,47 @@ const postCompanySignup = async (req, res, next) => {
     console.log("Successfully created a new company: ", newCompany);
     res.redirect("/login");
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
-const getLogin = (req, res, next) => res.render("auth/login", { style: "auth/login.css" })
+const getLogin = (req, res, next) =>
+  res.render("auth/login", { style: "auth/login.css" });
 
-const postLogin = async (req,res,next) => {
-  const { email, password } = req.body
+const postLogin = async (req, res, next) => {
+  const { email, password } = req.body;
 
   if (!email || !password) {
-    res.render('auth/login', { style: 'auth/login.css', errorMessage: 'All fields are required'})
+    res.render("auth/login", {
+      style: "auth/login.css",
+      errorMessage: "All fields are required",
+    });
     return;
   }
 
   try {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email });
     if (user && bcryptjs.compareSync(password, user.passwordHash)) {
       req.session.currentUser = user;
-      res.redirect('/user')
+      console.log("Current user: ", req.session.currentUser);
+      res.redirect("/user");
     } else {
-      res.render('auth/login', { style: 'auth/login.css', errorMessage: 'User or email invalid.'})
+      res.render("auth/login", {
+        style: "auth/login.css",
+        errorMessage: "User or email invalid.",
+      });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
 
 const logout = (req, res, next) => {
-  req.session.destroy(error => {
-    if(error) next(error)
-  })
-  res.redirect('/login')
-}
+  req.session.destroy((error) => {
+    if (error) next(error);
+  });
+  res.redirect("/login");
+};
 
 module.exports = {
   getUserSignup,
@@ -128,5 +142,5 @@ module.exports = {
   postCompanySignup,
   getLogin,
   postLogin,
-  logout
+  logout,
 };
