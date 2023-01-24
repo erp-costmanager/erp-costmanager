@@ -7,15 +7,23 @@ const {
   postCompanySignup,
   getLogin,
   postLogin,
+  logout,
 } = require("../controllers/auth.controllers");
 
-router.get("/userSignup", getUserSignup);
-router.post("/userSignup", postUserSignup);
+const {
+  isLoggedIn,
+  isLoggedOut,
+} = require('../middleware/routeGuard');
 
-router.get("/companySignup", getCompanySignup);
-router.post("/companySignup", postCompanySignup);
+router.get("/userSignup", isLoggedOut, getUserSignup);
+router.post("/userSignup", isLoggedOut, postUserSignup);
 
-router.get("/login", getLogin);
-router.post("/login", postLogin);
+router.get("/companySignup", isLoggedOut, getCompanySignup);
+router.post("/companySignup", isLoggedOut, postCompanySignup);
+
+router.get("/login", isLoggedOut, getLogin);
+router.post("/login", isLoggedOut, postLogin);
+
+router.post("/logout", isLoggedIn, logout);
 
 module.exports = router;
