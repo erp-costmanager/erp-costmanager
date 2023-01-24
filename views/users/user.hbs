@@ -1,4 +1,10 @@
-<p>
+
+<nav class="user-nav" >
+  <a class="user-nav__link active-link" href="/user">Start</a>
+  <a class="user-nav__link" href="/profile">Profile</a>
+  <a class="user-nav__link" href="/admin">Admin</a>
+</nav>
+<p class="collapse-container">
   <a
     class="btn btn-primary new-purchase-collapse-btn"
     data-bs-toggle="collapse"
@@ -11,11 +17,11 @@
   </a>
 
 </p>
-<div class="collapse collapse-container" id="collapseExample">
+<div class="collapse collapse-container__inside" id="collapseExample">
   <div class="card card-body">
     <form
       class="new-purchase-form"
-      action="/employee/newPurchase"
+      action="/user/newPurchase"
       method="post"
     >
       <label for="item">Item</label>
@@ -28,7 +34,7 @@
 </div>
 
 <section class="requested-purchases">
-  <h4 class="requested-purchases__title">Requested purchases</h3>
+  <h4 class="requested-purchases__title">Purchase requests</h3>
   <div class="request-purchases__list">
     {{!-- @TODO: Add {{#each}} helper to display all requested purchases in the db --}}
   </div>
