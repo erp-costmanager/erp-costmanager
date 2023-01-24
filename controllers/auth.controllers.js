@@ -11,6 +11,11 @@ const postUserSignup = async (req, res, next) => {
     //@TODO: Update the routes to render the correct page when the user has signed up, based on their role. Admins go straight in, but Users have to wait for approval.
     const { company, email, firstName, lastName, password } = req.body;
 
+    if (!company || !email || !password || !firstName  || !lastName) {
+      res.render('auth/login', { style: 'auth/login.css', errorMessage: 'All fields are required'})
+      return;
+    }
+
     const saltRounds = 10;
     const salt = await bcryptjs.genSalt(saltRounds);
     const hashedPassword = await bcryptjs.hash(password, salt);
@@ -54,6 +59,11 @@ const postCompanySignup = async (req, res, next) => {
 
     const { company, email, firstName, lastName, password } = req.body;
 
+    if (!company || !email || !password || !firstName  || !lastName) {
+      res.render('auth/login', { style: 'auth/login.css', errorMessage: 'All fields are required'})
+      return;
+    }
+
     const saltRounds = 10;
     const salt = await bcryptjs.genSalt(saltRounds);
     const hashedPassword = await bcryptjs.hash(password, salt);
@@ -83,10 +93,32 @@ const postCompanySignup = async (req, res, next) => {
 
 const getLogin = (req, res, next) => res.render("auth/login", { style: "auth/login.css" })
 
+const postLogin = async (req,res,next) => {
+  const { email, password } = req.body
+
+  if (!email || !password) {
+    res.render('auth/login', { style: 'auth/login.css', errorMessage: 'All fields are required'})
+    return;
+  }
+
+  try {
+    const user = await User.findOne({ email })
+    if (user && bcryptjs.compareSync(password, user.passwordHash)) {
+      req.session.currentUser = user;
+      res.redirect('/employee')
+    } else {
+      res.render('auth/login', { style: 'auth/login.css', errorMessage: 'User or email invalid.'})
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getUserSignup,
   postUserSignup,
   getCompanySignup,
   postCompanySignup,
-  getLogin
+  getLogin,
+  postLogin,
 };
