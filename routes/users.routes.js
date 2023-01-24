@@ -1,6 +1,8 @@
 const router = require("express").Router();
 
-router.get("/employee", (req, res, next) => {
+const { isAdmin, isLoggedIn, isNotAdmin } = require('../middleware/routeGuard');
+
+router.get("/employee", isLoggedIn, isNotAdmin, (req, res, next) => {
   res.render("users/employee", { style: "users/employee.css" });
 });
 

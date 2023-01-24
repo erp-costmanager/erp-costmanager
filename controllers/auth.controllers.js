@@ -105,7 +105,7 @@ const postLogin = async (req,res,next) => {
     const user = await User.findOne({ email })
     if (user && bcryptjs.compareSync(password, user.passwordHash)) {
       req.session.currentUser = user;
-      res.redirect('/employee')
+      res.redirect('/user')
     } else {
       res.render('auth/login', { style: 'auth/login.css', errorMessage: 'User or email invalid.'})
     }
@@ -114,8 +114,10 @@ const postLogin = async (req,res,next) => {
   }
 }
 
-const logout = async (req, res, next) => {
-  req.session.destroy(error => if(error) next(error))
+const logout = (req, res, next) => {
+  req.session.destroy(error => {
+    if(error) next(error)
+  })
   res.redirect('/login')
 }
 
