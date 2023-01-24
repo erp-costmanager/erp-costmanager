@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
-router.get("/employee", (req, res, next) => {
-  res.render("users/employee", { style: "users/employee.css" });
+router.get("/user", (req, res, next) => {
+  res.render("users/user", { style: "users/user.css" });
 });
 
 module.exports = router;

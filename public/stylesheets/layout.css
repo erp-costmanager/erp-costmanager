@@ -12,8 +12,8 @@ body {
 
 .nav {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: space-between;
+  align-items: baseline;
   width: 100vw;
 }
 
@@ -26,4 +26,13 @@ body {
 .footer__paragraph {
   margin: 0;
   padding: 10px 10px 10px 20px;
+}
+
+.nav__logout-form {
+  padding-right: 20px;
+}
+
+.nav__logout-form__btn {
+  background-color: #000fff;
+  color: #fff;
 }
