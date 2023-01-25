@@ -14,6 +14,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  padding-right: 20px;
   width: 100vw;
 }
 
@@ -28,11 +29,7 @@ body {
   padding: 10px 10px 10px 20px;
 }
 
-.nav__logout-form {
-  padding-right: 20px;
-}
-
-.nav__logout-form__btn {
+.nav__dropdown-box__logout-form__btn {
   background-color: #000fff;
   color: #fff;
 }
