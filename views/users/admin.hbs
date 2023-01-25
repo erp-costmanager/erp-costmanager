@@ -1,0 +1,21 @@
+<section class="company-users">
+  <h4 class="company-users__title">Company Users</h3>
+  <ul class="company-users__list">
+    {{ #each usersList }}
+    <form action="/user/edit" method="post">
+      <li class="company-users__row">
+        <p>{{email}}</p>
+        {{ #if (isPending user) }}
+        <button>Approve</button>
+        <button>Decline</button>
+        {{ /if }}
+        <select>
+          {{ each role }}
+          <option>{{this}}</option>
+          {{ /each }}
+        </select>
+      </li>
+    </form>
+    {{/each}}
+  </ul>
+</section>
