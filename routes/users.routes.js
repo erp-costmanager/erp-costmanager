@@ -2,9 +2,13 @@ const router = require("express").Router();
 
 const { isAdmin, isLoggedIn, isNotAdmin } = require("../middleware/routeGuard");
 
-router.get("/user", isLoggedIn, isNotAdmin, (req, res, next) => {
-  const currentUser = req.session.currentUser;
-  res.render("users/user", { style: "users/user.css", currentUser });
-});
+const {
+  getUserPage,
+  postNewPurchase,
+} = require("../controllers/users.controllers");
+
+router.get("/user", isLoggedIn, isNotAdmin, getUserPage);
+
+router.post("/user/newPurchase", postNewPurchase);
 
 module.exports = router;
