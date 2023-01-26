@@ -4,9 +4,14 @@ const User = require("../models/User.model");
 const Company = require('../models/Company.model')
 const { isAdmin, isLoggedIn, isNotAdmin } = require("../middleware/routeGuard");
 
-router.get("/user", isLoggedIn, isNotAdmin, (req, res, next) => {
-  res.render("users/user", { style: "users/user.css" });
-});
+const {
+  getUserPage,
+  postNewPurchase,
+} = require("../controllers/users.controllers");
+
+router.get("/user", isLoggedIn, isNotAdmin, getUserPage);
+
+router.post("/user/newPurchase", postNewPurchase);
 
 router.get("/admin", isLoggedIn, isAdmin, async (req, res, next) => {
   try {
