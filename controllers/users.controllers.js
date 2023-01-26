@@ -30,7 +30,7 @@ const postNewPurchase = async (req, res, next) => {
       "An error occurred while adding a new purchase request: ",
       error
     );
-    next();
+    next(error);
   }
 };
 
