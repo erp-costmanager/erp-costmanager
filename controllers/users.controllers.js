@@ -75,8 +75,44 @@ const postProcessPurchaseRequest = async (req, res, next) => {
   res.redirect("/user");
 };
 
+const getAdminPage = async (req, res, next) => {
+  try {
+    const user = req.session.currentUser;
+    const company = await Company.findById(user.company).populate('users');
+
+    const usersList = company.users
+
+    usersList.sort((first, second) => {
+      if (first.status === "Pending") return -1;
+      else return 1;
+    });
+
+    res.render("users/admin", { style: "users/admin.css", currentUser, usersList });
+  } catch (error) {
+    next(error)
+  }
+}
+
+const postAdminPage = async (req, res, next) => {
+  const { status, role, id } = req.body
+  
+  try {
+    const user = await User.findById(id)
+
+    if (status) user.status = status;
+    user.role = role;
+    await user.save()
+    
+    res.redirect('/admin')
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getUserPage,
   postNewPurchase,
   postProcessPurchaseRequest,
+  getAdminPage,
+  postAdminPage,
 };
