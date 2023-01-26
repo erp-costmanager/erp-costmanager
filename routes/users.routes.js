@@ -7,11 +7,14 @@ const { isAdmin, isLoggedIn, isNotAdmin } = require("../middleware/routeGuard");
 const {
   getUserPage,
   postNewPurchase,
+  postProcessPurchaseRequest,
 } = require("../controllers/users.controllers");
 
 router.get("/user", isLoggedIn, isNotAdmin, getUserPage);
 
 router.post("/user/newPurchase", postNewPurchase);
+
+router.post("/user/proccesPurchaseRequest", postProcessPurchaseRequest);
 
 router.get("/admin", isLoggedIn, isAdmin, async (req, res, next) => {
   try {
@@ -46,5 +49,6 @@ router.post('/user/edit', async (req, res, next) => {
     next(error)
   }
 })
+
 
 module.exports = router;
