@@ -1,0 +1,55 @@
+.new-purchase-collapse-btn {
+  margin-left: 20px;
+}
+
+.collapse-container {
+  margin-top: 30px;
+}
+
+.collapse-container__inside {
+  width: 300px;
+  margin: 10px 0 20px 20px;
+}
+
+.admin-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  margin-right: 20px;
+}
+
+.admin-nav__link {
+  text-decoration: none;
+}
+
+.active-link {
+  padding: 5px 10px;
+
+  border-radius: 10px;
+  background-color: #0000ff;
+  color: #ffff;
+}
+
+.new-purchase-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.new-purchase-form__btn {
+  margin-top: 10px;
+}
+
+.requested-purchases {
+  height: 100vh;
+}
+
+.requested-purchases__title {
+  margin-left: 20px;
+  padding-bottom: 5px;
+  width: 190px;
+
+  border-bottom: 1px solid #0000ff;
+}

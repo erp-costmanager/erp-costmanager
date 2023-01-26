@@ -1,0 +1,27 @@
+<section class="company-users">
+  <h4 class="company-users__title">Company Users</h3>
+  <ul class="company-users__list">
+    {{#each usersList}}
+    <li class="company-users__row">
+        <form action="/user/edit" method="post">
+        <p>{{firstName}} {{lastName}}</p>
+        <p>{{email}}</p>
+        {{#if (isPending this)}}
+        <select name="status">
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Disapproved">Disapproved</option>
+        </select>
+        {{/if}}
+        <select name="role">
+          <option value="Employee"{{#if (isEmployee this)}}selected{{/if}}>Employee</option>
+          <option value="Manager" {{#if (isManager this)}}selected{{/if}}>Manager</option>
+          <option value="Admin" {{#if (isAdmin this)}}selected{{/if}}>Admin</option>
+        </select>
+        <input type="hidden" name="id" value="{{_id}}">
+        <button type="submit">edit</button>
+      </form>
+    </li>
+    {{/each}}
+  </ul>
+</section>
