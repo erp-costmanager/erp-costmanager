@@ -1,22 +1,22 @@
 const isLoggedIn = (req, res, next) => {
   if (!req.session.currentUser) res.redirect("/login");
-  next();
+  else next();
 };
 
 const isLoggedOut = (req, res, next) => {
   if (req.session.currentUser) res.redirect("/user");
-  next();
+  else next();
 };
 
 const isAdmin = (req, res, next) => {
   if (req.session.currentUser?.role !== "Admin") res.redirect("/user");
-  next();
+  else next();
 };
 
 const isNotAdmin = (req, res, next) => {
-    if (req.session.currentUser?.role === 'Admin') res.redirect('/admin');
-    next();
-}
+  if (req.session.currentUser?.role === "Admin") res.redirect("/admin");
+  else next();
+};
 
 module.exports = {
   isLoggedIn,
