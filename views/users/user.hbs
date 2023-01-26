@@ -6,18 +6,18 @@
 </nav>
 <p class="collapse-container">
   <a
-    class="btn btn-primary new-purchase-collapse-btn"
+    class="btn btn-primary collapse-container__btn"
     data-bs-toggle="collapse"
-    href="#collapseExample"
+    href="#newPurchaseRequest"
     role="button"
     aria-expanded="false"
-    aria-controls="collapseExample"
+    aria-controls="newPurchaseRequest"
   >
     Request new purchase
   </a>
 
 </p>
-<div class="collapse collapse-container__inside" id="collapseExample">
+<div class="collapse collapse-container__inside" id="newPurchaseRequest">
   <div class="card card-body">
     <form
       class="new-purchase-form"
@@ -39,6 +39,44 @@
 <section class="requested-purchases">
   <h4 class="requested-purchases__title">Purchase requests</h3>
   <div class="request-purchases__list">
-    {{!-- @TODO: Add {{#each}} helper to display all requested purchases in the db --}}
+    {{#each purchaseRequests}}
+  <p class="collapse-container">
+  <a
+    class="btn btn-primary collapse-container__btn"
+    data-bs-toggle="collapse"
+    href="#id{{_id}}"
+    role="button"
+    aria-expanded="false"
+    aria-controls="id{{_id}}"
+    style="width: 90%"
+  >
+    Item: {{item}} | Cost: {{cost}} | Status: {{status}}
+  </a>
+
+</p>
+<div class="collapse collapse-container__inside" id="id{{_id}}">
+  <div class="card card-body">
+    <form
+      class="new-purchase-form"
+      action="/user/proccesPurchaseRequest"
+      method="post"
+    >
+      <output name="item">Item: {{item}}</output>
+      <output name="cost">Cost: {{cost}}</output>
+      <output name="reason">Reason for request: {{reason}}</output>
+      <output name="name">Requested by: {{createdBy.firstName}} {{createdBy.lastName}}</output>
+      <label>Status:
+      <select name="status">
+        <option value="Pending" selected>Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Disapproved">Disapproved</option>
+      </select>
+      <input name="id" type="hidden" value="{{_id}}">
+      </label>
+      <button class="new-purchase-form__btn">Submit</button>
+    </form>
+  </div>
+</div>
+{{/each}}
   </div>
 </section>
