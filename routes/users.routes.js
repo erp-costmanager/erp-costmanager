@@ -1,7 +1,5 @@
 const router = require("express").Router();
 
-const User = require("../models/User.model");
-const Company = require('../models/Company.model')
 const { isAdmin, isLoggedIn, isNotAdmin } = require("../middleware/routeGuard");
 
 const {
