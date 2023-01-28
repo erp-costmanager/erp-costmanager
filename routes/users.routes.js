@@ -4,20 +4,23 @@ const { isAdmin, isLoggedIn, isNotAdmin } = require("../middleware/routeGuard");
 
 const {
   getUserPage,
+  getProfilePage,
+  postProfilePage,
   postNewPurchase,
   postProcessPurchaseRequest,
   getAdminPage,
   postAdminPage,
-  getProfilePage,
 } = require("../controllers/users.controllers");
 
 router.get("/user", isLoggedIn, isNotAdmin, getUserPage);
 
 router.get('/profile', isLoggedIn, getProfilePage)
 
-router.post("/user/newPurchase", postNewPurchase);
+router.post('/profile', isLoggedIn, postProfilePage)
 
-router.post("/user/proccesPurchaseRequest", postProcessPurchaseRequest);
+router.post("/user/newPurchase", isLoggedIn, isNotAdmin, postNewPurchase);
+
+router.post("/user/proccesPurchaseRequest", isLoggedIn, isNotAdmin, postProcessPurchaseRequest);
 
 router.get("/admin", isLoggedIn, isAdmin, getAdminPage);
 

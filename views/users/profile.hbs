@@ -9,9 +9,13 @@
 </nav>
   
 <section class="user-profile">
+    {{#if errorMessage}}
+    {{errorMessage}}
+    {{/if}}
+
     {{#with currentUser}}
     <h4 class="company-users__title">Hello, {{firstName}} {{lastName}}</h3>
-    <form class="user-edit-form" action="/admin/edit" method="post">
+    <form class="user-edit-form" action="/profile" method="post">
         <label>First Name:
             <input type="text" name="firstName" value="{{firstName}}">
         </label>

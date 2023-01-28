@@ -1,3 +1,5 @@
+const bcryptjs = require("bcryptjs");
+
 const Purchase = require("../models/Purchase.model");
 const Company = require('../models/Company.model');
 const User = require('../models/User.model');
@@ -22,9 +24,61 @@ const getUserPage = async (req, res, next) => {
 };
 
 const getProfilePage = (req, res, next) => {
-  const currentUser = req.session.currentUser
+  res.render('users/profile', { style: 'users/profile.css', currentUser: req.session.currentUser })
+}
 
-  res.render('users/profile', { style: 'users/profile.css', currentUser })
+const postProfilePage = async (req, res, next) => {
+  const currentUser = req.session.currentUser;
+
+  const { firstName, lastName, email, oldPassword, newPassword, verifyPassword } = req.body
+  if (!email || !firstName || !lastName) {
+    res.render("users/profile", {
+      style: "users/profile.css",
+      errorMessage: "All fields except password must not be blank",
+    });
+    return;
+  }
+
+  try {
+    let hashedPassword;
+    if (oldPassword.trim()) {
+      if (bcryptjs.compareSync(oldPassword, currentUser.passwordHash)) {
+        if (newPassword.trim() && newPassword === verifyPassword) {
+          const saltRounds = 10;
+          const salt = await bcryptjs.genSalt(saltRounds);
+          hashedPassword = await bcryptjs.hash(newPassword, salt);
+        } else {
+          res.render("users/profile", {
+            style: "users/profile.css",
+            errorMessage: "New entered passwords don't match!",
+            currentUser,
+          });
+          return;
+        }
+      } else {
+        res.render("users/profile", {
+          style: "users/profile.css",
+          errorMessage: "Incorrect password",
+          currentUser,
+        });
+        return;
+      }
+    }
+  
+    const editedUser = {
+      ...currentUser,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      passwordHash: hashedPassword ? hashedPassword : currentUser.passwordHash,
+    }
+    const changedUserDb = await User.findByIdAndUpdate(currentUser._id, editedUser, {new: true})
+    req.session.currentUser = changedUserDb
+
+    res.redirect('/user')
+  } catch (error) {
+    next(error)
+  }
 }
 
 const postNewPurchase = async (req, res, next) => {
@@ -137,6 +191,7 @@ const postAdminPage = async (req, res, next) => {
 module.exports = {
   getUserPage,
   getProfilePage,
+  postProfilePage,
   postNewPurchase,
   postProcessPurchaseRequest,
   getAdminPage,
