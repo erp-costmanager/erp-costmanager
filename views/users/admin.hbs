@@ -1,8 +1,11 @@
-<nav class="admin-nav" >
-  <a class="admin-nav__link" href="/user">Start</a>
+<nav class="admin-nav">
   <a class="admin-nav__link" href="/profile">Profile</a>
   <a class="admin-nav__link active-link" href="/admin">Admin</a>
 </nav>
+
+isPending
+isApproved
+isDisapproved
 
 <section class="company-users">
   <h4 class="company-users__title">Company Users</h3>
@@ -10,7 +13,12 @@
     {{#each usersList}}
     <p class="collapse-container">
       <a
-    class="btn btn-primary collapse-container__btn"
+    class="btn btn-
+    {{#if (isPending this)}}warning
+    <!-- {{else if (isApproved this)}}success -->
+    <!-- {{else if (isDisapproved this)}}danger -->
+    {{/if}}
+     collapse-container__btn"
     data-bs-toggle="collapse"
     href="#id{{_id}}"
     role="button"
@@ -18,28 +26,32 @@
     aria-controls="id{{_id}}"
     style="width: 90%"
   >
-    Item: {{firstName}} | {{lastName}} | Status: {{status}}
+    Item: {{firstName}} {{lastName}} | Status: {{status}}
   </a>
     </p>
     <div class="collapse collapse-container__inside" id="id{{_id}}">
       <div class="card card-body">
         <form class="user-edit-form" action="/user/edit" method="post">
-          <p>{{firstName}} {{lastName}}</p>
-          <p>{{email}}</p>
+          <p>Name: {{firstName}} {{lastName}}</p>
+          <p>Email: {{email}}</p>
           {{#if (isPending this)}}
-          <select name="status">
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Disapproved">Disapproved</option>
-          </select>
+          <label for="status">Status:
+            <select name="status">
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Disapproved">Disapproved</option>
+            </select>
+          </label>
           {{/if}}
-          <select name="role">
-            <option value="Employee"{{#if (isEmployee this)}}selected{{/if}}>Employee</option>
-            <option value="Manager" {{#if (isManager this)}}selected{{/if}}>Manager</option>
-            <option value="Admin" {{#if (isAdmin this)}}selected{{/if}}>Admin</option>
-          </select>
+          <label for="role">Role:
+            <select name="role">
+              <option value="Employee"{{#if (isEmployee this)}}selected{{/if}}>Employee</option>
+              <option value="Manager" {{#if (isManager this)}}selected{{/if}}>Manager</option>
+              <option value="Admin" {{#if (isAdmin this)}}selected{{/if}}>Admin</option>
+            </select>
+          </label>
           <input type="hidden" name="id" value="{{_id}}">
-          <button type="submit">edit</button>
+          <button type="submit">Save changes</button>
         </form>
       </div>
     </div>
