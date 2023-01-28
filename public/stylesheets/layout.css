@@ -24,6 +24,10 @@ body {
   font-size: 18px;
 }
 
+.footer {
+  position: relative;
+}
+
 .footer__paragraph {
   margin: 0;
   padding: 10px 10px 10px 20px;
