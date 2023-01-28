@@ -3,20 +3,16 @@
   <a class="admin-nav__link active-link" href="/admin">Admin</a>
 </nav>
 
-isPending
-isApproved
-isDisapproved
-
 <section class="company-users">
   <h4 class="company-users__title">Company Users</h3>
   <div class="company-users__list">
     {{#each usersList}}
     <p class="collapse-container">
       <a
-    class="btn btn-
-    {{#if (isPending this)}}warning
-    <!-- {{else if (isApproved this)}}success -->
-    <!-- {{else if (isDisapproved this)}}danger -->
+    class="btn 
+    {{#if (isPending this)}}btn-warning
+    {{else if (isApproved this)}}btn-success
+    {{else if (isDisapproved this)}}btn-danger
     {{/if}}
      collapse-container__btn"
     data-bs-toggle="collapse"
