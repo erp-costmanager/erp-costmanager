@@ -4,6 +4,8 @@ const { isAdmin, isLoggedIn, isNotAdmin } = require("../middleware/routeGuard");
 
 const {
   getUserPage,
+  getUserEditPage,
+  postUserEditPage,
   getProfilePage,
   postProfilePage,
   postNewPurchase,
@@ -22,8 +24,14 @@ router.post("/user/newPurchase", isLoggedIn, isNotAdmin, postNewPurchase);
 
 router.post("/user/proccesPurchaseRequest", isLoggedIn, isNotAdmin, postProcessPurchaseRequest);
 
+router.post("/user/processPurchaseRequest", postProcessPurchaseRequest);
+
 router.get("/admin", isLoggedIn, isAdmin, getAdminPage);
 
 router.post("/admin/edit", isLoggedIn, isAdmin, postAdminPage);
+
+router.get("/user/edit/:purchaseId", isLoggedIn, isNotAdmin, getUserEditPage);
+
+router.post("/user/edit/:purchaseId", postUserEditPage);
 
 module.exports = router;
