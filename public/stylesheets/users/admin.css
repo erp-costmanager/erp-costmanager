@@ -1,9 +1,9 @@
-.new-purchase-collapse-btn {
-  margin-left: 20px;
-}
-
 .collapse-container {
   margin-top: 30px;
+}
+
+.collapse-container__btn {
+  margin-left: 20px;
 }
 
 .collapse-container__inside {
@@ -16,7 +16,7 @@
   justify-content: space-around;
   align-items: center;
   gap: 10px;
-  margin-right: 20px;
+  margin: 20px 20px 0 0;
 }
 
 .admin-nav__link {
@@ -31,25 +31,32 @@
   color: #ffff;
 }
 
-.new-purchase-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 0;
+.company-users {
+  flex-grow: 1;
 }
 
-.new-purchase-form__btn {
-  margin-top: 10px;
-}
-
-.requested-purchases {
-  height: 100vh;
-}
-
-.requested-purchases__title {
+.company-users__title {
   margin-left: 20px;
   padding-bottom: 5px;
   width: 190px;
-
   border-bottom: 1px solid #0000ff;
+}
+
+.user-edit-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.user-edit-form p {
+  margin: 0;
+}
+
+.user-edit-form button {
+  padding: 5px 10px;
+  border-width: 0;
+  border-radius: 10px;
+  background-color: #0000ff;
+  color: #ffff; 
 }
