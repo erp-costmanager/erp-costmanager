@@ -1,4 +1,5 @@
 const Purchase = require("../models/Purchase.model");
+const Company = require('../models/Company.model');
 
 const getUserPage = async (req, res, next) => {
   try {
@@ -77,7 +78,7 @@ const postProcessPurchaseRequest = async (req, res, next) => {
 
 const getAdminPage = async (req, res, next) => {
   try {
-    const user = req.session.currentUser;
+    const currentUser = req.session.currentUser;
     const company = await Company.findById(user.company).populate('users');
 
     const usersList = company.users
