@@ -3,14 +3,11 @@ const Purchase = require("../models/Purchase.model");
 const getUserPage = async (req, res, next) => {
   try {
     const currentUser = req.session.currentUser;
-    console.log("User's company: ", currentUser.company);
     const purchaseRequests = await Purchase.find({
       company: currentUser.company,
     })
       .sort({ createdAt: -1 })
       .populate("createdBy");
-
-    console.log("Purchase requests: ", purchaseRequests);
 
     res.render("users/user", {
       style: "users/user.css",
@@ -54,29 +51,37 @@ const postNewPurchase = async (req, res, next) => {
 };
 
 const postProcessPurchaseRequest = async (req, res, next) => {
-  const { status, id } = req.body;
+  try {
+    const { id, approveRequest, disapproveRequest, deleteRequest } = req.body;
 
-  if (status === "Pending") {
-    return;
-  } else if (status === "Approved") {
-    const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
-      status: "Approved",
-    });
-    console.log(
-      "Changing status of purchase request to approved. Details ",
-      updatedPurchaseRequest
-    );
-  } else if (status === "Disapproved") {
-    const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
-      status: "Disapproved",
-    });
-    console.log(
-      "Changing status of purchase request to dissaproved. Details ",
-      updatedPurchaseRequest
-    );
-  } else {
-    console.log("Invalid status received!");
-    return;
+    if (approveRequest) {
+      const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
+        status: "Approved",
+      });
+
+      console.log(
+        "Changing status of purchase request to approved. Details ",
+        updatedPurchaseRequest
+      );
+    } else if (disapproveRequest) {
+      const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
+        status: "Disapproved",
+      });
+
+      console.log(
+        "Changing status of purchase request to dissaproved. Details ",
+        updatedPurchaseRequest
+      );
+    } else if (deleteRequest) {
+      const deletedPurchaseRequest = await Purchase.findByIdAndRemove(id);
+
+      console.log(
+        "Purchase request successfully deleted: ",
+        deletedPurchaseRequest
+      );
+    }
+  } catch (error) {
+    next(error);
   }
 
   res.redirect("/user");
