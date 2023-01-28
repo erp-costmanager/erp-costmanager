@@ -63,38 +63,9 @@
 </p>
 <div class="collapse collapse-container__inside" id="id{{_id}}">
   <div class="card card-body">
-    {{#if editPurchaseRequest}}
-    <form
-      class="purchase-request-edit-form"
-      action="/user/edit"
-      method="post"
-    >
-      <input name="item"><strong>Item:</strong> {{item}}</input>
-      <input name="cost"><strong>Cost:</strong> {{cost}}</input>
-      <input name="reason"><strong>Reason for request:</strong> {{reason}}</input>
-      <input name="name"><strong>Requested by:</strong> {{createdBy.firstName}} {{createdBy.lastName}}</input>
-      {{#if (isPendingAndIsUserManager this)}}
-      <label><strong>Status:</strong>
-      <select name="status">
-        <option value="Pending" selected>Pending</option>
-        <option value="Approved">Approved</option>
-        <option value="Disapproved">Disapproved</option>
-      </select>
-      <input type="submit" name="isSubmitRequest" value="Submit" class="purchase-request-edit-form__btn">
-
-      {{else if (isPendingAndIsUsersOwnRequest this ../currentUser)}}
-       <input type="submit" name="isDeleteRequest" value="Delete" class="purchase-request-edit-form__btn">
-      {{else}}
-      <label><strong>Status:</strong>
-      {{status}}
-      {{/if}}
-      <input name="id" type="hidden" value="{{_id}}">
-      </label>
-    </form>
-    {{else}}
    <form
       class="purchase-request-form"
-      action="/user/proccesPurchaseRequest"
+      action="/user/processPurchaseRequest"
       method="post"
     >
       <output name="item"><strong>Item:</strong> {{item}}</output>
@@ -102,11 +73,16 @@
       <output name="reason"><strong>Reason for request:</strong> {{reason}}</output>
       <output name="name"><strong>Requested by:</strong> {{createdBy.firstName}} {{createdBy.lastName}}</output>
       {{#if (isPendingAndIsUserManager this)}}
-      <input type="submit" name="approveRequest" value="Approve" class="purchase-request-form__btn">
-      <input type="submit" name="disapproveRequest" value="Disapprove" class="purchase-request-form__btn">
+      <div>
+      <input type="submit" name="approveRequest" value="Approve" class="purchase-request-form__btn btn btn-success">
+      <input type="submit" name="disapproveRequest" value="Disapprove" class="purchase-request-form__btn btn btn-danger">
+      </div>
 
       {{else if (isPendingAndIsUsersOwnRequest this ../currentUser)}}
-       <input type="submit" name="deleteRequest" value="Delete" class="purchase-request-form__btn">
+      <div>
+       <input type="submit" name="deleteRequest" value="Delete" class="btn btn-danger purchase-request-form__btn">
+       <a href="/user/edit/{{_id}}" class="btn btn-info purchase-request-form__btn">Edit</a>
+      </div>
       {{else}}
       <label><strong>Status:</strong>
       {{status}}
@@ -114,8 +90,7 @@
       <input name="id" type="hidden" value="{{_id}}">
       </label>
     </form>
-    {{/if}}
-     
+  
   </div>
 </div>
 {{/each}}
