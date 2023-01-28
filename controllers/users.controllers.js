@@ -1,5 +1,6 @@
 const Purchase = require("../models/Purchase.model");
 const Company = require('../models/Company.model');
+const User = require('../models/User.model');
 
 const getUserPage = async (req, res, next) => {
   try {
