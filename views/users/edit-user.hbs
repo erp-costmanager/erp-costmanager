@@ -1,0 +1,52 @@
+<nav class="user-nav" >
+  <a class="user-nav__link" href="/user">Start</a>
+  <a class="user-nav__link" href="/profile">Profile</a>
+</nav>
+<div class="user-container">
+<section class="requested-purchases">
+  <h4 class="requested-purchases__title">Purchase requests</h3>
+  <div class="request-purchases__list">
+  <p class="collapse-container">
+  <a
+    class="btn 
+    {{#if (isPending purchaseRequest)}}
+    btn-warning 
+    {{else if (isApproved purchaseRequest)}}
+    btn-success
+    {{else}}
+    btn-danger
+    {{/if}}
+    collapse-container__btn"
+    data-bs-toggle="collapse"
+    role="button"
+    aria-expanded="true"
+    style="width: 90%"
+  >
+   Editing
+  </a>
+
+</p>
+<div class="collapse collapse-container__inside show">
+  <div class="card card-body">
+    <form
+      class="purchase-request-edit-form"
+      action="/user/edit/{{purchaseRequest._id}}"
+      method="post"
+    >
+      <strong>Item:</strong><input type="text" name="item" value="{{purchaseRequest.item}}">
+      <strong>Cost:</strong><input type="text" name="cost" value="{{purchaseRequest.cost}}">
+      <strong>Reason for request:</strong><textarea name="reason" cols="24">{{purchaseRequest.reason}} </textarea>
+      <strong>Requested by:</strong> <output name="name">{{purchaseRequest.createdBy.firstName}} {{purchaseRequest.createdBy.lastName}}</output>
+      <div>
+       <input type="submit" name="editRequest" value="Save Changes" class="btn btn-info purchase-request-edit-form__btn">
+       <a href="/user" class="btn btn-danger purchase-request-edit-form__btn">Cancel</a>
+
+      </div>
+      <input name="id" type="hidden" value="{{purchaseRequest._id}}">
+      </label>
+    </form>
+  </div>
+</div>
+  </div>
+</section>
+</div>
