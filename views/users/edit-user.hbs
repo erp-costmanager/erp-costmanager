@@ -37,12 +37,12 @@
       <strong>Cost:</strong><input type="text" name="cost" value="{{purchaseRequest.cost}}">
       <strong>Reason for request:</strong><textarea name="reason" cols="24">{{purchaseRequest.reason}} </textarea>
       <strong>Requested by:</strong> <output name="name">{{purchaseRequest.createdBy.firstName}} {{purchaseRequest.createdBy.lastName}}</output>
+      <input name="id" type="hidden" value="{{purchaseRequest._id}}">
       <div>
-       <input type="submit" name="editRequest" value="Save Changes" class="btn btn-info purchase-request-edit-form__btn">
+       <input type="submit" value="Save Changes" class="btn btn-info purchase-request-edit-form__btn">
        <a href="/user" class="btn btn-danger purchase-request-edit-form__btn">Cancel</a>
 
       </div>
-      <input name="id" type="hidden" value="{{purchaseRequest._id}}">
       </label>
     </form>
   </div>

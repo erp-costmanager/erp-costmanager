@@ -121,7 +121,26 @@ const postProcessPurchaseRequest = async (req, res, next) => {
   res.redirect("/user");
 };
 
-const postUserEditPage = async (req, res, next) => {};
+const postUserEditPage = async (req, res, next) => {
+  try {
+    const { id, item, cost, reason } = req.body;
+
+    const editedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
+      item,
+      cost,
+      reason,
+    });
+
+    console.log(
+      "Successfully edited the purchase request: ",
+      editedPurchaseRequest
+    );
+
+    res.redirect("/user");
+  } catch (error) {
+    next(error);
+  }
+};
 
 const getAdminPage = async (req, res, next) => {
   try {
