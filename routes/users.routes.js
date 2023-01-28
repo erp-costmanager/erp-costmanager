@@ -8,9 +8,12 @@ const {
   postProcessPurchaseRequest,
   getAdminPage,
   postAdminPage,
+  getProfilePage,
 } = require("../controllers/users.controllers");
 
 router.get("/user", isLoggedIn, isNotAdmin, getUserPage);
+
+router.get('/profile', isLoggedIn, getProfilePage)
 
 router.post("/user/newPurchase", postNewPurchase);
 
@@ -18,6 +21,6 @@ router.post("/user/proccesPurchaseRequest", postProcessPurchaseRequest);
 
 router.get("/admin", isLoggedIn, isAdmin, getAdminPage);
 
-router.post("/user/edit", isLoggedIn, isAdmin, postAdminPage);
+router.post("/admin/edit", isLoggedIn, isAdmin, postAdminPage);
 
 module.exports = router;

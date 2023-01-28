@@ -1,0 +1,33 @@
+<nav class="admin-nav">
+    {{#if (isNotAdmin currentUser)}}
+    <a class="user-nav__link" href="/user">Start</a>
+    {{/if}}
+    <a class="admin-nav__link active-link" href="/profile">Profile</a>
+    {{#if (isAdmin currentUser)}}
+    <a class="admin-nav__link" href="/admin">Admin</a>
+    {{/if}}
+</nav>
+  
+<section class="user-profile">
+    {{#with currentUser}}
+    <h4 class="company-users__title">Hello, {{firstName}} {{lastName}}</h3>
+    <form class="user-edit-form" action="/admin/edit" method="post">
+        <label>First Name:
+            <input type="text" name="firstName" value="{{firstName}}">
+        </label>
+        <label>Last Name:
+            <input type="text" name="lastName" value="{{lastName}}">
+        </label>
+        <label>Email:
+            <input type="text" name="email" value="{{email}}">
+        </label>
+        <label>Change Password:
+            <input type="password" name="oldPassword" placeholder="enter old password">
+            <input type="password" name="newPassword" placeholder="enter new password">
+            <input type="password" name="verifyPassword" placeholder="confirm new password">
+        </label>
+        <input type="hidden" name="id" value="{{_id}}">
+        <button type="submit">Save changes</button>
+    </form>
+    {{/with}}
+</section>

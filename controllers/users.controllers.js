@@ -21,6 +21,12 @@ const getUserPage = async (req, res, next) => {
   }
 };
 
+const getProfilePage = (req, res, next) => {
+  const currentUser = req.session.currentUser
+
+  res.render('users/profile', { style: 'users/profile.css', currentUser })
+}
+
 const postNewPurchase = async (req, res, next) => {
   try {
     const { item, cost, reason } = req.body;
@@ -130,6 +136,7 @@ const postAdminPage = async (req, res, next) => {
 
 module.exports = {
   getUserPage,
+  getProfilePage,
   postNewPurchase,
   postProcessPurchaseRequest,
   getAdminPage,
