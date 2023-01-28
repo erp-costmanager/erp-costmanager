@@ -80,7 +80,7 @@ const postProcessPurchaseRequest = async (req, res, next) => {
 const getAdminPage = async (req, res, next) => {
   try {
     const currentUser = req.session.currentUser;
-    const company = await Company.findById(user.company).populate('users');
+    const company = await Company.findById(currentUser.company).populate('users');
 
     const usersList = company.users
 
