@@ -105,6 +105,27 @@ const getUserEditPage = async (req, res, next) => {
   }
 };
 
+const postUserEditPage = async (req, res, next) => {
+  try {
+    const { id, item, cost, reason } = req.body;
+
+    const editedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
+      item,
+      cost,
+      reason,
+    });
+
+    console.log(
+      "Successfully edited the purchase request: ",
+      editedPurchaseRequest
+    );
+
+    res.redirect("/user");
+  } catch (error) {
+    next(error);
+  }
+};
+
 const postNewPurchase = async (req, res, next) => {
   try {
     const { item, cost, reason } = req.body;
@@ -182,27 +203,6 @@ const postProcessPurchaseRequest = async (req, res, next) => {
   res.redirect("/user");
 };
 
-const postUserEditPage = async (req, res, next) => {
-  try {
-    const { id, item, cost, reason } = req.body;
-
-    const editedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
-      item,
-      cost,
-      reason,
-    });
-
-    console.log(
-      "Successfully edited the purchase request: ",
-      editedPurchaseRequest
-    );
-
-    res.redirect("/user");
-  } catch (error) {
-    next(error);
-  }
-};
-
 const getAdminPage = async (req, res, next) => {
   try {
     const currentUser = req.session.currentUser;
@@ -251,6 +251,10 @@ const postAdminPage = async (req, res, next) => {
   }
 };
 
+const getUserNotApprovedPage = (req, res, next) => {
+  res.render('users/not-approved', { style: 'users/not-approved.css', currentUser: req.session.currentUser })
+}
+
 module.exports = {
   getUserPage,
   getUserEditPage,
@@ -261,4 +265,5 @@ module.exports = {
   postProcessPurchaseRequest,
   getAdminPage,
   postAdminPage,
+  getUserNotApprovedPage
 };

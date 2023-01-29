@@ -1,0 +1,11 @@
+<nav class="user-nav" >
+    <a class="user-nav__link active-link" href="/user">Start</a>
+    <a class="user-nav__link" href="/profile">Profile</a>
+</nav>
+{{#with currentUser}}
+<div class="user-container">
+    <h3>Hello, {{firstName}} {{lastName}}</h3>
+    <p>Your user must be approved before you can access the cost portal.</p>
+</div>
+{{/with}}
+  
