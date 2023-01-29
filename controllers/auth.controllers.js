@@ -12,8 +12,8 @@ const postUserSignup = async (req, res, next) => {
     const { company, email, firstName, lastName, password } = req.body;
 
     if (!company || !email || !password || !firstName || !lastName) {
-      res.render("auth/login", {
-        style: "auth/login.css",
+      res.render("auth/userSignup", {
+        style: "auth/signup.css",
         errorMessage: "All fields are required",
       });
       return;
@@ -27,7 +27,7 @@ const postUserSignup = async (req, res, next) => {
 
     if (!companyInDb) {
       res.render("auth/userSignup", {
-        style: "auth/userSignup.css",
+        style: "auth/signup.css",
         errorMessage: "No company found with this name.",
       });
       return;
@@ -63,8 +63,8 @@ const postCompanySignup = async (req, res, next) => {
     const { company, email, firstName, lastName, password } = req.body;
 
     if (!company || !email || !password || !firstName || !lastName) {
-      res.render("auth/login", {
-        style: "auth/login.css",
+      res.render("auth/companySignup", {
+        style: "auth/signup.css",
         errorMessage: "All fields are required",
       });
       return;

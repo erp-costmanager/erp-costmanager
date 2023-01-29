@@ -1,5 +1,7 @@
 <div class="signup-container">
-
+  {{#if errorMessage}}
+  <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
+  {{/if}}
   <form class="signup-container__form" action="/companySignup" method="post">
     <label class="signup-container__form__label" for="company">Company Name</label>
     <input type="text" name="company" id="company" />

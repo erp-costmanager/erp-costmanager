@@ -23,6 +23,7 @@ module.exports = (hbs) => {
   hbs.registerHelper("isEmployee", (user) => user.role === "Employee");
   hbs.registerHelper("isManager", (user) => user.role === "Manager");
   hbs.registerHelper("isAdmin", (user) => user.role === "Admin");
-  hbs.registerHelper("isNotRemovedOrDisapproved", (user) => !["Removed", "Disapproved"].includes(user.status));
   hbs.registerHelper("isNotAdmin", (user) => user.role !== "Admin");
+  hbs.registerHelper('isRemoved', (user) => user.status === "Removed");
+  hbs.registerHelper("isNotRemovedOrDisapproved", (user) => !["Removed", "Disapproved"].includes(user.status));
 };
