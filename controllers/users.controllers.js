@@ -1,6 +1,8 @@
+const capitalize = require("../utils/capitalize");
+
 const Purchase = require("../models/Purchase.model");
-const Company = require('../models/Company.model');
-const User = require('../models/User.model');
+const Company = require("../models/Company.model");
+const User = require("../models/User.model");
 
 const getUserPage = async (req, res, next) => {
   try {
@@ -91,9 +93,10 @@ const postProcessPurchaseRequest = async (req, res, next) => {
 
 const getAdminPage = async (req, res, next) => {
   try {
-
     const currentUser = req.session.currentUser;
-    const company = await Company.findById(currentUser.company).populate('users');
+    const company = await Company.findById(currentUser.company).populate(
+      "users"
+    );
 
     const usersList = company.users;
 
@@ -102,10 +105,16 @@ const getAdminPage = async (req, res, next) => {
       else return 1;
     });
 
+    const capitalizedUsers = usersList.map((user) => ({
+      ...user.toObject(),
+      firstName: capitalize(user.firstName),
+      lastName: capitalize(user.lastName),
+    }))
+
     res.render("users/admin", {
       style: "users/admin.css",
       currentUser,
-      usersList,
+      usersList: capitalizedUsers,
     });
   } catch (error) {
     next(error);
@@ -113,12 +122,13 @@ const getAdminPage = async (req, res, next) => {
 };
 
 const postAdminPage = async (req, res, next) => {
-  const { status, role, id } = req.body;
+  const { status, role, id, removeUser } = req.body;
 
   try {
     const user = await User.findById(id);
 
-    if (status) user.status = status;
+    if (removeUser) user.status = "Removed";
+    else if (status) user.status = status;
     user.role = role;
     await user.save();
 
