@@ -1,3 +1,4 @@
+const capitalize = require("../utils/capitalize");
 const bcryptjs = require("bcryptjs");
 
 const Purchase = require("../models/Purchase.model");
@@ -216,10 +217,16 @@ const getAdminPage = async (req, res, next) => {
       else return 1;
     });
 
+    const capitalizedUsers = usersList.map((user) => ({
+      ...user.toObject(),
+      firstName: capitalize(user.firstName),
+      lastName: capitalize(user.lastName),
+    }))
+
     res.render("users/admin", {
       style: "users/admin.css",
       currentUser,
-      usersList,
+      usersList: capitalizedUsers,
     });
   } catch (error) {
     next(error);
@@ -227,13 +234,15 @@ const getAdminPage = async (req, res, next) => {
 };
 
 const postAdminPage = async (req, res, next) => {
-  const { status, role, id } = req.body;
+  const { status, role, id, process } = req.body;
 
   try {
     const user = await User.findById(id);
-
+    if (process === 'Save changes') user.role = role;
+    if (process === 'Remove') user.status = "Removed";
+    if (process === 'Reinstate') user.status = 'Approved';
     if (status) user.status = status;
-    user.role = role;
+    
     await user.save();
 
     res.redirect("/admin");

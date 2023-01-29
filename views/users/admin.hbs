@@ -39,6 +39,7 @@
             </select>
           </label>
           {{/if}}
+          {{#if (isNotRemovedOrDisapproved this)}}
           <label for="role">Role:
             <select name="role">
               <option value="Employee"{{#if (isEmployee this)}}selected{{/if}}>Employee</option>
@@ -46,8 +47,17 @@
               <option value="Admin" {{#if (isAdmin this)}}selected{{/if}}>Admin</option>
             </select>
           </label>
+          <div class="actions">
+            <input type="submit" value="Save changes" name="process" class="btn btn-primary">
+            <input type="submit" value="Remove" name="process" class="btn btn-danger">
+          </div>
+          {{else}}
+          <p>Role: {{role}}</p>
+          <div class="actions">
+            <input type="submit" value="Reinstate" name="process" class="btn btn-success">
+          </div>
+          {{/if}}
           <input type="hidden" name="id" value="{{_id}}">
-          <button type="submit">Save changes</button>
         </form>
       </div>
     </div>
