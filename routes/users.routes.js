@@ -22,9 +22,7 @@ router.post('/profile', isLoggedIn, postProfilePage)
 
 router.post("/user/newPurchase", isLoggedIn, isNotAdmin, postNewPurchase);
 
-router.post("/user/proccesPurchaseRequest", isLoggedIn, isNotAdmin, postProcessPurchaseRequest);
-
-router.post("/user/processPurchaseRequest", postProcessPurchaseRequest);
+router.post("/user/processPurchaseRequest", isLoggedIn, isNotAdmin, postProcessPurchaseRequest);
 
 router.get("/admin", isLoggedIn, isAdmin, getAdminPage);
 
