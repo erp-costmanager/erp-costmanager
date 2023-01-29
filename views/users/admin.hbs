@@ -13,6 +13,7 @@
     {{#if (isPending this)}}btn-warning
     {{else if (isApproved this)}}btn-success
     {{else if (isDisapproved this)}}btn-danger
+    {{else if (isRemoved this)}}btn-secondary
     {{/if}}
      collapse-container__btn"
     data-bs-toggle="collapse"
