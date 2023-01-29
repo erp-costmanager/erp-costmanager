@@ -36,6 +36,7 @@ const userSchema = new Schema(
       enum: ["Pending", "Approved", "Disapproved", "Removed"],
       default: "Pending",
     },
+    pictureURL: String,
   },
   {
     timestamps: true,

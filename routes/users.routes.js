@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const fileUploader = require('../config/cloudinary.config')
 
 const { isAdmin, isLoggedIn, isNotAdmin, isApproved } = require("../middleware/routeGuard");
 
@@ -19,7 +20,7 @@ router.get("/user", isLoggedIn, isApproved, isNotAdmin, getUserPage);
 
 router.get('/profile', isLoggedIn, getProfilePage)
 
-router.post('/profile', isLoggedIn, postProfilePage)
+router.post('/profile', isLoggedIn, fileUploader.single('user-profile-image'), postProfilePage)
 
 router.post("/user/newPurchase", isLoggedIn, isNotAdmin, postNewPurchase);
 

@@ -16,32 +16,35 @@
     {{#with currentUser}}
     <h4 class="company-user__title">Hello, {{firstName}} {{lastName}}</h3>
     <div class="card card-body m-3">
-        <form class="user-edit-form" action="/profile" method="post">
+        <form class="user-edit-form" action="/profile" method="post" enctype="multipart/form-data">
             <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">First Name</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="firstName" value="{{firstName}}">
-              </div>
-              <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Last Name</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="lastName" value="{{lastName}}">
-              </div>
-              <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">E-mail</span>
-                <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="email" value="{{email}}">
-              </div>
-              <div class="input-group input-group-sm w-100">
-                <span class="input-group-text w-100 text-center" id="inputGroup-sizing-sm">Change Password</span>
-              </div>
-              <div class="input-group input-group-sm w-100">
-                <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="oldPassword" placeholder="Enter old password">
-              </div>
+              <span class="input-group-text" id="inputGroup-sizing-sm">First Name</span>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="firstName" value="{{firstName}}">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Last Name</span>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="lastName" value="{{lastName}}">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-sm">E-mail</span>
+              <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="email" value="{{email}}">
+            </div>
+            <div class="input-group input-group-sm w-100">
+              <span class="input-group-text w-100 text-center" id="inputGroup-sizing-sm">Change Password</span>
+            </div>
+            <div class="input-group input-group-sm w-100">
+              <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="oldPassword" placeholder="Enter old password">
+            </div>
             <div class="input-group input-group-sm w-100">
                 <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="newPassword" placeholder="Enter new password">
             </div>
             <div class="input-group input-group-sm w-100 mb-3">
                 <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="verifyPassword" placeholder="Confirm new password">
             </div>
-
+            <div class="input-group input-group-sm w-100"></div>
+              <span class="input-group-text w-100 text-center" id="inputGroup-sizing-sm">Profile picture</span>
+              <input type="file" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="user-profile-image"/>
+            </div>
             <input type="hidden" name="id" value="{{_id}}">
             <button type="submit" class="btn btn-primary">Save changes</button>
         </form>

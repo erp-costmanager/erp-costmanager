@@ -72,6 +72,7 @@ const postProfilePage = async (req, res, next) => {
       lastName: lastName,
       email: email,
       passwordHash: hashedPassword ? hashedPassword : currentUser.passwordHash,
+      pictureURL: req.file ? req.file.path : currentUser.pictureURL,
     }
     const changedUserDb = await User.findByIdAndUpdate(currentUser._id, editedUser, {new: true})
     req.session.currentUser = changedUserDb

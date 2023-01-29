@@ -29,6 +29,9 @@
     <div class="collapse collapse-container__inside" id="id{{_id}}">
       <div class="card card-body">
         <form class="user-edit-form" action="/admin/edit" method="post">
+          {{#if pictureURL}}
+          <img src="{{pictureURL}}" class="card-img-top mx-auto w-auto" style="height: 150px;" alt="User profile picture">
+          {{/if}}
           <p>Name: {{firstName}} {{lastName}}</p>
           <p>Email: {{email}}</p>
           {{#if (isPending this)}}
