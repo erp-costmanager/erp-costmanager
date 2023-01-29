@@ -37,6 +37,25 @@
 
 <section class="requested-purchases">
   <h4 class="requested-purchases__title">Purchase requests</h3>
+  <h6 class="requested-purchases__filter-title">Filter by type of request:</h6>
+   <form action="/user/filterPurchaseRequests" method="post" class="requested-purchases__filter-form">
+    <label for="all-requests">All
+    <input type="radio" name="filterOption" value="all" id="all-requests" checked{{#if (isAllFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <label for="pending-requests">Pending
+    <input type="radio" name="filterOption" value="pending" id="pending-requests" {{#if (isPendingFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <label for="approved-requests">Approved
+    <input type="radio" name="filterOption" value="approved" id="approved-requests" {{#if (isApprovedFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <label for="disapproved-requests">Disapproved
+    <input type="radio" name="filterOption" value="disapproved" id="disapproved-requests" {{#if (isDisapprovedFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <label for="my-requests">My requests
+    <input type="radio" name="filterOption" value="myRequests" id="my-requests" {{#if (isMyRequestsFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <button class="btn btn-primary">Filter</button>
+  </form>
   <div class="request-purchases__list">
     {{#each purchaseRequests}}
   <p class="collapse-container">
@@ -74,13 +93,13 @@
       <output name="name"><strong>Requested by:</strong> {{createdBy.firstName}} {{createdBy.lastName}}</output>
       {{#if (isPendingAndIsUserManager this)}}
       <div>
-      <input type="submit" name="approveRequest" value="Approve" class="purchase-request-form__btn btn btn-success">
-      <input type="submit" name="disapproveRequest" value="Disapprove" class="purchase-request-form__btn btn btn-danger">
+      <input type="submit" name="action" value="Approve" class="purchase-request-form__btn btn btn-success">
+      <input type="submit" name="action" value="Disapprove" class="purchase-request-form__btn btn btn-danger">
       </div>
 
       {{else if (isPendingAndIsUsersOwnRequest this ../currentUser)}}
       <div>
-       <input type="submit" name="deleteRequest" value="Delete" class="btn btn-danger purchase-request-form__btn">
+       <input type="submit" name="action" value="Delete" class="btn btn-danger purchase-request-form__btn">
        <a href="/user/edit/{{_id}}" class="btn btn-info purchase-request-form__btn">Edit</a>
       </div>
       {{else}}

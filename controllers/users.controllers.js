@@ -25,13 +25,23 @@ const getUserPage = async (req, res, next) => {
 };
 
 const getProfilePage = (req, res, next) => {
-  res.render('users/profile', { style: 'users/profile.css', currentUser: req.session.currentUser })
-}
+  res.render("users/profile", {
+    style: "users/profile.css",
+    currentUser: req.session.currentUser,
+  });
+};
 
 const postProfilePage = async (req, res, next) => {
   const currentUser = req.session.currentUser;
 
-  const { firstName, lastName, email, oldPassword, newPassword, verifyPassword } = req.body
+  const {
+    firstName,
+    lastName,
+    email,
+    oldPassword,
+    newPassword,
+    verifyPassword,
+  } = req.body;
   if (!email || !firstName || !lastName) {
     res.render("users/profile", {
       style: "users/profile.css",
@@ -65,7 +75,7 @@ const postProfilePage = async (req, res, next) => {
         return;
       }
     }
-  
+
     const editedUser = {
       ...currentUser,
       firstName: firstName,
@@ -74,14 +84,19 @@ const postProfilePage = async (req, res, next) => {
       passwordHash: hashedPassword ? hashedPassword : currentUser.passwordHash,
       pictureURL: req.file ? req.file.path : currentUser.pictureURL,
     }
-    const changedUserDb = await User.findByIdAndUpdate(currentUser._id, editedUser, {new: true})
-    req.session.currentUser = changedUserDb
+    };
+    const changedUserDb = await User.findByIdAndUpdate(
+      currentUser._id,
+      editedUser,
+      { new: true }
+    );
+    req.session.currentUser = changedUserDb;
 
-    res.redirect('/user')
+    res.redirect("/user");
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
 
 const getUserEditPage = async (req, res, next) => {
   try {
@@ -90,11 +105,6 @@ const getUserEditPage = async (req, res, next) => {
     const purchaseRequest = await Purchase.findById(purchaseId).populate(
       "createdBy"
     );
-
-    console.log("PurchaseId: ", purchaseId);
-    console.log("Purchase Request: ", purchaseRequest);
-
-    const isEditing = true;
 
     res.render("users/edit-user", {
       style: "users/edit-user.css",
@@ -158,17 +168,89 @@ const postNewPurchase = async (req, res, next) => {
   }
 };
 
+const postFilterPurchaseRequests = async (req, res, next) => {
+  try {
+    const { filterOption } = req.body;
+    const userId = req.session.currentUser._id;
+    const userCompany = req.session.currentUser.company;
+
+    console.log("Current user id: ", userId);
+
+    let purchaseRequests;
+
+    switch (filterOption) {
+      case "all":
+        const allRequests = await Purchase.find({
+          company: userCompany,
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+        purchaseRequests = allRequests;
+        break;
+
+      case "pending":
+        const pendingRequests = await Purchase.find({
+          company: userCompany,
+          status: "Pending",
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        purchaseRequests = pendingRequests;
+        break;
+
+      case "approved":
+        const approvedRequests = await Purchase.find({
+          company: userCompany,
+          status: "Approved",
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        purchaseRequests = approvedRequests;
+        break;
+
+      case "disapproved":
+        const disapprovedRequests = await Purchase.find({
+          company: userCompany,
+          status: "Disapproved",
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        purchaseRequests = disapprovedRequests;
+        break;
+
+      case "myRequests":
+        const myRequests = await Purchase.find({
+          company: userCompany,
+          createdBy: userId,
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        purchaseRequests = myRequests;
+        break;
+    }
+
+    const currentUser = req.session.currentUser;
+
+    res.render("users/user", {
+      style: "users/user.css",
+      currentUser,
+      purchaseRequests,
+      filterOption,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const postProcessPurchaseRequest = async (req, res, next) => {
   try {
-    const {
-      id,
-      approveRequest,
-      disapproveRequest,
-      deleteRequest,
-      editRequest,
-    } = req.body;
+    const { id, action } = req.body;
 
-    if (approveRequest) {
+    if (action === "Approve") {
       const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
         status: "Approved",
       });
@@ -177,7 +259,7 @@ const postProcessPurchaseRequest = async (req, res, next) => {
         "Changing status of purchase request to approved. Details ",
         updatedPurchaseRequest
       );
-    } else if (disapproveRequest) {
+    } else if (action === "Disapprove") {
       const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
         status: "Disapproved",
       });
@@ -186,16 +268,13 @@ const postProcessPurchaseRequest = async (req, res, next) => {
         "Changing status of purchase request to dissaproved. Details ",
         updatedPurchaseRequest
       );
-    } else if (deleteRequest) {
+    } else if (action === "Delete") {
       const deletedPurchaseRequest = await Purchase.findByIdAndRemove(id);
 
       console.log(
         "Purchase request successfully deleted: ",
         deletedPurchaseRequest
       );
-    } else if (editRequest) {
-      res.render("users/user", { isEditing: true });
-      return;
     }
   } catch (error) {
     next(error);
@@ -222,7 +301,7 @@ const getAdminPage = async (req, res, next) => {
       ...user.toObject(),
       firstName: capitalize(user.firstName),
       lastName: capitalize(user.lastName),
-    }))
+    }));
 
     res.render("users/admin", {
       style: "users/admin.css",
@@ -239,11 +318,11 @@ const postAdminPage = async (req, res, next) => {
 
   try {
     const user = await User.findById(id);
-    if (process === 'Save changes') user.role = role;
-    if (process === 'Remove') user.status = "Removed";
-    if (process === 'Reinstate') user.status = 'Approved';
+    if (process === "Save changes") user.role = role;
+    if (process === "Remove") user.status = "Removed";
+    if (process === "Reinstate") user.status = "Approved";
     if (status) user.status = status;
-    
+
     await user.save();
 
     res.redirect("/admin");
@@ -253,8 +332,11 @@ const postAdminPage = async (req, res, next) => {
 };
 
 const getUserNotApprovedPage = (req, res, next) => {
-  res.render('users/not-approved', { style: 'users/not-approved.css', currentUser: req.session.currentUser })
-}
+  res.render("users/not-approved", {
+    style: "users/not-approved.css",
+    currentUser: req.session.currentUser,
+  });
+};
 
 module.exports = {
   getUserPage,
@@ -264,7 +346,8 @@ module.exports = {
   postProfilePage,
   postNewPurchase,
   postProcessPurchaseRequest,
+  postFilterPurchaseRequests,
   getAdminPage,
   postAdminPage,
-  getUserNotApprovedPage
+  getUserNotApprovedPage,
 };
