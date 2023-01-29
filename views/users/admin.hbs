@@ -43,7 +43,7 @@ isDisapproved
             </select>
           </label>
           {{/if}}
-          {{#if (isNotRemoved this)}}
+          {{#if (isNotRemovedOrDisapproved this)}}
           <label for="role">Role:
             <select name="role">
               <option value="Employee"{{#if (isEmployee this)}}selected{{/if}}>Employee</option>
@@ -53,7 +53,7 @@ isDisapproved
           </label>
           <div class="actions">
             <input type="submit" value="Save changes" name="process" class="btn btn-primary">
-            <input type="submit" value="Remove" name="removeUser" class="btn btn-danger">
+            <input type="submit" value="Remove" name="process" class="btn btn-danger">
           </div>
           {{else}}
           <p>Role: {{role}}</p>
