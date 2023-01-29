@@ -8,10 +8,10 @@
     {{/if}}
 </nav>
   
+{{#if errorMessage}}
+<div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
+{{/if}}
 <section class="user-container">
-    {{#if errorMessage}}
-    <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
-    {{/if}}
     
     {{#with currentUser}}
     <h4 class="company-user__title">Hello, {{firstName}} {{lastName}}</h3>
