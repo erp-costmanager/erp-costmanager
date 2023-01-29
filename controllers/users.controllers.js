@@ -122,14 +122,15 @@ const getAdminPage = async (req, res, next) => {
 };
 
 const postAdminPage = async (req, res, next) => {
-  const { status, role, id, removeUser } = req.body;
+  const { status, role, id, process } = req.body;
 
   try {
     const user = await User.findById(id);
-
-    if (removeUser) user.status = "Removed";
-    else if (status) user.status = status;
-    user.role = role;
+    if (process === 'Save changes') user.role = role;
+    if (process === 'Remove') user.status = "Removed";
+    if (process === 'Reinstate') user.status = 'Approved';
+    if (status) user.status = status;
+    
     await user.save();
 
     res.redirect("/admin");

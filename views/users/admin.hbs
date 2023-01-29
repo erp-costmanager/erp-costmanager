@@ -51,14 +51,17 @@ isDisapproved
               <option value="Admin" {{#if (isAdmin this)}}selected{{/if}}>Admin</option>
             </select>
           </label>
-          <input type="hidden" name="id" value="{{_id}}">
           <div class="actions">
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <input type="submit" value="Save changes" name="process" class="btn btn-primary">
             <input type="submit" value="Remove" name="removeUser" class="btn btn-danger">
           </div>
           {{else}}
           <p>Role: {{role}}</p>
+          <div class="actions">
+            <input type="submit" value="Reinstate" name="process" class="btn btn-success">
+          </div>
           {{/if}}
+          <input type="hidden" name="id" value="{{_id}}">
         </form>
       </div>
     </div>
