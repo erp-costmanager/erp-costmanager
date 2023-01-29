@@ -1,4 +1,4 @@
-const capitalize = require("../utils/capitalize");
+const capitalize = require('../utils/capitalize');
 
 const Purchase = require("../models/Purchase.model");
 const Company = require("../models/Company.model");
@@ -18,6 +18,50 @@ const getUserPage = async (req, res, next) => {
       currentUser,
       purchaseRequests,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getUserEditPage = async (req, res, next) => {
+  try {
+    const currentUser = req.session.currentUser;
+    const purchaseId = req.params.purchaseId;
+    const purchaseRequest = await Purchase.findById(purchaseId).populate(
+      "createdBy"
+    );
+
+    console.log("PurchaseId: ", purchaseId);
+    console.log("Purchase Request: ", purchaseRequest);
+
+    const isEditing = true;
+
+    res.render("users/edit-user", {
+      style: "users/edit-user.css",
+      currentUser,
+      purchaseRequest,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const postUserEditPage = async (req, res, next) => {
+  try {
+    const { id, item, cost, reason } = req.body;
+
+    const editedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
+      item,
+      cost,
+      reason,
+    });
+
+    console.log(
+      "Successfully edited the purchase request: ",
+      editedPurchaseRequest
+    );
+
+    res.redirect("/user");
   } catch (error) {
     next(error);
   }
@@ -56,7 +100,13 @@ const postNewPurchase = async (req, res, next) => {
 
 const postProcessPurchaseRequest = async (req, res, next) => {
   try {
-    const { id, approveRequest, disapproveRequest, deleteRequest } = req.body;
+    const {
+      id,
+      approveRequest,
+      disapproveRequest,
+      deleteRequest,
+      editRequest,
+    } = req.body;
 
     if (approveRequest) {
       const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
@@ -83,6 +133,9 @@ const postProcessPurchaseRequest = async (req, res, next) => {
         "Purchase request successfully deleted: ",
         deletedPurchaseRequest
       );
+    } else if (editRequest) {
+      res.render("users/user", { isEditing: true });
+      return;
     }
   } catch (error) {
     next(error);
@@ -139,10 +192,17 @@ const postAdminPage = async (req, res, next) => {
   }
 };
 
+const getUserNotApprovedPage = (req, res, next) => {
+  res.render('users/not-approved', { style: 'users/not-approved.css', currentUser: req.session.currentUser })
+}
+
 module.exports = {
   getUserPage,
+  getUserEditPage,
+  postUserEditPage,
   postNewPurchase,
   postProcessPurchaseRequest,
   getAdminPage,
   postAdminPage,
+  getUserNotApprovedPage
 };

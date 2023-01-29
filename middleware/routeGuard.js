@@ -18,9 +18,15 @@ const isNotAdmin = (req, res, next) => {
   else next();
 };
 
+const isApproved = (req, res, next) => {
+  if (req.session.currentUser?.status !== "Approved") res.redirect('/user/not-approved');
+  else next();
+}
+
 module.exports = {
   isLoggedIn,
   isLoggedOut,
   isAdmin,
   isNotAdmin,
+  isApproved,
 };
