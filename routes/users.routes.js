@@ -6,6 +6,8 @@ const {
   getUserPage,
   getUserEditPage,
   postUserEditPage,
+  getProfilePage,
+  postProfilePage,
   postNewPurchase,
   postProcessPurchaseRequest,
   getAdminPage,
@@ -14,9 +16,13 @@ const {
 
 router.get("/user", isLoggedIn, isNotAdmin, getUserPage);
 
-router.post("/user/newPurchase", postNewPurchase);
+router.get('/profile', isLoggedIn, getProfilePage)
 
-router.post("/user/processPurchaseRequest", postProcessPurchaseRequest);
+router.post('/profile', isLoggedIn, postProfilePage)
+
+router.post("/user/newPurchase", isLoggedIn, isNotAdmin, postNewPurchase);
+
+router.post("/user/processPurchaseRequest", isLoggedIn, isNotAdmin, postProcessPurchaseRequest);
 
 router.get("/admin", isLoggedIn, isAdmin, getAdminPage);
 
