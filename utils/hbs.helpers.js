@@ -26,4 +26,24 @@ module.exports = (hbs) => {
   hbs.registerHelper("isNotAdmin", (user) => user.role !== "Admin");
   hbs.registerHelper('isRemoved', (user) => user.status === "Removed");
   hbs.registerHelper("isNotRemovedOrDisapproved", (user) => !["Removed", "Disapproved"].includes(user.status));
-};
+  hbs.registerHelper(
+    "isAllFilterChecked",
+    (filterOption) => filterOption === "all"
+  );
+  hbs.registerHelper(
+    "isPendingFilterChecked",
+    (filterOption) => filterOption === "pending"
+  );
+  hbs.registerHelper(
+    "isApprovedFilterChecked",
+    (filterOption) => filterOption === "approved"
+  );
+  hbs.registerHelper(
+    "isDisapprovedFilterChecked",
+    (filterOption) => filterOption === "disapproved"
+  );
+  hbs.registerHelper(
+    "isMyRequestsFilterChecked",
+    (filterOption) => filterOption === "myRequests"
+  );
+

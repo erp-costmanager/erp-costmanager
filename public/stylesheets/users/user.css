@@ -22,8 +22,21 @@
   color: #ffff;
 }
 
+.requested-purchases__filter-title,
+.requested-purchases__filter-form {
+  margin-left: 20px;
+}
+
+.requested-purchases__filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
 .collapse-container {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .collapse-container__btn {
