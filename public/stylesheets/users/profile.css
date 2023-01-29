@@ -1,0 +1,56 @@
+.user-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 20px 0 0;
+}
+
+.user-nav__link {
+  text-decoration: none;
+}
+
+.active-link {
+    padding: 5px 10px;
+  
+    border-radius: 10px;
+    background-color: #0000ff;
+    color: #ffff;
+  }
+
+.user-container {
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.collapse-container {
+  margin-top: 30px;
+}
+
+.collapse-container__btn {
+  margin-left: 20px;
+}
+
+.collapse-container__inside {
+  margin: 10px 20px;
+}
+
+.new-purchase-form,
+.purchase-request-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.new-purchase-form__btn,
+.purchase-request-form__btn {
+  margin: 10px 20px 0 0;
+}
+
+.company-user__title {
+  margin: 0 20px;
+  padding-bottom: 5px;
+  text-align: center;
+  border-bottom: 1px solid #0000ff;
+}

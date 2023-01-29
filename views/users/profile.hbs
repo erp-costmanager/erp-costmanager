@@ -1,37 +1,50 @@
-<nav class="admin-nav">
+<nav class="user-nav">
     {{#if (isNotAdmin currentUser)}}
     <a class="user-nav__link" href="/user">Start</a>
     {{/if}}
-    <a class="admin-nav__link active-link" href="/profile">Profile</a>
+    <a class="user-nav__link active-link" href="/profile">Profile</a>
     {{#if (isAdmin currentUser)}}
-    <a class="admin-nav__link" href="/admin">Admin</a>
+    <a class="user-nav__link" href="/admin">Admin</a>
     {{/if}}
 </nav>
   
-<section class="user-profile">
+<section class="user-container">
     {{#if errorMessage}}
-    {{errorMessage}}
+    <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
     {{/if}}
-
+    
     {{#with currentUser}}
-    <h4 class="company-users__title">Hello, {{firstName}} {{lastName}}</h3>
-    <form class="user-edit-form" action="/profile" method="post">
-        <label>First Name:
-            <input type="text" name="firstName" value="{{firstName}}">
-        </label>
-        <label>Last Name:
-            <input type="text" name="lastName" value="{{lastName}}">
-        </label>
-        <label>Email:
-            <input type="text" name="email" value="{{email}}">
-        </label>
-        <label>Change Password:
-            <input type="password" name="oldPassword" placeholder="enter old password">
-            <input type="password" name="newPassword" placeholder="enter new password">
-            <input type="password" name="verifyPassword" placeholder="confirm new password">
-        </label>
-        <input type="hidden" name="id" value="{{_id}}">
-        <button type="submit">Save changes</button>
-    </form>
+    <h4 class="company-user__title">Hello, {{firstName}} {{lastName}}</h3>
+    <div class="card card-body m-3">
+        <form class="user-edit-form" action="/profile" method="post">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">First Name</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="firstName" value="{{firstName}}">
+              </div>
+              <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Last Name</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="lastName" value="{{lastName}}">
+              </div>
+              <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">E-mail</span>
+                <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="email" value="{{email}}">
+              </div>
+              <div class="input-group input-group-sm w-100">
+                <span class="input-group-text w-100 text-center" id="inputGroup-sizing-sm">Change Password</span>
+              </div>
+              <div class="input-group input-group-sm w-100">
+                <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="oldPassword" placeholder="Enter old password">
+              </div>
+            <div class="input-group input-group-sm w-100">
+                <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="newPassword" placeholder="Enter new password">
+            </div>
+            <div class="input-group input-group-sm w-100 mb-3">
+                <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="verifyPassword" placeholder="Confirm new password">
+            </div>
+
+            <input type="hidden" name="id" value="{{_id}}">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+    </div>
     {{/with}}
 </section>
