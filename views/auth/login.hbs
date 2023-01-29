@@ -1,5 +1,7 @@
 <div class="login-container">
-
+  {{#if errorMessage}}
+  <div class="error-message bg-danger text-light">{{errorMessage}}</div>
+  {{/if}}
   <form class="login-container__form" action="/login" method="post">
     <label class="login-container__form__label" for="email">Email</label>
     <input type="email" name="email" id="email" />
