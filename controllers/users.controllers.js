@@ -166,6 +166,84 @@ const postNewPurchase = async (req, res, next) => {
   }
 };
 
+const postFilterPurchaseRequests = async (req, res, next) => {
+  try {
+    const { filterOption } = req.body;
+    const userId = req.session.currentUser._id;
+    const userCompany = req.session.currentUser.company;
+
+    console.log("Current user id: ", userId);
+
+    let purchaseRequests;
+
+    switch (filterOption) {
+      case "all":
+        const allRequests = await Purchase.find({
+          company: userCompany,
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+        purchaseRequests = allRequests;
+        break;
+
+      case "pending":
+        const pendingRequests = await Purchase.find({
+          company: userCompany,
+          status: "Pending",
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        purchaseRequests = pendingRequests;
+        break;
+
+      case "approved":
+        const approvedRequests = await Purchase.find({
+          company: userCompany,
+          status: "Approved",
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        purchaseRequests = approvedRequests;
+        break;
+
+      case "disapproved":
+        const disapprovedRequests = await Purchase.find({
+          company: userCompany,
+          status: "Disapproved",
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        purchaseRequests = disapprovedRequests;
+        break;
+
+      case "myRequests":
+        const myRequests = await Purchase.find({
+          company: userCompany,
+          createdBy: userId,
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        purchaseRequests = myRequests;
+        break;
+    }
+
+    const currentUser = req.session.currentUser;
+
+    res.render("users/user", {
+      style: "users/user.css",
+      currentUser,
+      purchaseRequests,
+      filterOption,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const postProcessPurchaseRequest = async (req, res, next) => {
   try {
     const { id, action } = req.body;
@@ -266,6 +344,7 @@ module.exports = {
   postProfilePage,
   postNewPurchase,
   postProcessPurchaseRequest,
+  postFilterPurchaseRequests,
   getAdminPage,
   postAdminPage,
   getUserNotApprovedPage,

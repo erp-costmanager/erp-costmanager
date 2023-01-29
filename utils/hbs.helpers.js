@@ -23,6 +23,29 @@ module.exports = (hbs) => {
   hbs.registerHelper("isEmployee", (user) => user.role === "Employee");
   hbs.registerHelper("isManager", (user) => user.role === "Manager");
   hbs.registerHelper("isAdmin", (user) => user.role === "Admin");
-  hbs.registerHelper("isNotRemovedOrDisapproved", (user) => !["Removed", "Disapproved"].includes(user.status));
+  hbs.registerHelper(
+    "isNotRemovedOrDisapproved",
+    (user) => !["Removed", "Disapproved"].includes(user.status)
+  );
   hbs.registerHelper("isNotAdmin", (user) => user.role !== "Admin");
+  hbs.registerHelper(
+    "isAllFilterChecked",
+    (filterOption) => filterOption === "all"
+  );
+  hbs.registerHelper(
+    "isPendingFilterChecked",
+    (filterOption) => filterOption === "pending"
+  );
+  hbs.registerHelper(
+    "isApprovedFilterChecked",
+    (filterOption) => filterOption === "approved"
+  );
+  hbs.registerHelper(
+    "isDisapprovedFilterChecked",
+    (filterOption) => filterOption === "disapproved"
+  );
+  hbs.registerHelper(
+    "isMyRequestsFilterChecked",
+    (filterOption) => filterOption === "myRequests"
+  );
 };
