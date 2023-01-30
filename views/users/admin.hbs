@@ -5,6 +5,25 @@
 
 <section class="company-users">
   <h4 class="company-users__title">Company Users</h3>
+    <h6 class="company-users__filter-title">Filter by status:</h6>
+    <form action="/user/filterPurchaseRequests" method="post" class="company-users__filter-form">
+     <label for="all-users">All
+     <input type="radio" name="filterOption" value="all" id="all-users" checked{{#if (isAllFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <label for="pending-users">Pending
+     <input type="radio" name="filterOption" value="pending" id="pending-users" {{#if (isPendingFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <label for="approved-users">Approved
+     <input type="radio" name="filterOption" value="approved" id="approved-users" {{#if (isApprovedFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <label for="disapproved-users">Disapproved
+     <input type="radio" name="filterOption" value="disapproved" id="disapproved-users" {{#if (isDisapprovedFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <label for="removed-users">Removed
+     <input type="radio" name="filterOption" value="removed" id="removed-users" {{#if (isMyRequestsFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <button class="btn btn-primary">Filter</button>
+   </form>
   <div class="company-users__list">
     {{#each usersList}}
     <p class="collapse-container">

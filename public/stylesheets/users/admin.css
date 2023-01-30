@@ -22,6 +22,21 @@
   text-decoration: none;
 }
 
+.company-users__filter-title,
+.company-users__filter-form {
+  margin-left: 20px;
+}
+
+.company-users__filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  gap: 10px;
+  max-width: 330px;
+}
+
+
 .active-link {
   padding: 5px 10px;
 
