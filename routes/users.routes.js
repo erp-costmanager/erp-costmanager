@@ -18,6 +18,7 @@ const {
   postProcessPurchaseRequest,
   postFilterPurchaseRequests,
   getAdminPage,
+  filterUserStatus,
   postAdminPage,
   getUserNotApprovedPage,
 } = require("../controllers/users.controllers");
@@ -45,6 +46,8 @@ router.post(
 );
 
 router.get("/admin", isLoggedIn, isApproved, isAdmin, getAdminPage);
+
+router.post('/admin/filterUserStatus', isLoggedIn, isApproved, isAdmin, filterUserStatus)
 
 router.post("/admin/edit", isLoggedIn, isApproved, isAdmin, postAdminPage);
 

@@ -292,11 +292,6 @@ const getAdminPage = async (req, res, next) => {
 
     const usersList = company.users;
 
-    usersList.sort((first, second) => {
-      if (first.status === "Pending") return -1;
-      else return 1;
-    });
-
     const capitalizedUsers = usersList.map((user) => ({
       ...user.toObject(),
       firstName: capitalize(user.firstName),
@@ -307,6 +302,32 @@ const getAdminPage = async (req, res, next) => {
       style: "users/admin.css",
       currentUser,
       usersList: capitalizedUsers,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const filterUserStatus = async (req, res, next) => {
+  try {
+    const currentUser = req.session.currentUser;
+    const company = await Company.findById(
+      currentUser.company
+    ).populate("users");
+
+    const { filterOption } = req.body;
+    let filteredUsersList;
+    if (filterOption !== "all")
+      filteredUsersList = company.users.filter(
+        (user) => user.status === capitalize(filterOption)
+      )
+    else filteredUsersList = company.users;
+
+    res.render("users/admin", {
+      style: "users/admin.css",
+      currentUser,
+      usersList: filteredUsersList,
+      filterOption,
     });
   } catch (error) {
     next(error);
@@ -348,6 +369,7 @@ module.exports = {
   postProcessPurchaseRequest,
   postFilterPurchaseRequests,
   getAdminPage,
+  filterUserStatus,
   postAdminPage,
   getUserNotApprovedPage,
 };

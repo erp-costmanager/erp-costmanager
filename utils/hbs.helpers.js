@@ -49,4 +49,8 @@ module.exports = (hbs) => {
     "isMyRequestsFilterChecked",
     (filterOption) => filterOption === "myRequests"
   );
+  hbs.registerHelper(
+    "isRemovedFilterChecked",
+    (filterOption) => filterOption === "removed"
+  )
 };
