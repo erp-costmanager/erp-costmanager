@@ -11,10 +11,13 @@
 {{#if errorMessage}}
 <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
 {{/if}}
-<section class="user-container">
+<section class="user-container d-flex flex-column">
     
     {{#with currentUser}}
     <h4 class="company-user__title">Hello, {{firstName}} {{lastName}}</h3>
+    {{#if pictureURL}}
+    <img src="{{pictureURL}}" class="card-img-top mx-auto w-auto mt-3" style="height: 150px;" alt="User profile picture">
+    {{/if}}
     <div class="card card-body m-3">
         <form class="user-edit-form" action="/profile" method="post" enctype="multipart/form-data">
             <div class="input-group input-group-sm mb-3">
