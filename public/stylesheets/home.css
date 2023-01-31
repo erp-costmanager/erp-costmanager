@@ -3,12 +3,31 @@
   flex-direction: column;
   align-items: center;
   height: 100vh;
+
+  background-color: var(--light-main-color);
 }
 
 .home-container__header {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  color: #fff;
+}
+
+.home-container__header h2 {
+  margin: 40px auto 25px;
+  width: 70%;
+
+  text-align: center;
+  font-size: 2rem;
+}
+
+.home-container__header p {
+  width: 60%;
+  margin-bottom: 25px;
+
+  text-align: center;
 }
 
 .home-container__cta {
@@ -17,10 +36,24 @@
 }
 
 .home-container__cta__link {
-  margin: 5px 0;
-  padding: 5px 0;
-  width: 200px;
+  position: relative;
 
+  margin: 5px 20px;
+  padding: 20px 50px;
+
+  font-size: 16px;
+  font-weight: bold;
   text-align: center;
-  border: 1px solid #000;
+  background-color: var(--light-color);
+  color: var(--main-color);
+}
+
+.home-container__cta__link:last-child {
+  background-color: var(--highlight-color);
+  color: var(--secondary-highlight-color);
+}
+.home-container__cta__link:last-child i {
+  position: absolute;
+  top: 28px;
+  left: 15px;
 }

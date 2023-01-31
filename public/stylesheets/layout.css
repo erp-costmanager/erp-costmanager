@@ -1,3 +1,12 @@
+:root {
+  --dark-main-color: #400d40;
+  --light-main-color: #4a154b;
+  --highlight-color: #ecb22e;
+  --secondary-highlight-color: #1264a3;
+  --dark-color: #222;
+  --light-color: #fff;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -10,27 +19,38 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   padding-right: 20px;
   width: 100vw;
+
+  background-color: var(--light-main-color);
 }
 
 .nav__title {
   padding-left: 20px;
 
   font-size: 18px;
+  color: var(--light-color);
 }
 
 .footer {
   position: relative;
+
+  background-color: var(--dark-main-color);
 }
 
 .footer__paragraph {
   margin: 0;
   padding: 10px 10px 10px 20px;
+
+  color: var(--light-color);
 }
 
 .nav__dropdown-box__logout-form__btn {
