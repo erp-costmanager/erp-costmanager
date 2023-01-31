@@ -1,23 +1,26 @@
 <div class="signup-container">
   {{#if errorMessage}}
-  <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
+    <div
+      class="text-bg-danger p-3 my-2 w-100 text-center"
+    >{{errorMessage}}</div>
   {{/if}}
   <form class="signup-container__form" action="/companySignup" method="post">
     <label class="signup-container__form__label" for="company">Company Name</label>
     <input type="text" name="company" id="company" />
     <label class="signup-container__form__label" for="email">Email</label>
     <input type="email" name="email" id="email" />
-    <label class="signup-container__form__label" for="firstName">Account Administrator's First name</label>
+    <label class="signup-container__form__label" for="firstName">Account
+      Administrator's First name</label>
     <input type="text" name="firstName" id="firstName" />
     <label class="signup-container__form__label" for="lastName">Last name</label>
     <input type="text" name="lastName" id="lastName" />
     <label class="signup-container__form__label" for="password">Password</label>
-    <input type="password" name="password" id="password" />
+    <input type="password" name="password" id="password" required />
     <button class="signup-container__form__log-in-button">Set up company account</button>
   </form>
 
   <p class="signup-container__signup-question">Already have an account?</p>
   <a href="/login" class="signup-container__signup-link" type="button">Log in</a>
-  
+
   <a href="/" class="signup-container__signup-link" type="button">Back to home</a>
 </div>

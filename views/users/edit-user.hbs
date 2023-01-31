@@ -3,6 +3,9 @@
   <a class="user-nav__link" href="/profile">Profile</a>
 </nav>
 <div class="user-container">
+   {{#if errorMessage}}
+  <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
+  {{/if}}
 <section class="requested-purchases">
   <h4 class="requested-purchases__title">Purchase requests</h3>
   <div class="request-purchases__list">
@@ -34,7 +37,7 @@
       method="post"
     >
       <strong>Item:</strong><input type="text" name="item" value="{{purchaseRequest.item}}">
-      <strong>Cost:</strong><input type="text" name="cost" value="{{purchaseRequest.cost}}">
+      <strong>Cost:</strong><input type="number" min="0" step="0.01" name="cost" value="{{purchaseRequest.cost}}">
       <strong>Reason for request:</strong><textarea name="reason" cols="24">{{purchaseRequest.reason}} </textarea>
       <strong>Requested by:</strong> <output name="name">{{purchaseRequest.createdBy.firstName}} {{purchaseRequest.createdBy.lastName}}</output>
       <input name="id" type="hidden" value="{{purchaseRequest._id}}">

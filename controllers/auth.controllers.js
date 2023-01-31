@@ -8,7 +8,6 @@ const getUserSignup = (req, res, next) =>
 
 const postUserSignup = async (req, res, next) => {
   try {
-    //@TODO: Update the routes to render the correct page when the user has signed up, based on their role. Admins go straight in, but Users have to wait for approval.
     const { company, email, firstName, lastName, password } = req.body;
 
     if (!company || !email || !password || !firstName || !lastName) {
@@ -30,6 +29,16 @@ const postUserSignup = async (req, res, next) => {
       res.render("auth/userSignup", {
         style: "auth/signup.css",
         errorMessage: "Please enter a valid e-mail.",
+      });
+    }
+
+    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+
+    if (!regex.test(password)) {
+      res.status(500).render("auth/userSignup", {
+        style: "auth/signup.css",
+        errorMessage:
+          "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
       });
       return;
     }
@@ -73,14 +82,23 @@ const getCompanySignup = (req, res, next) =>
 
 const postCompanySignup = async (req, res, next) => {
   try {
-    //@TODO: Update the routes to render the correct page when the user has signed up, based on their role. Admins go straight in, but Users have to wait for approval.
-
     const { company, email, firstName, lastName, password } = req.body;
 
     if (!company || !email || !password || !firstName || !lastName) {
       res.render("auth/companySignup", {
         style: "auth/signup.css",
         errorMessage: "All fields are required",
+      });
+      return;
+    }
+
+    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+
+    if (!regex.test(password)) {
+      res.status(500).render("auth/companySignup", {
+        style: "auth/signup.css",
+        errorMessage:
+          "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
       });
       return;
     }
