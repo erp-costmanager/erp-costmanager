@@ -18,6 +18,20 @@ const postUserSignup = async (req, res, next) => {
       return;
     }
 
+    let validEmail = true;
+    if (!email.includes("@")) validEmail = false;
+    const emailSplit = email.split(/[@\.]/g);
+    if (emailSplit.length < 2) validEmail = false;
+    for (const field of emailSplit) {
+      if (field === "") validEmail = false;
+    }
+    if (!validEmail) {
+      res.render("auth/userSignup", {
+        style: "auth/signup.css",
+        errorMessage: "Please enter a valid e-mail.",
+      });
+    }
+
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
     if (!regex.test(password)) {
