@@ -3,6 +3,9 @@
   <a class="user-nav__link" href="/profile">Profile</a>
 </nav>
 <div class="user-container">
+  {{#if errorMessage}}
+  <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
+  {{/if}}
 <p class="collapse-container">
   <a
     class="btn btn-primary collapse-container__btn"
@@ -26,7 +29,7 @@
       <label for="item">Item</label>
       <input type="text" name="item" id="item" />
       <label for="cost">Cost</label>
-      <input type="text" name="cost" id="cost" />
+      <input type="number" min="0" step="0.01" name="cost" id="cost" />
       <label for="reason">Reason for request:</label>
       <textarea name="reason" id="reason" cols="24" >
       </textarea>
