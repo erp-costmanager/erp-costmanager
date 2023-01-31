@@ -64,6 +64,8 @@ const postUserSignup = async (req, res, next) => {
     console.log("Successfully created a new user: ", newUser);
     res.redirect("/login");
   } catch (error) {
+    
+
     next(error);
   }
 };
