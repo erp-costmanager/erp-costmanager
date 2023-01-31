@@ -1,7 +1,9 @@
 module.exports = (app) => {
   app.use((req, res, next) => {
     // this middleware runs whenever requested page is not available
-    res.status(404).render("not-found");
+    res.status(404).render("not-found", {
+      style: 'not-found.css'
+    });
   });
 
   app.use((err, req, res, next) => {
@@ -9,7 +11,7 @@ module.exports = (app) => {
     // always logs the error
     console.error("ERROR", req.method, req.path, err);
     
-    if (err.code = 11000) {
+    if (err.code === 11000) {
       const { keyValue } = err
       res.render("auth/userSignup", {
         style: "auth/signup.css",
@@ -20,7 +22,9 @@ module.exports = (app) => {
 
     // only render if the error ocurred before sending the response
     if (!res.headersSent) {
-      res.status(500).render("error");
+      res.status(500).render("error", {
+        style: 'error.css'
+      });
     }
   });
 };

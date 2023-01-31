@@ -1,0 +1,5 @@
+.error__container {
+    flex-grow: 1;
+    margin: 50px 40px;
+    text-align: center;
+}
