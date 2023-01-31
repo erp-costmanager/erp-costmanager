@@ -19,6 +19,21 @@ const postUserSignup = async (req, res, next) => {
       return;
     }
 
+    let validEmail = true;
+    if (!email.includes("@")) validEmail = false;
+    const emailSplit = email.split(/[@\.]/g);
+    if (emailSplit.length < 2) validEmail = false;
+    for (const field of emailSplit) {
+      if (field === "") validEmail = false;
+    }
+    if (!validEmail) {
+      res.render("auth/userSignup", {
+        style: "auth/signup.css",
+        errorMessage: "Please enter a valid e-mail.",
+      });
+      return;
+    }
+
     const saltRounds = 10;
     const salt = await bcryptjs.genSalt(saltRounds);
     const hashedPassword = await bcryptjs.hash(password, salt);
