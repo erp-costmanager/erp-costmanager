@@ -120,6 +120,46 @@ const postUserEditPage = async (req, res, next) => {
   try {
     const { id, item, cost, reason } = req.body;
 
+    if (typeof Number(cost) !== "number" || Number(cost) < 0) {
+      try {
+        const currentUser = req.session.currentUser;
+        const purchaseId = req.params.purchaseId;
+        const purchaseRequest = await Purchase.findById(purchaseId).populate(
+          "createdBy"
+        );
+
+        res.render("users/edit-user", {
+          style: "users/edit-user.css",
+          currentUser,
+          purchaseRequest,
+          errorMessage:
+            "The entered cost has to be a number larger than or equal to 0",
+        });
+      } catch (error) {
+        next(error);
+      }
+    }
+
+    if (!item || !cost || !reason) {
+      try {
+        const currentUser = req.session.currentUser;
+        const purchaseId = req.params.purchaseId;
+        const purchaseRequest = await Purchase.findById(purchaseId).populate(
+          "createdBy"
+        );
+
+        res.render("users/edit-user", {
+          style: "users/edit-user.css",
+          currentUser,
+          purchaseRequest,
+          errorMessage:
+            "All of the fields must be filled in to edit a purchase request ",
+        });
+      } catch (error) {
+        next(error);
+      }
+    }
+
     const editedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
       item,
       cost,
@@ -144,6 +184,50 @@ const postNewPurchase = async (req, res, next) => {
     const status = "Pending";
     const company = req.session.currentUser.company;
 
+    if (typeof Number(cost) !== "number" || Number(cost) < 0) {
+      try {
+        const currentUser = req.session.currentUser;
+        const purchaseRequests = await Purchase.find({
+          company: currentUser.company,
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        res.render("users/user", {
+          style: "users/user.css",
+          currentUser,
+          purchaseRequests,
+          errorMessage:
+            "The entered cost has to be a number larger than or equal to 0",
+        });
+      } catch (error) {
+        next(error);
+      }
+      return;
+    }
+
+    if (!item || !cost || !reason) {
+      try {
+        const currentUser = req.session.currentUser;
+        const purchaseRequests = await Purchase.find({
+          company: currentUser.company,
+        })
+          .sort({ createdAt: -1 })
+          .populate("createdBy");
+
+        res.render("users/user", {
+          style: "users/user.css",
+          currentUser,
+          purchaseRequests,
+          errorMessage:
+            "All of the fields must be filled in to submit a purchase request",
+        });
+      } catch (error) {
+        next(error);
+      }
+      return;
+    }
+
     const newPurchase = await Purchase.create({
       item,
       cost,
@@ -160,10 +244,6 @@ const postNewPurchase = async (req, res, next) => {
 
     res.redirect("/user");
   } catch (error) {
-    console.log(
-      "An error occurred while adding a new purchase request: ",
-      error
-    );
     next(error);
   }
 };
@@ -311,16 +391,16 @@ const getAdminPage = async (req, res, next) => {
 const filterUserStatus = async (req, res, next) => {
   try {
     const currentUser = req.session.currentUser;
-    const company = await Company.findById(
-      currentUser.company
-    ).populate("users");
+    const company = await Company.findById(currentUser.company).populate(
+      "users"
+    );
 
     const { filterOption } = req.body;
     let filteredUsersList;
     if (filterOption !== "all")
       filteredUsersList = company.users.filter(
         (user) => user.status === capitalize(filterOption)
-      )
+      );
     else filteredUsersList = company.users;
 
     res.render("users/admin", {
