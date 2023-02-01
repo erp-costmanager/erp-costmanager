@@ -165,7 +165,7 @@ const logout = (req, res, next) => {
   req.session.destroy((error) => {
     if (error) next(error);
   });
-  res.redirect("/login");
+  res.redirect("/");
 };
 
 module.exports = {
