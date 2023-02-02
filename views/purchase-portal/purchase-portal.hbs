@@ -26,13 +26,28 @@
       action="/purchase-portal/newPurchase"
       method="post"
     >
-      <label for="item"><strong>Item:</strong></label>
-      <input type="text" name="item" id="item" />
-      <label for="cost"><strong>Cost:</strong></label>
-      <input type="number" min="0" step="0.01" name="cost" id="cost" />
-      <label for="reason"><strong>Reason for request:</strong></label>
-      <textarea name="reason" id="reason" cols="24" >
-      </textarea>
+  {{!--     <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div> --}}
+
+
+      <div class="form-floating mb-3">
+      <input type="text" name="item" class="form-control" id="floatingInputItem" placeholder="Item">
+      <label for="floatingInputItem">Item</label>
+      </div>
+      <div class="form-floating mb-3">
+      <input type="number" name="cost" class="form-control" id="floatingInputCost" placeholder="Cost">
+      <label for="floatingInputCost">Cost</label>
+      </div>
+      <div class="form-floating mb-3">
+      <textarea class="form-control" placeholder="Reason for request" id="floatingTextarea" name="reason" id="reason" style="height: 75px;"></textarea>
+      <label for="floatingInputCost">Reason for request</label>
+      </div>
       <button class="new-purchase-form__btn btn btn-success">Submit</button>
     </form>
   </div>
