@@ -4,12 +4,13 @@ const isLoggedIn = (req, res, next) => {
 };
 
 const isLoggedOut = (req, res, next) => {
-  if (req.session.currentUser) res.redirect("/user");
+  if (req.session.currentUser) res.redirect("/purchase-portal");
   else next();
 };
 
 const isAdmin = (req, res, next) => {
-  if (req.session.currentUser?.role !== "Admin") res.redirect("/user");
+  if (req.session.currentUser?.role !== "Admin")
+    res.redirect("/purchase-portal");
   else next();
 };
 
@@ -19,9 +20,10 @@ const isNotAdmin = (req, res, next) => {
 };
 
 const isApproved = (req, res, next) => {
-  if (req.session.currentUser?.status !== "Approved") res.redirect('/user/not-approved');
+  if (req.session.currentUser?.status !== "Approved")
+    res.redirect("/user/not-approved");
   else next();
-}
+};
 
 module.exports = {
   isLoggedIn,
