@@ -1,8 +1,13 @@
 :root {
   --dark-main-color: #400d40;
+
+  --bs-primary-rgb: 64,13,64;
   --light-main-color: #4a154b;
+  --bs-secondary-rgb: 74,21,75;
   --highlight-color: #ecb22e;
+  --bs-warning-rgb: 236,178,46;
   --secondary-highlight-color: #1264a3;
+  --bs-info-rgb: 18,100,163;
   --dark-color: #222;
   --light-color: #fff;
 }
@@ -15,9 +20,10 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-
+  background-color: var(--ligth-main-color);
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
 
 a {
   text-decoration: none;
@@ -31,11 +37,19 @@ a {
   width: 100vw;
 
   background-color: var(--light-main-color);
+  
+ }
+
+nav.navbar.navbar-dark {
+  --bs-navbar-color: rgba(255,255,255,1);
+  --bs-navbar-disabled-color: rgba(255,255,255,0.8);
+  --bs-navbar-toggler-border-color: rgba(255,255,255,0.7);
+  --bs-navbar-toggler-focus-width: 1px;
+
 }
 
 .nav__title {
   padding-left: 20px;
-
   font-size: 18px;
   color: var(--light-color);
 }
@@ -51,9 +65,4 @@ a {
   padding: 10px 10px 10px 20px;
 
   color: var(--light-color);
-}
-
-.nav__dropdown-box__logout-form__btn {
-  background-color: #000fff;
-  color: #fff;
 }
