@@ -42,6 +42,13 @@
   margin-bottom: 0;
 }
 
+.requested-purchases__filter-form label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
 .requested-purchases__filter-form__filter-btn {
   color: #fff;
   background-color: var(--primary-btn-color);
