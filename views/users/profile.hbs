@@ -2,10 +2,10 @@
     {{#if (isNotAdmin currentUser)}}
     <a class="user-nav__link" href="/purchase-portal">Purchase Portal</a>
     {{/if}}
-    <a class="user-nav__link active-link" href="/profile">Profile</a>
     {{#if (isAdmin currentUser)}}
-    <a class="user-nav__link" href="/admin">Admin</a>
+    <a class="user-nav__link" href="/admin">Admin Portal</a>
     {{/if}}
+    <a class="user-nav__link active-link" href="/profile">Profile</a>
 </nav>
   
 {{#if errorMessage}}
