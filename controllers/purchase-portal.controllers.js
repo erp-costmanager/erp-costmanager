@@ -203,9 +203,90 @@ const postProcessPurchaseRequest = async (req, res, next) => {
   res.redirect("/purchase-portal");
 };
 
+const getEditPurchasePage = async (req, res, next) => {
+  try {
+    const currentUser = req.session.currentUser;
+    const purchaseId = req.params.purchaseId;
+    const purchaseRequest = await Purchase.findById(purchaseId).populate(
+      "createdBy"
+    );
+
+    res.render("purchase-portal/edit-purchase", {
+      style: "purchase-portal/edit-purchase.css",
+      currentUser,
+      purchaseRequest,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const postEditPurchasePage = async (req, res, next) => {
+  try {
+    const { id, item, cost, reason } = req.body;
+
+    if (typeof Number(cost) !== "number" || Number(cost) < 0) {
+      try {
+        const currentUser = req.session.currentUser;
+        const purchaseId = req.params.purchaseId;
+        const purchaseRequest = await Purchase.findById(purchaseId).populate(
+          "createdBy"
+        );
+
+        res.render("purchase-portal/edit-purchase", {
+          style: "purchase-portal/edit-purchase.css",
+          currentUser,
+          purchaseRequest,
+          errorMessage:
+            "The entered cost has to be a number larger than or equal to 0",
+        });
+      } catch (error) {
+        next(error);
+      }
+    }
+
+    if (!item || !cost || !reason) {
+      try {
+        const currentUser = req.session.currentUser;
+        const purchaseId = req.params.purchaseId;
+        const purchaseRequest = await Purchase.findById(purchaseId).populate(
+          "createdBy"
+        );
+
+        res.render("purchase-portal/edit-purchase", {
+          style: "purchase-portal/edit-purchase.css",
+          currentUser,
+          purchaseRequest,
+          errorMessage:
+            "All of the fields must be filled in to edit a purchase request ",
+        });
+      } catch (error) {
+        next(error);
+      }
+    }
+
+    const editedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
+      item,
+      cost,
+      reason,
+    });
+
+    console.log(
+      "Successfully edited the purchase request: ",
+      editedPurchaseRequest
+    );
+
+    res.redirect("/purchase-portal");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getPurchasePortalPage,
   postNewPurchase,
   postFilterPurchaseRequests,
   postProcessPurchaseRequest,
+  getEditPurchasePage,
+  postEditPurchasePage,
 };

@@ -26,15 +26,15 @@
       action="/purchase-portal/newPurchase"
       method="post"
     >
-      <div class="form-floating mb-3">
+      <div class="form-floating mb-3 purchase-request-edit-form__floating-input-container">
       <input type="text" name="item" class="form-control" id="floatingInputItem" placeholder="Item">
       <label for="floatingInputItem">Item</label>
       </div>
-      <div class="form-floating mb-3">
+      <div class="form-floating mb-3 purchase-request-edit-form__floating-input-container">
       <input type="number" name="cost" class="form-control" id="floatingInputCost" placeholder="Cost">
       <label for="floatingInputCost">Cost</label>
       </div>
-      <div class="form-floating mb-3">
+      <div class="form-floating mb-3 purchase-request-edit-form__floating-input-container">
       <textarea class="form-control" placeholder="Reason for request" id="floatingTextarea" name="reason" id="reason" style="height: 75px;"></textarea>
       <label for="floatingInputCost">Reason for request</label>
       </div>
@@ -108,7 +108,7 @@
       {{else if (isPendingAndIsUsersOwnRequest this ../currentUser)}}
       <div>
        <input type="submit" name="action" value="Delete" class="btn btn-danger purchase-request-form__delete-btn">
-       <a href="/user/edit/{{_id}}" class="btn btn-info purchase-request-form__edit-btn">Edit</a>
+       <a href="/purchase-portal/edit-purchase/{{_id}}" class="btn btn-info purchase-request-form__edit-btn">Edit</a>
       </div>
       {{else}}
       <label><strong>Status:</strong>

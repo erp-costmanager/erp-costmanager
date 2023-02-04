@@ -1,5 +1,7 @@
 .user-container {
   flex-grow: 1;
+
+  background-color: var(--light-main-color);
 }
 
 .user-nav {
@@ -7,19 +9,15 @@
   justify-content: space-around;
   align-items: center;
   gap: 10px;
-  margin: 20px 20px 0 0;
+  padding: 20px 20px 0 0;
+
+  background-color: var(--light-main-color);
 }
 
 .user-nav__link {
   text-decoration: none;
-}
 
-.active-link {
-  padding: 5px 10px;
-
-  border-radius: 10px;
-  background-color: #0000ff;
-  color: #ffff;
+  color: #fff;
 }
 
 .requested-purchases {
@@ -35,7 +33,7 @@
 }
 
 .collapse-container__inside {
-  width: 300px;
+  width: 335px;
   margin: 10px 0 20px 20px;
 }
 
@@ -46,6 +44,20 @@
   margin: 0;
 }
 
+.purchase-request-edit-form__floating-input-container {
+  width: 100%;
+}
+
+.form-floating > .form-control {
+  height: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.form-floating > .form-control:not(:placeholder-shown) {
+  padding-top: 1.9rem;
+  padding-bottom: 0.8rem;
+}
+
 .purchase-request-edit-form__btn {
   margin: 10px 20px 0 0;
 }
@@ -53,7 +65,7 @@
 .requested-purchases__title {
   margin-left: 20px;
   padding-bottom: 5px;
-  width: 190px;
 
+  color: #fff;
   border-bottom: 1px solid #0000ff;
 }

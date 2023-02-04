@@ -61,6 +61,7 @@
 }
 
 .collapse-container__btn {
+  width: 335px;
   margin-left: 20px;
 }
 
@@ -72,7 +73,7 @@
 }
 
 .collapse-container__inside {
-  width: 300px;
+  width: 335px;
   margin: 10px 0 20px 20px;
 }
 
@@ -84,6 +85,10 @@
   margin: 0;
 }
 
+.purchase-request-edit-form__floating-input-container {
+  width: 100%;
+}
+
 .new-purchase-form label {
   padding: 10px;
 }
@@ -92,6 +97,11 @@
   height: 2.5rem;
   font-size: 0.9rem;
 }
+
+/* .form-floating > .form-control:not(:placeholder-shown) {
+  padding-top: 1.9rem;
+  padding-bottom: 0.8rem;
+} */
 
 .purchase-request-form output {
   padding: 5px 0;
@@ -113,5 +123,5 @@
   padding-bottom: 5px;
 
   color: #fff;
-  border-bottom: 1px solid var(--secondary-highlight-color);
+  border-bottom: 1px solid #0000ff;
 }
