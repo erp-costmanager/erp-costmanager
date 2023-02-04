@@ -94,3 +94,9 @@ nav.navbar.navbar-dark {
     font-size: 24px;
   }
 }
+
+@media (min-width: 1200px) {
+  .nav {
+    justify-content: space-around;
+  }
+}
