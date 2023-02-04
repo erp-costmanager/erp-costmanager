@@ -1,6 +1,6 @@
 <nav class="admin-nav">
+  <a class="admin-nav__link active-link" href="/admin">Admin Portal</a>
   <a class="admin-nav__link" href="/profile">Profile</a>
-  <a class="admin-nav__link active-link" href="/admin">Admin</a>
 </nav>
 
 <section class="company-users">
@@ -34,13 +34,12 @@
     {{else if (isDisapproved this)}}btn-danger
     {{else if (isRemoved this)}}btn-secondary
     {{/if}}
-     collapse-container__btn"
+     collapse-container__btn btn-primary"
     data-bs-toggle="collapse"
     href="#id{{_id}}"
     role="button"
     aria-expanded="false"
     aria-controls="id{{_id}}"
-    style="width: 90%"
   >
     Item: {{firstName}} {{lastName}} | Status: {{status}}
   </a>
@@ -49,12 +48,12 @@
       <div class="card card-body">
         <form class="user-edit-form" action="/admin/edit" method="post">
           {{#if pictureURL}}
-          <img src="{{pictureURL}}" class="card-img-top mx-auto w-auto" style="height: 150px;" alt="User profile picture">
+          <img src="{{pictureURL}}" class="card-img-top mx-auto" alt="User profile picture">
           {{/if}}
-          <p>Name: {{firstName}} {{lastName}}</p>
-          <p>Email: {{email}}</p>
+          <p><strong>Name:</strong> {{firstName}} {{lastName}}</p>
+          <p><strong>Email:</strong> {{email}}</p>
           {{#if (isPending this)}}
-          <label for="status">Status:
+          <label for="status"><strong>Status:</strong>
             <select name="status">
               <option value="Pending">Pending</option>
               <option value="Approved">Approved</option>
@@ -63,7 +62,7 @@
           </label>
           {{/if}}
           {{#if (isNotRemovedOrDisapproved this)}}
-          <label for="role">Role:
+          <label for="role"><strong>Role:</strong>
             <select name="role">
               <option value="Employee"{{#if (isEmployee this)}}selected{{/if}}>Employee</option>
               <option value="Manager" {{#if (isManager this)}}selected{{/if}}>Manager</option>
@@ -75,7 +74,7 @@
             <input type="submit" value="Remove" name="process" class="btn btn-danger">
           </div>
           {{else}}
-          <p>Role: {{role}}</p>
+          <p><strong>Role:</strong> {{role}}</p>
           <div class="actions">
             <input type="submit" value="Reinstate" name="process" class="btn btn-success">
           </div>
