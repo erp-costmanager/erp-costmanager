@@ -1,22 +1,32 @@
-<div class="login-container">
+<div class="login-container bg-secondary">
   {{#if errorMessage}}
     <div
       class="text-bg-danger p-3 my-2 w-100 text-center"
     >{{errorMessage}}</div>
   {{/if}}
-  <form class="login-container__form" action="/login" method="post">
-    <label class="login-container__form__label" for="email">Email</label>
-    <input type="email" name="email" id="email" />
-    <label class="login-container__form__label" for="password">Password</label>
-    <input type="password" name="password" id="password" required />
-    <button class="login-container__form__log-in-button">Log in</button>
-  </form>
+  <div class="card card-body m-3 bg-info">
+    <form class="login-container__form" action="/login" method="post">
+      <div class="form-floating mb-2" for="company">
+        <input type="text" id="floatingInput" class="form-control" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Email" />
+        <label for="floatingInput">Email</label>
+      </div>
+      <div class="form-floating mb-2" for="company">
+        <input type="password" id="floatingInput" class="form-control" name="password"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Password" />
+        <label for="floatingInput">Password</label>
+      </div>
+      <button class="login-container__form__log-in-button">Log in</button>
+    </form>
 
-  <p class="login-container__signup-question">Don't have an account yet?</p>
-
-  <a
-    href="/userSignup"
-    class="login-container__signup-link"
-    type="button"
-  >Create a new account</a>
+    <p class="text-center text-light mb-2">Don't have an account yet?</p>
+  
+    <a
+      href="/userSignup"
+      class="text-warning text-center"
+      type="button"
+    >
+    <i
+        class="fas fa-user-plus fa-lg home-container__cta__link__user-icon"
+      ></i>
+    <span class="ms-2">Create a new account</span></a>
+  </div>
 </div>
