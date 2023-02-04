@@ -8,7 +8,7 @@ const getUserSignup = (req, res, next) =>
 
 const postUserSignup = async (req, res, next) => {
   try {
-    const { company, email, firstName, lastName, password } = req.body;
+    const { company, email, firstName, lastName, password, verifyPassword } = req.body;
 
     if (!company || !email || !password || !firstName || !lastName) {
       res.render("auth/userSignup", {
@@ -35,10 +35,19 @@ const postUserSignup = async (req, res, next) => {
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
     if (!regex.test(password)) {
-      res.status(500).render("auth/userSignup", {
+      res.render("auth/userSignup", {
         style: "auth/signup.css",
         errorMessage:
           "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+      });
+      return;
+    }
+
+    if (password !== verifyPassword) {
+      res.render("auth/userSignup", {
+        style: "auth/signup.css",
+        errorMessage:
+          "Passwords do not match!",
       });
       return;
     }
@@ -82,7 +91,7 @@ const getCompanySignup = (req, res, next) =>
 
 const postCompanySignup = async (req, res, next) => {
   try {
-    const { company, email, firstName, lastName, password } = req.body;
+    const { company, email, firstName, lastName, password, verifyPassword } = req.body;
 
     if (!company || !email || !password || !firstName || !lastName) {
       res.render("auth/companySignup", {
@@ -99,6 +108,15 @@ const postCompanySignup = async (req, res, next) => {
         style: "auth/signup.css",
         errorMessage:
           "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+      });
+      return;
+    }
+
+    if (password !== verifyPassword) {
+      res.render("auth/companySignup", {
+        style: "auth/signup.css",
+        errorMessage:
+          "Passwords do not match!",
       });
       return;
     }
