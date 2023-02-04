@@ -1,10 +1,9 @@
 :root {
   --dark-main-color: #400d40;
-
   --bs-primary-rgb: 64, 13, 64;
   --light-main-color: #4a154b;
-  --primary-btn-color: #0073e6;
   --bs-secondary-rgb: 74, 21, 75;
+  --primary-btn-color: #0073e6;
   --highlight-color: #ecb22e;
   --bs-warning-rgb: 236, 178, 46;
   --bs-btn-active-bg: #0073e6;

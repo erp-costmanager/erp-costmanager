@@ -2,7 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.card-body {
+  flex: 0 0 auto;
 }
 
 .login-container__form {
@@ -13,10 +18,36 @@
   width: 300px;
 }
 
-.login-container__form__label {
+.login-container__form__log-in-button {
   padding: 5px 0;
+  padding: 12px 50px;
+
+  font-weight: bold;
+  text-align: center;
+  background-color: var(--highlight-color);
+  color: var(--secondary-highlight-color);
 }
 
-.login-container__form__log-in-button {
-  margin-top: 15px;
+.form-floating > label {
+  margin-top: -0.5rem;
+  padding: 1rem .5rem;
+}
+
+.form-floating>.form-control:not(:placeholder-shown)~label,
+.form-floating>.form-control:focus~label {
+  transform: scale(.80) translateY(-0.20rem) translateX(0.15rem);
+}
+
+.form-floating > .form-control{
+  height: 2rem;
+  padding: 0.25rem;
+  line-height: 1;
+  font-size: .8rem;
+}
+
+.form-floating>.form-control:focus,
+.form-floating>.form-control:not(:placeholder-shown){
+  padding-top: 1.625rem;
+  padding-left: 0.6rem;
+  height: 2rem;
 }
