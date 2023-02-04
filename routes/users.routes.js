@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const fileUploader = require('../config/cloudinary.config')
+const fileUploader = require("../config/cloudinary.config");
 
 const {
   isAdmin,
@@ -9,45 +9,34 @@ const {
 } = require("../middleware/routeGuard");
 
 const {
-  getUserPage,
   getUserEditPage,
   postUserEditPage,
   getProfilePage,
   postProfilePage,
-  postNewPurchase,
-  postProcessPurchaseRequest,
-  postFilterPurchaseRequests,
   getAdminPage,
   filterUserStatus,
   postAdminPage,
   getUserNotApprovedPage,
 } = require("../controllers/users.controllers");
 
-router.get("/user", isLoggedIn, isApproved, isNotAdmin, getUserPage);
-
 router.get("/profile", isLoggedIn, getProfilePage);
 
-router.post('/profile', isLoggedIn, fileUploader.single('user-profile-image'), postProfilePage)
-
-router.post("/user/newPurchase", isLoggedIn, isNotAdmin, postNewPurchase);
-
 router.post(
-  "/user/processPurchaseRequest",
+  "/profile",
   isLoggedIn,
-  isNotAdmin,
-  postProcessPurchaseRequest
-);
-
-router.post(
-  "/user/filterPurchaseRequests",
-  isLoggedIn,
-  isNotAdmin,
-  postFilterPurchaseRequests
+  fileUploader.single("user-profile-image"),
+  postProfilePage
 );
 
 router.get("/admin", isLoggedIn, isApproved, isAdmin, getAdminPage);
 
-router.post('/admin/filterUserStatus', isLoggedIn, isApproved, isAdmin, filterUserStatus)
+router.post(
+  "/admin/filterUserStatus",
+  isLoggedIn,
+  isApproved,
+  isAdmin,
+  filterUserStatus
+);
 
 router.post("/admin/edit", isLoggedIn, isApproved, isAdmin, postAdminPage);
 

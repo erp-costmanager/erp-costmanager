@@ -48,11 +48,29 @@
   color: var(--main-color);
 }
 
+.home-container__cta__link__building-icon {
+  position: absolute;
+  top: 27px;
+  left: 15px;
+}
+
+.home-container__cta__link__plus-icon {
+  position: absolute;
+  top: 26px;
+  left: 32px;
+}
+
+.home-container__cta__link__user-icon {
+  position: absolute;
+  top: 27px;
+  left: 15px;
+}
+
 .home-container__cta__link:last-child {
   background-color: var(--highlight-color);
   color: var(--secondary-highlight-color);
 }
-.home-container__cta__link:last-child i {
+.home-container__cta__link__login-icon {
   position: absolute;
   top: 28px;
   left: 15px;

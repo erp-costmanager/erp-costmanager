@@ -1,14 +1,14 @@
-<nav class="user-nav" >
-  <a class="user-nav__link active-link" href="/user">Start</a>
-  <a class="user-nav__link" href="/profile">Profile</a>
+<nav class="purchase-portal-nav" >
+  <a class="purchase-portal-nav__link active-link" href="/purchase-portal">Purchase Portal</a>
+  <a class="purchase-portal-nav__link" href="/profile">Profile</a>
 </nav>
-<div class="user-container">
+<div class="purchase-portal-container">
   {{#if errorMessage}}
   <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
   {{/if}}
 <p class="collapse-container">
   <a
-    class="btn btn-primary collapse-container__btn"
+    class="btn collapse-container__btn btn-primary requested-purchases__filter-form__filter-btn"
     data-bs-toggle="collapse"
     href="#newPurchaseRequest"
     role="button"
@@ -23,17 +23,22 @@
   <div class="card card-body">
     <form
       class="new-purchase-form"
-      action="/user/newPurchase"
+      action="/purchase-portal/newPurchase"
       method="post"
     >
-      <label for="item">Item</label>
-      <input type="text" name="item" id="item" />
-      <label for="cost">Cost</label>
-      <input type="number" min="0" step="0.01" name="cost" id="cost" />
-      <label for="reason">Reason for request:</label>
-      <textarea name="reason" id="reason" cols="24" >
-      </textarea>
-      <button class="new-purchase-form__btn">Submit</button>
+      <div class="form-floating mb-3">
+      <input type="text" name="item" class="form-control" id="floatingInputItem" placeholder="Item">
+      <label for="floatingInputItem">Item</label>
+      </div>
+      <div class="form-floating mb-3">
+      <input type="number" name="cost" class="form-control" id="floatingInputCost" placeholder="Cost">
+      <label for="floatingInputCost">Cost</label>
+      </div>
+      <div class="form-floating mb-3">
+      <textarea class="form-control" placeholder="Reason for request" id="floatingTextarea" name="reason" id="reason" style="height: 75px;"></textarea>
+      <label for="floatingInputCost">Reason for request</label>
+      </div>
+      <button class="new-purchase-form__btn btn btn-success">Submit</button>
     </form>
   </div>
 </div>
@@ -41,7 +46,7 @@
 <section class="requested-purchases">
   <h4 class="requested-purchases__title">Purchase requests</h3>
   <h6 class="requested-purchases__filter-title">Filter by type of request:</h6>
-   <form action="/user/filterPurchaseRequests" method="post" class="requested-purchases__filter-form">
+   <form action="/purchase-portal/filterPurchaseRequests" method="post" class="requested-purchases__filter-form">
     <label for="all-requests">All
     <input type="radio" name="filterOption" value="all" id="all-requests" checked{{#if (isAllFilterChecked filterOption)}} checked {{/if}}>
     </label>
@@ -57,7 +62,7 @@
     <label for="my-requests">My requests
     <input type="radio" name="filterOption" value="myRequests" id="my-requests" {{#if (isMyRequestsFilterChecked filterOption)}} checked {{/if}}>
     </label>
-    <button class="btn btn-primary">Filter</button>
+    <button class="btn requested-purchases__filter-form__filter-btn">Filter</button>
   </form>
   <div class="request-purchases__list">
     {{#each purchaseRequests}}
@@ -87,7 +92,7 @@
   <div class="card card-body">
    <form
       class="purchase-request-form"
-      action="/user/processPurchaseRequest"
+      action="/purchase-portal/processPurchaseRequest"
       method="post"
     >
       <output name="item"><strong>Item:</strong> {{item}}</output>
@@ -102,8 +107,8 @@
 
       {{else if (isPendingAndIsUsersOwnRequest this ../currentUser)}}
       <div>
-       <input type="submit" name="action" value="Delete" class="btn btn-danger purchase-request-form__btn">
-       <a href="/user/edit/{{_id}}" class="btn btn-info purchase-request-form__btn">Edit</a>
+       <input type="submit" name="action" value="Delete" class="btn btn-danger purchase-request-form__delete-btn">
+       <a href="/user/edit/{{_id}}" class="btn btn-info purchase-request-form__edit-btn">Edit</a>
       </div>
       {{else}}
       <label><strong>Status:</strong>
