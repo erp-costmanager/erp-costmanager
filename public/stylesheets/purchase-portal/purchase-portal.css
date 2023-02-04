@@ -1,0 +1,117 @@
+.purchase-portal-container {
+  flex-grow: 1;
+
+  background-color: var(--light-main-color);
+}
+
+.purchase-portal-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 20px 0 0;
+
+  background-color: var(--light-main-color);
+}
+
+.purchase-portal-nav__link {
+  text-decoration: none;
+
+  color: #fff;
+}
+
+.active-link {
+  padding: 5px 10px;
+
+  border-radius: 10px;
+  background-color: var(--primary-btn-color);
+}
+
+.requested-purchases__filter-title,
+.requested-purchases__filter-form {
+  margin-left: 20px;
+
+  color: #ffff;
+}
+
+.requested-purchases__filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.requested-purchases__filter-form label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.requested-purchases__filter-form__filter-btn {
+  color: #fff;
+  background-color: var(--primary-btn-color);
+  --bs-btn-active-bg: var(--primary-btn-color);
+  --bs-btn-bg: var(--primary-btn-color);
+}
+
+.collapse-container {
+  margin-top: 20px;
+}
+
+.collapse-container__btn {
+  margin-left: 20px;
+}
+
+.collapse-container__request-new-purchase-btn,
+.collapse-container__request-new-purchase-btn:hover,
+.collapse-container__request-new-purchase-btn:active {
+  color: #fff;
+  background-color: var(--primary-btn-color);
+}
+
+.collapse-container__inside {
+  width: 300px;
+  margin: 10px 0 20px 20px;
+}
+
+.new-purchase-form,
+.purchase-request-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.new-purchase-form label {
+  padding: 10px;
+}
+
+.form-floating > .form-control {
+  height: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.purchase-request-form output {
+  padding: 5px 0;
+}
+
+.new-purchase-form__btn,
+.purchase-request-form__edit-btn,
+.purchase-request-form__delete-btn {
+  margin: 10px 20px 0 0;
+}
+
+.purchase-request-form__edit-btn {
+  color: #fff;
+  background-color: var(--secondary-highlight-color);
+}
+
+.requested-purchases__title {
+  margin-left: 20px;
+  padding-bottom: 5px;
+
+  color: #fff;
+  border-bottom: 1px solid var(--secondary-highlight-color);
+}

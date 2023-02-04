@@ -149,7 +149,7 @@ const postLogin = async (req, res, next) => {
     if (user && bcryptjs.compareSync(password, user.passwordHash)) {
       req.session.currentUser = user;
       console.log("Current user: ", req.session.currentUser);
-      res.redirect("/user");
+      res.redirect("/purchase-portal");
     } else {
       res.render("auth/login", {
         style: "auth/login.css",
