@@ -86,6 +86,10 @@
   font-size: 0.9rem;
 }
 
+.purchase-request-form output {
+  padding: 5px 0;
+}
+
 .new-purchase-form__btn,
 .purchase-request-form__edit-btn,
 .purchase-request-form__delete-btn {
@@ -102,5 +106,5 @@
   padding-bottom: 5px;
 
   color: #fff;
-  border-bottom: 1px solid var(--primary-btn-color);
+  border-bottom: 1px solid var(--secondary-highlight-color);
 }
