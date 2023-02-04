@@ -11,6 +11,8 @@ const {
   postNewPurchase,
   postFilterPurchaseRequests,
   postProcessPurchaseRequest,
+  getEditPurchasePage,
+  postEditPurchasePage,
 } = require("../controllers/purchase-portal.controllers");
 
 router.get(
@@ -40,6 +42,22 @@ router.post(
   isLoggedIn,
   isNotAdmin,
   postProcessPurchaseRequest
+);
+
+router.get(
+  "/purchase-portal/edit-purchase/:purchaseId",
+  isLoggedIn,
+  isApproved,
+  isNotAdmin,
+  getEditPurchasePage
+);
+
+router.post(
+  "/purchase-portal/edit-purchase/:purchaseId",
+  isLoggedIn,
+  isApproved,
+  isNotAdmin,
+  postEditPurchasePage
 );
 
 module.exports = router;

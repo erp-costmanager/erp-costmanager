@@ -9,8 +9,6 @@ const {
 } = require("../middleware/routeGuard");
 
 const {
-  getUserEditPage,
-  postUserEditPage,
   getProfilePage,
   postProfilePage,
   getAdminPage,
@@ -39,22 +37,6 @@ router.post(
 );
 
 router.post("/admin/edit", isLoggedIn, isApproved, isAdmin, postAdminPage);
-
-router.get(
-  "/user/edit/:purchaseId",
-  isLoggedIn,
-  isApproved,
-  isNotAdmin,
-  getUserEditPage
-);
-
-router.post(
-  "/user/edit/:purchaseId",
-  isLoggedIn,
-  isApproved,
-  isNotAdmin,
-  postUserEditPage
-);
 
 router.get("/user/not-approved", isLoggedIn, getUserNotApprovedPage);
 
