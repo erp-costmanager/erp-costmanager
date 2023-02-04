@@ -72,6 +72,14 @@
   margin: 0;
 }
 
+.user-edit-form img {
+  box-shadow: 0 0 3px 3px #aaa;
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .actions {
   display: flex;
   justify-content: space-between;
