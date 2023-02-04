@@ -23,17 +23,28 @@
         <ul class="text-start bg-secondary m-0 px-4 pt-3 pb-2 border-0 fs-6">
           <a class="d-block text-decoration-none text-light" href="/">Home</a>
           {{#if currentUser}}
-            <a
+          {{#if (isAdmin currentUser)}}
+          <a
+              class="d-block mt-1 text-decoration-none text-light"
+              href="/admin"
+              >Admin Portal</a>
+          {{else}}
+          <a
               class="d-block mt-1 text-decoration-none text-light"
               href="/purchase-portal"
-            >Purchase Portal</a>
+              >Purchase Portal</a>
+          {{/if}}
             <form
-              class="nav__dropdown-box__logout-form mt-1"
+              class="nav__dropdown-box__logout-form mt-1 mb-0"
               action="/logout"
               method="post"
             >
-              <button class="bg-secondary text-warning border-0 p-0 m-0">Log out</button>
-            </form>
+            <button class="bg-secondary text-warning border-0 p-0 m-0">Log out</button>
+          </form>
+          {{else}}
+          <a class="d-block text-decoration-none text-light" href="/companySignup">New Company</a>
+          <a class="d-block text-decoration-none text-light" href="/userSignup">New User</a>
+          <a class="d-block text-decoration-none text-warning" href="/login">Log In</a>
           {{/if}}
         </ul>
       </div>
