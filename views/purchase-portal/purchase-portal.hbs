@@ -1,8 +1,8 @@
+<div class="purchase-portal-container">
 <nav class="purchase-portal-nav" >
   <a class="purchase-portal-nav__link active-link" href="/purchase-portal">Purchase Portal</a>
-  <a class="purchase-portal-nav__link" href="/profile">Profile</a>
+  <a class="purchase-portal-nav__link inactive-link" href="/profile">Profile</a>
 </nav>
-<div class="purchase-portal-container">
   {{#if errorMessage}}
   <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
   {{/if}}
@@ -76,7 +76,7 @@
     {{else}}
     btn-danger
     {{/if}}
-    collapse-container__btn"
+    collapse-container__btn collapse-container__purchase-request-item"
     data-bs-toggle="collapse"
     href="#id{{_id}}"
     role="button"

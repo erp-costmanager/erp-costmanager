@@ -13,6 +13,7 @@
   align-items: center;
   gap: 10px;
   padding: 20px 20px 0 0;
+  width: 335px;
 
   background-color: var(--light-main-color);
 }
@@ -30,9 +31,66 @@
   background-color: var(--primary-btn-color);
 }
 
+.inactive-link {
+  padding: 5px 10px;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.collapse-container {
+  margin-top: 20px;
+  width: 335px;
+}
+
+.collapse-container__btn {
+  width: 335px;
+}
+
+.collapse-container__purchase-request-item {
+  width: 335px;
+}
+
+.collapse-container__request-new-purchase-btn,
+.collapse-container__request-new-purchase-btn:hover,
+.collapse-container__request-new-purchase-btn:active {
+  color: #fff;
+  background-color: var(--primary-btn-color);
+}
+
+.collapse-container__inside {
+  margin: -5px 0 20px 0;
+  width: 335px;
+}
+
+.new-purchase-form,
+.purchase-request-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.requested-purchases {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.requested-purchases__title {
+  align-self: start;
+  padding-bottom: 5px;
+  margin-left: 20px;
+  width: 90%;
+
+  color: #fff;
+  border-bottom: 1px solid var(--secondary-highlight-color);
+}
+
 .requested-purchases__filter-title,
 .requested-purchases__filter-form {
+  align-self: flex-start;
   margin-left: 20px;
+  width: 335px;
 
   color: #ffff;
 }
@@ -87,9 +145,8 @@
 .new-purchase-form,
 .purchase-request-form {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 0;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .purchase-request-edit-form__floating-input-container {
@@ -126,13 +183,37 @@
   background-color: var(--secondary-highlight-color);
 }
 
+@media (min-width: 800px) {
+  .purchase-portal-nav {
+    width: 500px;
+  }
+
 .requested-purchases__title {
   margin-left: 20px;
   padding-bottom: 5px;
   width: 90%;
+  }
 
-  color: #fff;
-  border-bottom: 1px solid #0000ff;
+  .collapse-container {
+    width: 500px;
+  }
+
+  .collapse-container__btn {
+    width: 500px;
+  }
+
+  .collapse-container__purchase-request-item {
+    width: 500px;
+  }
+
+  .collapse-container__inside {
+    width: 500px;
+  }
+
+  .requested-purchases__filter-title,
+  .requested-purchases__filter-form {
+    width: 500px;
+  }
 }
 
 .collapse-container-requested-item {
