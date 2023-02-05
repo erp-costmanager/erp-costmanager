@@ -100,6 +100,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 10px;
+  width: 335px;
   margin-bottom: 0;
 }
 
@@ -117,7 +118,32 @@
   --bs-btn-bg: var(--primary-btn-color);
 }
 
-.purchase-request-form__btns {
+.collapse-container {
+  margin-top: 20px;
+}
+
+.collapse-container__btn {
+  width: 335px;
+}
+
+.collapse-container__request-new-purchase-btn,
+.collapse-container__request-new-purchase-btn:hover,
+.collapse-container__request-new-purchase-btn:active {
+  color: #fff;
+  background-color: var(--primary-btn-color);
+}
+
+.collapse-container__inside {
+  width: 335px;
+  margin: 10px 0 20px 0;
+}
+
+.collapse-container__request-info {
+  margin-left: 20px;
+}
+
+.new-purchase-form,
+.purchase-request-form {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -146,6 +172,12 @@
   margin: 10px 20px 0 0;
 }
 
+.purchase-request-form__btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .purchase-request-form__edit-btn {
   color: #fff;
   background-color: var(--secondary-highlight-color);
@@ -154,6 +186,12 @@
 @media (min-width: 800px) {
   .purchase-portal-nav {
     width: 500px;
+  }
+
+.requested-purchases__title {
+  margin-left: 20px;
+  padding-bottom: 5px;
+  width: 90%;
   }
 
   .collapse-container {
@@ -176,4 +214,9 @@
   .requested-purchases__filter-form {
     width: 500px;
   }
+}
+
+.collapse-container-requested-item {
+  display: flex;
+  justify-content: center;
 }

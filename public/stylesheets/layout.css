@@ -31,13 +31,15 @@ a {
 }
 
 .nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding-right: 20px;
-  width: 100vw;
+  display: none;
+}
 
-  background-color: var(--light-main-color);
+.hamburger-menu a {
+  padding: 5px 2px 5px 0;
+}
+
+.hamburger-menu__dropdown {
+  padding-left: 16px;
 }
 
 nav.navbar.navbar-dark {
@@ -64,4 +66,37 @@ nav.navbar.navbar-dark {
   padding: 10px 10px 10px 20px;
 
   color: var(--light-color);
+}
+
+@media (min-width: 800px) {
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 20px 0 0;
+    width: 100vw;
+
+    background-color: var(--light-main-color);
+  }
+
+  .nav__links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .hamburger-menu {
+    display: none;
+  }
+
+  .nav__title {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .nav {
+    justify-content: space-around;
+  }
 }

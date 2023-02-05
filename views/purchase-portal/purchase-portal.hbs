@@ -8,7 +8,7 @@
   {{/if}}
 <p class="collapse-container">
   <a
-    class="btn collapse-container__btn btn-primary requested-purchases__filter-form__filter-btn"
+    class="btn collapse-container__btn btn-primary "
     data-bs-toggle="collapse"
     href="#newPurchaseRequest"
     role="button"
@@ -66,7 +66,7 @@
   </form>
   <div class="request-purchases__list">
     {{#each purchaseRequests}}
-  <p class="collapse-container">
+  <p class="collapse-container collapse-container-requested-item">
   <a
     class="btn 
     {{#if (isPending this)}}
@@ -87,7 +87,7 @@
   </a>
 
 </p>
-<div class="collapse collapse-container__inside" id="id{{_id}}">
+<div class="collapse collapse-container__inside collapse-container__request-info" id="id{{_id}}">
   <div class="card card-body">
    <form
       class="purchase-request-form"
