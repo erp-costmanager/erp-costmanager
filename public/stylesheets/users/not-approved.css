@@ -43,3 +43,10 @@
   color: #fff;
   font-size: 1.1rem;
 }
+
+@media (min-width: 800px) {
+  .user-container__title,
+  .user-container p {
+    text-align: center;
+  }
+}
