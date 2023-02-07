@@ -19,6 +19,12 @@
   color: #ffff;
 }
 
+.inactive-link {
+  padding: 5px 10px;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
 .company-users {
   flex-grow: 1;
   /* color: #fff; */
@@ -26,10 +32,10 @@
 }
 
 .company-users__title {
-  margin: 20px 0 0 20px;
+  margin: 20px;
   padding-bottom: 5px;
   color: #fff;
-  border-bottom: 1px solid #0000ff;
+  border-bottom: 1px solid var(--secondary-highlight-color);
 }
 
 .company-users__filter-title,
