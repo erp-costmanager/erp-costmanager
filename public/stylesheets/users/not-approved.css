@@ -3,22 +3,43 @@
   justify-content: space-around;
   align-items: center;
   gap: 10px;
-  margin: 20px 20px 0 0;
+  padding: 20px 20px 0 0;
+  background-color: var(--light-main-color);
 }
 
 .user-nav__link {
   text-decoration: none;
-}
-
-.user-container {
-  flex-grow: 1;
-  margin: 20px;
+  color: #fff;
 }
 
 .active-link {
   padding: 5px 10px;
 
   border-radius: 10px;
-  background-color: #0000ff;
-  color: #ffff;
+  background-color: var(--primary-btn-color);
+}
+
+.inactive-link {
+  padding: 5px 10px;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.user-container {
+  flex-grow: 1;
+  background-color: var(--light-main-color);
+  padding: 1rem;
+}
+
+.user-container__title {
+  margin: 10px;
+  padding-bottom: 5px;
+  color: #fff;
+  border-bottom: 1px solid var(--secondary-highlight-color);
+}
+
+.user-container p {
+  margin: 20px;
+  color: #fff;
+  font-size: 1.1rem;
 }

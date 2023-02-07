@@ -19,6 +19,12 @@
   background-color: var(--primary-btn-color);
 }
 
+.inactive-link {
+  padding: 5px 10px;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
 .user-container {
   flex-grow: 1;
   background-color: var(--light-main-color);
@@ -26,10 +32,10 @@
 }
 
 .user-container__title {
-  margin: 0 20px;
+  margin: 10px;
   padding-bottom: 5px;
   color: #fff;
-  border-bottom: 1px solid #0000ff;
+  border-bottom: 1px solid var(--secondary-highlight-color);
 }
 
 .user-container img {
@@ -66,4 +72,12 @@
 
 .user-edit-form input[type="file"]:not(:placeholder-shown) {
   padding: 1.625rem 0.6rem 1rem;
+}
+
+.card-body {
+  flex: 0 0 auto;
+}
+
+form {
+  margin-block-end: 0;
 }

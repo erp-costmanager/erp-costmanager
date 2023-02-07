@@ -1,9 +1,9 @@
 <nav class="user-nav">
     {{#if (isNotAdmin currentUser)}}
-    <a class="user-nav__link" href="/purchase-portal">Purchase Portal</a>
+    <a class="user-nav__link inactive-link" href="/purchase-portal">Purchase Portal</a>
     {{/if}}
     {{#if (isAdmin currentUser)}}
-    <a class="user-nav__link" href="/admin">Admin Portal</a>
+    <a class="user-nav__link inactive-link" href="/admin">Admin Portal</a>
     {{/if}}
     <a class="user-nav__link active-link" href="/profile">Profile</a>
 </nav>

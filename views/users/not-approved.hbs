@@ -1,10 +1,11 @@
 <nav class="user-nav">
   <a class="user-nav__link active-link" href="/purchase-portal">Purchase Portal</a>
-  <a class="user-nav__link" href="/profile">Profile</a>
+  <a class="user-nav__link inactive-link" href="/profile">Profile</a>
 </nav>
 {{#with currentUser}}
   <div class="user-container">
-    <h3>Hello, {{firstName}} {{lastName}}</h3>
+    <h4 class="user-container__title">Hello, {{firstName}} {{lastName}}</h4>
     <p>Your user must be approved before you can access the purchase portal.</p>
+    <p>Please contact your service administrator.</p>
   </div>
 {{/with}}
