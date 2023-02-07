@@ -38,7 +38,6 @@
       </nav>
       <div class="collapse" id="navbarToggleExternalContent">
         <ul class="hamburger-menu__dropdown bg-secondary m-0 border-0 fs-6">
-          <a class="d-block text-decoration-none text-light" href="/">Home</a>
           {{#if currentUser}}
             {{#if (isAdmin currentUser)}}
               <a
@@ -59,6 +58,7 @@
               <button class="bg-secondary text-warning border-0 p-0 m-0">Log out</button>
             </form>
           {{else}}
+            <a class="d-block text-decoration-none text-light" href="/">Home</a>
             <a
               class="d-block text-decoration-none text-light"
               href="/companySignup"
@@ -99,6 +99,8 @@
             <button class="bg-secondary text-warning border-0 p-0 m-0">Log out</button>
           </form>
         {{else}}
+        <a class="d-block text-decoration-none text-light fs-6" href="/">Home</a>
+        <a
           <a
             class="d-block text-decoration-none text-light fs-6"
             href="/companySignup"
