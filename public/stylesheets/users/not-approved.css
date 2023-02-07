@@ -45,10 +45,7 @@
 }
 
 @media (min-width: 800px) {
-  .user-container__title {
-    text-align: center;
-  }
-
+  .user-container__title,
   .user-container p {
     text-align: center;
   }
