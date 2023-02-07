@@ -138,10 +138,6 @@
   margin: 10px 0 20px 0;
 }
 
-.collapse-container__request-info {
-  margin-left: 20px;
-}
-
 .new-purchase-form,
 .purchase-request-form {
   display: flex;
@@ -188,10 +184,10 @@
     width: 500px;
   }
 
-.requested-purchases__title {
-  margin-left: 20px;
-  padding-bottom: 5px;
-  width: 90%;
+  .requested-purchases__title {
+    margin-left: 20px;
+    padding-bottom: 5px;
+    width: 90%;
   }
 
   .collapse-container {
