@@ -168,11 +168,12 @@ const postFilterPurchaseRequests = async (req, res, next) => {
 
 const postProcessPurchaseRequest = async (req, res, next) => {
   try {
-    const { id, action } = req.body;
+    const { id, action, comment } = req.body;
 
     if (action === "Approve") {
       const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
         status: "Approved",
+        comment,
       });
 
       console.log(
@@ -182,6 +183,7 @@ const postProcessPurchaseRequest = async (req, res, next) => {
     } else if (action === "Disapprove") {
       const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
         status: "Disapproved",
+        comment,
       });
 
       console.log(

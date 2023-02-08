@@ -98,8 +98,13 @@
       <output name="cost"><strong>Cost:</strong> {{cost}}</output>
       <output name="reason"><strong>Reason for request:</strong> {{reason}}</output>
       <output name="name"><strong>Requested by:</strong> {{createdBy.firstName}} {{createdBy.lastName}}</output>
-      {{#if (isPendingAndIsUserManager this)}}
-      <div>
+      <output name="comment"><strong>Manager's comment:</strong> {{comment}}</output>
+      {{#if (isPendingAndIsUserManager this ../currentUser)}}
+      <div class="form-floating mb-3 purchase-request-edit-form__floating-input-container">
+      <textarea class="form-control" placeholder="Manager's comment" id="floatingTextarea" name="comment" id="comment" style="height: 75px;"></textarea>
+      <label for="comment">Manager's comment</label>
+      </div>
+      <div class="purchase-request-form__btns">
       <input type="submit" name="action" value="Approve" class="purchase-request-form__btn btn btn-success">
       <input type="submit" name="action" value="Disapprove" class="purchase-request-form__btn btn btn-danger">
       </div>

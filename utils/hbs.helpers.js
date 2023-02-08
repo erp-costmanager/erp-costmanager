@@ -1,9 +1,13 @@
 module.exports = (hbs) => {
   hbs.registerHelper(
     "isPendingAndIsUserManager",
-    (purchaseRequest) =>
-      purchaseRequest.createdBy.role === "Manager" &&
-      purchaseRequest.status === "Pending"
+    (purchaseRequest, currentUser) => {
+      console.log("Purchase request:", purchaseRequest);
+      console.log("Current user:", currentUser);
+      return (
+        currentUser.role === "Manager" && purchaseRequest.status === "Pending"
+      );
+    }
   );
   hbs.registerHelper(
     "isPendingAndIsUsersOwnRequest",
@@ -52,5 +56,5 @@ module.exports = (hbs) => {
   hbs.registerHelper(
     "isRemovedFilterChecked",
     (filterOption) => filterOption === "removed"
-  )
+  );
 };
