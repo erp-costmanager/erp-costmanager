@@ -1,4 +1,5 @@
 const bcryptjs = require("bcryptjs");
+const transporter = require('../config/nodemailer')
 
 const Company = require("../models/Company.model");
 const User = require("../models/User.model");
@@ -78,6 +79,16 @@ const postUserSignup = async (req, res, next) => {
 
     companyInDb.users.push(newUser._id);
     await companyInDb.save();
+
+    const adminUsers = await User.find({role: 'Admin', company: newUser.company})
+    adminUsers.forEach(async (admin) => {
+      await transporter.sendMail({
+        from: "noreply@purchase-manager.com",
+        to: admin.email,
+        subject: "New Employee Request",
+        text: `A New Employee has signed up to your company's purchase manager. He awaits your approval to use the purchase portal!`,
+      })
+    })
 
     console.log("Successfully created a new user: ", newUser);
     res.redirect("/login");
