@@ -97,13 +97,17 @@
       <output name="item"><strong>Item:</strong> {{item}}</output>
       <output name="cost"><strong>Cost:</strong> {{cost}}</output>
       <output name="reason"><strong>Reason for request:</strong> {{reason}}</output>
-      <output name="name"><strong>Requested by:</strong> {{createdBy.firstName}} {{createdBy.lastName}}</output>
-      <output name="comment"><strong>Manager's comment:</strong> {{comment}}</output>
+      <output><strong>Requested by:</strong> {{createdBy.firstName}} {{createdBy.lastName}}</output>
+      <output><strong>Manager's comment:</strong> {{comment}}</output>
+      {{#if (isApprovedOrDisapproved this)}}
+      <output><strong>Reviewed by:</strong> {{reviewedBy.firstName}} {{reviewedBy.lastName}}</output>
+      {{/if}}
       {{#if (isPendingAndIsUserManager this ../currentUser)}}
       <div class="form-floating mb-3 purchase-request-edit-form__floating-input-container">
       <textarea class="form-control" placeholder="Manager's comment" id="floatingTextarea" name="comment" id="comment" style="height: 75px;"></textarea>
       <label for="comment">Manager's comment</label>
       </div>
+      <input name="managerId" type="hidden" value="{{../currentUser._id}}">
       <div class="purchase-request-form__btns">
       <input type="submit" name="action" value="Approve" class="purchase-request-form__btn btn btn-success">
       <input type="submit" name="action" value="Disapprove" class="purchase-request-form__btn btn btn-danger">
@@ -115,11 +119,11 @@
        <a href="/purchase-portal/edit-purchase/{{_id}}" class="btn btn-info purchase-request-form__edit-btn">Edit</a>
       </div>
       {{else}}
-      <label><strong>Status:</strong>
+      <output><strong>Status:</strong>
       {{status}}
+      </output>
       {{/if}}
       <input name="id" type="hidden" value="{{_id}}">
-      </label>
     </form>
   
   </div>

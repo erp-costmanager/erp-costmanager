@@ -7,7 +7,8 @@ const getPurchasePortalPage = async (req, res, next) => {
       company: currentUser.company,
     })
       .sort({ createdAt: -1 })
-      .populate("createdBy");
+      .populate("createdBy")
+      .populate("reviewedBy");
 
     res.render("purchase-portal/purchase-portal", {
       style: "purchase-portal/purchase-portal.css",
@@ -104,7 +105,9 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           company: userCompany,
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
+
         purchaseRequests = allRequests;
         break;
 
@@ -114,7 +117,8 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           status: "Pending",
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
 
         purchaseRequests = pendingRequests;
         break;
@@ -125,7 +129,8 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           status: "Approved",
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
 
         purchaseRequests = approvedRequests;
         break;
@@ -136,7 +141,8 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           status: "Disapproved",
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
 
         purchaseRequests = disapprovedRequests;
         break;
@@ -147,7 +153,8 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           createdBy: userId,
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
 
         purchaseRequests = myRequests;
         break;
@@ -168,13 +175,18 @@ const postFilterPurchaseRequests = async (req, res, next) => {
 
 const postProcessPurchaseRequest = async (req, res, next) => {
   try {
-    const { id, action, comment } = req.body;
+    const { id, action, comment, managerId } = req.body;
 
     if (action === "Approve") {
-      const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
-        status: "Approved",
-        comment,
-      });
+      const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(
+        id,
+        {
+          status: "Approved",
+          comment,
+          reviewedBy: managerId,
+        },
+        { new: true }
+      );
 
       console.log(
         "Changing status of purchase request to approved. Details ",
@@ -184,6 +196,7 @@ const postProcessPurchaseRequest = async (req, res, next) => {
       const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
         status: "Disapproved",
         comment,
+        reviewedBy: managerId,
       });
 
       console.log(

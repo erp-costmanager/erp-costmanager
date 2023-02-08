@@ -20,7 +20,7 @@ const purchaseModel = new Schema(
       trim: true,
     },
     comment: String,
-    approvedBy: { type: Schema.Types.ObjectId, ref: "User" },
+    reviewedBy: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true,

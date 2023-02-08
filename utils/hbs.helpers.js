@@ -2,8 +2,6 @@ module.exports = (hbs) => {
   hbs.registerHelper(
     "isPendingAndIsUserManager",
     (purchaseRequest, currentUser) => {
-      console.log("Purchase request:", purchaseRequest);
-      console.log("Current user:", currentUser);
       return (
         currentUser.role === "Manager" && purchaseRequest.status === "Pending"
       );
@@ -24,6 +22,14 @@ module.exports = (hbs) => {
     "isDisapproved",
     (purchaseRequest) => purchaseRequest.status === "Disapproved"
   );
+
+  hbs.registerHelper(
+    "isApprovedOrDisapproved",
+    (purchaseRequest) =>
+      purchaseRequest.status === "Approved" ||
+      purchaseRequest.status === "Disapproved"
+  );
+
   hbs.registerHelper("isEmployee", (user) => user.role === "Employee");
   hbs.registerHelper("isManager", (user) => user.role === "Manager");
   hbs.registerHelper("isAdmin", (user) => user.role === "Admin");
