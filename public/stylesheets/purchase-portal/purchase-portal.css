@@ -1,3 +1,5 @@
+/* @TODO: Style the 'Request new purchase' button and request item with different classes. That should make it align perfectly. The 'Request new purchase needs 90% width. */
+
 .purchase-portal-container {
   display: flex;
   flex-direction: column;
@@ -13,7 +15,7 @@
   align-items: center;
   gap: 10px;
   padding: 20px 20px 0 0;
-  width: 335px;
+  width: 100%;
 
   background-color: var(--light-main-color);
 }
@@ -38,16 +40,20 @@
 }
 
 .collapse-container {
-  margin-top: 20px;
-  width: 335px;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0 0;
+  width: 100%;
+  /* width: 335px; */
 }
 
 .collapse-container__btn {
-  width: 335px;
+  width: 100%;
+  /* margin: 0 auto; */
 }
 
 .collapse-container__purchase-request-item {
-  width: 335px;
+  /* width: 335px; */
 }
 
 .collapse-container__request-new-purchase-btn,
@@ -58,8 +64,8 @@
 }
 
 .collapse-container__inside {
-  margin: -5px 0 20px 0;
-  width: 335px;
+  margin: -10px 0 0 0;
+  width: 90%;
 }
 
 .new-purchase-form,
@@ -71,16 +77,18 @@
 }
 
 .requested-purchases {
-  display: flex;
+  /*  display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
+  margin-top: 20px;
+  width: 90%;
 }
 
 .requested-purchases__title {
-  align-self: start;
+  align-self: stretch;
   padding-bottom: 5px;
-  margin-left: 20px;
-  width: 90%;
+  /* margin-left: 20px; */
+  /* width: 90%; */
 
   color: #fff;
   border-bottom: 1px solid var(--secondary-highlight-color);
@@ -89,8 +97,8 @@
 .requested-purchases__filter-title,
 .requested-purchases__filter-form {
   align-self: flex-start;
-  margin-left: 20px;
-  width: 335px;
+  /* margin-left: 20px; */
+  /* width: 335px; */
 
   color: #ffff;
 }
@@ -118,13 +126,16 @@
   --bs-btn-bg: var(--primary-btn-color);
 }
 
-.collapse-container {
-  margin-top: 20px;
+.requested-purchases__filter-form__filter-btn:hover {
+  background-color: var(--primary-btn-color);
 }
 
-.collapse-container__btn {
-  width: 335px;
-}
+/* .requested-purchases__item-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 450px;
+} */
 
 .collapse-container__request-new-purchase-btn,
 .collapse-container__request-new-purchase-btn:hover,
@@ -134,7 +145,7 @@
 }
 
 .collapse-container__inside {
-  width: 335px;
+  /* width: 335px; */
   margin: 10px 0 20px 0;
 }
 
@@ -142,10 +153,10 @@
 .purchase-request-form {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  /* width: 100%; */
 }
 
-.purchase-request-edit-form__floating-input-container {
+.purchase-request-form__floating-input-container {
   width: 100%;
 }
 
@@ -171,7 +182,11 @@
 .purchase-request-form__btns {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  /* width: 100%; */
+}
+
+.collapse-container-requested-item {
+  /* margin-left: -1.5rem; */
 }
 
 .purchase-request-form__edit-btn {
@@ -179,16 +194,20 @@
   background-color: var(--secondary-highlight-color);
 }
 
-@media (min-width: 800px) {
-  .purchase-portal-nav {
-    width: 500px;
-  }
+/* .collapse-container {
+  width: 450px;
+} */
 
-  .requested-purchases__title {
+@media (min-width: 800px) {
+  /*  .purchase-portal-nav {
+    width: 500px;
+  } */
+
+  /*  .requested-purchases__title {
     margin-left: 20px;
     padding-bottom: 5px;
     width: 90%;
-  }
+  } */
 
   .collapse-container {
     width: 500px;
@@ -198,21 +217,21 @@
     width: 500px;
   }
 
-  .collapse-container__purchase-request-item {
+  /* .collapse-container__purchase-request-item {
     width: 500px;
-  }
+  } */
 
-  .collapse-container__inside {
+  /*  .collapse-container__inside {
     width: 500px;
-  }
+  } */
 
-  .requested-purchases__filter-title,
+  /* .requested-purchases__filter-title,
   .requested-purchases__filter-form {
     width: 500px;
-  }
+  } */
 }
 
-.collapse-container-requested-item {
+/* .collapse-container-requested-item {
   display: flex;
   justify-content: center;
-}
+} */

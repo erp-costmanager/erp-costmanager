@@ -26,15 +26,15 @@
       action="/purchase-portal/newPurchase"
       method="post"
     >
-      <div class="form-floating mb-3 purchase-request-edit-form__floating-input-container">
+      <div class="form-floating mb-3 purchase-request-form__floating-input-container">
       <input type="text" name="item" class="form-control" id="floatingInputItem" placeholder="Item">
       <label for="floatingInputItem">Item</label>
       </div>
-      <div class="form-floating mb-3 purchase-request-edit-form__floating-input-container">
+      <div class="form-floating mb-3 purchase-request-form__floating-input-container">
       <input type="number" name="cost" class="form-control" id="floatingInputCost" placeholder="Cost">
       <label for="floatingInputCost">Cost</label>
       </div>
-      <div class="form-floating mb-3 purchase-request-edit-form__floating-input-container">
+      <div class="form-floating mb-3 purchase-request-form__floating-input-container">
       <textarea class="form-control" placeholder="Reason for request" id="floatingTextarea" name="reason" id="reason" style="height: 75px;"></textarea>
       <label for="floatingInputCost">Reason for request</label>
       </div>
@@ -64,10 +64,10 @@
     </label>
     <button class="btn requested-purchases__filter-form__filter-btn">Filter</button>
   </form>
-  <div class="request-purchases__list">
+  {{!-- <div class="requested-purchases__item-list"> --}}
     {{#each purchaseRequests}}
-  <p class="collapse-container collapse-container-requested-item">
-  <a
+    <p class="collapse-container collapse-container-requested-item">
+    <a
     class="btn 
     {{#if (isPending this)}}
     btn-warning 
@@ -84,9 +84,9 @@
     aria-controls="id{{_id}}"
   >
     Item: {{item}} | Cost: {{cost}} | Status: {{status}}
-  </a>
+    </a>
 
-</p>
+    </p>
 <div class="collapse collapse-container__inside" id="id{{_id}}">
   <div class="card card-body">
    <form
@@ -120,6 +120,6 @@
   </div>
 </div>
 {{/each}}
-  </div>
+  {{!-- </div> --}}
 </section>
 </div>
