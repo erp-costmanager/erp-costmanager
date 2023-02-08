@@ -118,6 +118,10 @@
   --bs-btn-bg: var(--primary-btn-color);
 }
 
+.requested-purchases__filter-form__filter-btn:hover {
+  background-color: var(--primary-btn-color);
+}
+
 .collapse-container {
   margin-top: 20px;
 }

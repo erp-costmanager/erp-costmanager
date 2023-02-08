@@ -41,17 +41,17 @@
           {{#if currentUser}}
             {{#if (isAdmin currentUser)}}
               <a
-                class="d-block mt-1 text-decoration-none text-light"
+                class="d-block text-decoration-none text-light"
                 href="/admin"
               >Admin Portal</a>
             {{else}}
               <a
-                class="d-block mt-1 text-decoration-none text-light"
+                class="d-block text-decoration-none text-light"
                 href="/purchase-portal"
               >Purchase Portal</a>
             {{/if}}
             <form
-              class="nav__dropdown-box__logout-form mt-1 mb-0"
+              class="nav__dropdown-box__logout-form mb-0"
               action="/logout"
               method="post"
             >

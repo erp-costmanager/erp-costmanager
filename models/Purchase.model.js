@@ -19,7 +19,8 @@ const purchaseModel = new Schema(
       require: true,
       trim: true,
     },
-    approvedBy: { type: Schema.Types.ObjectId, ref: "User" },
+    comment: String,
+    reviewedBy: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true,
