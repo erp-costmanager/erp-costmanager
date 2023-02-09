@@ -27,7 +27,8 @@
 
 .company-users {
   flex-grow: 1;
-  /* color: #fff; */
+  display: flex;
+  flex-direction: column;
   background-color: var(--light-main-color);
 }
 
@@ -40,7 +41,7 @@
 
 .company-users__filter-title,
 .company-users__filter-form {
-  margin: 10px 0 0  20px;
+  margin: 10px 20px;
   color: #ffff;
 }
 
@@ -61,18 +62,20 @@
   gap: 6px;
 }
 
+.company-users__list {
+  margin: 10px 20px;
+}
+
 .collapse-container {
   margin-top: 30px;
 }
 
 .collapse-container__btn {
   width: 335px;
-  margin-left: 20px;
 }
 
 .collapse-container__inside {
   width: 335px;
-  margin: 10px 0 20px 20px;
 }
 
 .user-edit-form {
@@ -92,6 +95,7 @@
   width: 150px;
   object-fit: cover;
   border-radius: 50%;
+  margin-bottom: 15px;
 }
 
 .actions {
@@ -99,4 +103,18 @@
   justify-content: space-between;
   width: 100%;
   margin-top: 7px;
+}
+
+@media (min-width: 550px) {
+  .company-users {
+    align-items: center;
+  }
+
+  .admin-nav,
+  .company-users__title,
+  .company-users__list,
+  .collapse-container__btn,
+  .collapse-container__inside {
+    width: 500px;
+  }
 }

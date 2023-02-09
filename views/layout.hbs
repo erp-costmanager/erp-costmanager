@@ -38,27 +38,27 @@
       </nav>
       <div class="collapse" id="navbarToggleExternalContent">
         <ul class="hamburger-menu__dropdown bg-secondary m-0 border-0 fs-6">
-          <a class="d-block text-decoration-none text-light" href="/">Home</a>
           {{#if currentUser}}
             {{#if (isAdmin currentUser)}}
               <a
-                class="d-block mt-1 text-decoration-none text-light"
+                class="d-block text-decoration-none text-light"
                 href="/admin"
               >Admin Portal</a>
             {{else}}
               <a
-                class="d-block mt-1 text-decoration-none text-light"
+                class="d-block text-decoration-none text-light"
                 href="/purchase-portal"
               >Purchase Portal</a>
             {{/if}}
             <form
-              class="nav__dropdown-box__logout-form mt-1 mb-0"
+              class="nav__dropdown-box__logout-form mb-0"
               action="/logout"
               method="post"
             >
               <button class="bg-secondary text-warning border-0 p-0 m-0">Log out</button>
             </form>
           {{else}}
+            <a class="d-block text-decoration-none text-light" href="/">Home</a>
             <a
               class="d-block text-decoration-none text-light"
               href="/companySignup"
@@ -99,6 +99,8 @@
             <button class="bg-secondary text-warning border-0 p-0 m-0">Log out</button>
           </form>
         {{else}}
+        <a class="d-block text-decoration-none text-light fs-6" href="/">Home</a>
+        <a
           <a
             class="d-block text-decoration-none text-light fs-6"
             href="/companySignup"

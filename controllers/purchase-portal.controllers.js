@@ -1,13 +1,21 @@
+const Department = require("../models/Department.model");
 const Purchase = require("../models/Purchase.model");
 
 const getPurchasePortalPage = async (req, res, next) => {
   try {
     const currentUser = req.session.currentUser;
+    const userCompany = req.session.currentUser.company;
+    const userDepartment = req.session.currentUser.department;
+
+    /* const currentDepartment = await Department.findOne({name: userDepartment, company: userCompany}) */
+
     const purchaseRequests = await Purchase.find({
-      company: currentUser.company,
+      company: userCompany,
+      department: userDepartment,
     })
       .sort({ createdAt: -1 })
-      .populate("createdBy");
+      .populate("createdBy")
+      .populate("reviewedBy");
 
     res.render("purchase-portal/purchase-portal", {
       style: "purchase-portal/purchase-portal.css",
@@ -25,6 +33,7 @@ const postNewPurchase = async (req, res, next) => {
     const createdBy = req.session.currentUser._id;
     const status = "Pending";
     const company = req.session.currentUser.company;
+    const department = req.session.currentUser.department;
 
     if (typeof Number(cost) !== "number" || Number(cost) < 0) {
       try {
@@ -77,12 +86,24 @@ const postNewPurchase = async (req, res, next) => {
       company,
       createdBy,
       status,
+      department,
     });
 
     console.log(
       "A new purchase request was successfully created: ",
       newPurchase
     );
+
+    const departmentToAddPurchaseTo = await Department.findOne({
+      name: department,
+      company,
+    });
+
+    departmentToAddPurchaseTo.purchases.push(newPurchase._id);
+
+    departmentToAddPurchaseTo.save();
+
+    console.log("Purchase added to department: ", department);
 
     res.redirect("/purchase-portal");
   } catch (error) {
@@ -104,7 +125,9 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           company: userCompany,
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
+
         purchaseRequests = allRequests;
         break;
 
@@ -114,7 +137,8 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           status: "Pending",
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
 
         purchaseRequests = pendingRequests;
         break;
@@ -125,7 +149,8 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           status: "Approved",
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
 
         purchaseRequests = approvedRequests;
         break;
@@ -136,7 +161,8 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           status: "Disapproved",
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
 
         purchaseRequests = disapprovedRequests;
         break;
@@ -147,7 +173,8 @@ const postFilterPurchaseRequests = async (req, res, next) => {
           createdBy: userId,
         })
           .sort({ createdAt: -1 })
-          .populate("createdBy");
+          .populate("createdBy")
+          .populate("reviewedBy");
 
         purchaseRequests = myRequests;
         break;
@@ -168,12 +195,18 @@ const postFilterPurchaseRequests = async (req, res, next) => {
 
 const postProcessPurchaseRequest = async (req, res, next) => {
   try {
-    const { id, action } = req.body;
+    const { id, action, comment, managerId } = req.body;
 
     if (action === "Approve") {
-      const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
-        status: "Approved",
-      });
+      const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(
+        id,
+        {
+          status: "Approved",
+          comment,
+          reviewedBy: managerId,
+        },
+        { new: true }
+      );
 
       console.log(
         "Changing status of purchase request to approved. Details ",
@@ -182,6 +215,8 @@ const postProcessPurchaseRequest = async (req, res, next) => {
     } else if (action === "Disapprove") {
       const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
         status: "Disapproved",
+        comment,
+        reviewedBy: managerId,
       });
 
       console.log(
