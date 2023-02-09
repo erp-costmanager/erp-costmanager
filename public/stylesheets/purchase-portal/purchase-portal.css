@@ -57,7 +57,6 @@
   width: 100%;
 }
 
-.collapse-container__request-new-purchase-btn,
 .collapse-container__request-new-purchase-btn:hover,
 .collapse-container__request-new-purchase-btn:active {
   color: #fff;
@@ -88,6 +87,7 @@
 .requested-purchases__filter-title,
 .requested-purchases__filter-form {
   align-self: flex-start;
+  padding: 5px;
 
   color: #ffff;
 }
@@ -97,7 +97,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 10px;
-  width: 335px;
+  width: 330px;
   margin-bottom: 0;
 }
 
@@ -172,7 +172,8 @@
 @media (min-width: 500px) {
   .purchase-portal-nav,
   .collapse-container,
-  .requested-purchases {
+  .requested-purchases,
+  .request-new-purchase-btn__card {
     width: 450px;
   }
 }
