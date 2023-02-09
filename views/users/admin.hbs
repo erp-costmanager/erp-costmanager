@@ -1,9 +1,9 @@
+<section class="company-users">
 <nav class="admin-nav">
   <a class="admin-nav__link active-link" href="/admin">Admin Portal</a>
   <a class="admin-nav__link inactive-link" href="/profile">Profile</a>
 </nav>
 
-<section class="company-users">
   <h4 class="company-users__title">Company Users</h3>
     <h6 class="company-users__filter-title">Filter by status:</h6>
     <form action="/admin/filterUserStatus" method="post" class="company-users__filter-form">
@@ -67,6 +67,21 @@
               <option value="Employee"{{#if (isEmployee this)}}selected{{/if}}>Employee</option>
               <option value="Manager" {{#if (isManager this)}}selected{{/if}}>Manager</option>
               <option value="Admin" {{#if (isAdmin this)}}selected{{/if}}>Admin</option>
+            </select>
+          </label>
+          <label for="department"><strong>Department:</strong>
+            <select name="department">
+              <option value="Business development" {{isSelectedDepartment this "Business development"}}>Business development</option>
+              <option value="Customer service" {{isSelectedDepartment this "Customer service"}}>Customer service</option>
+              <option value="Engineering" {{isSelectedDepartment this "Engineering"}}>Engineering</option>
+              <option value="Finance" {{isSelectedDepartment this "Finance"}}>Finance</option>
+              <option value="General management" {{isSelectedDepartment this "General management"}}>General management</option>
+              <option value="Human resources" {{isSelectedDepartment this "Human resources"}}>Human resources</option>
+              <option value="IT" {{isSelectedDepartment this "IT"}}>IT</option>
+              <option value="Legal" {{isSelectedDepartment this "Legal"}}>Legal</option>
+              <option value="Marketing" {{isSelectedDepartment this "Marketing"}}>Marketing</option>
+              <option value="Operations" {{isSelectedDepartment this "Operations"}}>Operations</option>
+              <option value="Sales" {{isSelectedDepartment this "Sales"}}>Sales</option>
             </select>
           </label>
           <div class="actions">

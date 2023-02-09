@@ -1,9 +1,11 @@
 module.exports = (hbs) => {
   hbs.registerHelper(
     "isPendingAndIsUserManager",
-    (purchaseRequest) =>
-      purchaseRequest.createdBy.role === "Manager" &&
-      purchaseRequest.status === "Pending"
+    (purchaseRequest, currentUser) => {
+      return (
+        currentUser.role === "Manager" && purchaseRequest.status === "Pending"
+      );
+    }
   );
   hbs.registerHelper(
     "isPendingAndIsUsersOwnRequest",
@@ -20,6 +22,14 @@ module.exports = (hbs) => {
     "isDisapproved",
     (purchaseRequest) => purchaseRequest.status === "Disapproved"
   );
+
+  hbs.registerHelper(
+    "isApprovedOrDisapproved",
+    (purchaseRequest) =>
+      purchaseRequest.status === "Approved" ||
+      purchaseRequest.status === "Disapproved"
+  );
+
   hbs.registerHelper("isEmployee", (user) => user.role === "Employee");
   hbs.registerHelper("isManager", (user) => user.role === "Manager");
   hbs.registerHelper("isAdmin", (user) => user.role === "Admin");
@@ -52,5 +62,9 @@ module.exports = (hbs) => {
   hbs.registerHelper(
     "isRemovedFilterChecked",
     (filterOption) => filterOption === "removed"
-  )
+  );
+
+  hbs.registerHelper("isSelectedDepartment", (user, optionValue) =>
+    user.department === optionValue ? "selected" : ""
+  );
 };

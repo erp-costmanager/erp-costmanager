@@ -34,6 +34,7 @@
 .user-container__title {
   margin: 10px;
   padding-bottom: 5px;
+  max-width: 450px;
   color: #fff;
   border-bottom: 1px solid var(--secondary-highlight-color);
 }
@@ -48,23 +49,23 @@
 
 .form-floating > label {
   margin-top: -0.5rem;
-  padding: 1rem .5rem;
+  padding: 1rem 0.5rem;
 }
 
-.form-floating>.form-control:not(:placeholder-shown)~label,
-.form-floating>.form-control:focus~label {
-  transform: scale(.80) translateY(-0.20rem) translateX(0.15rem);
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-control:focus ~ label {
+  transform: scale(0.8) translateY(-0.2rem) translateX(0.15rem);
 }
 
-.form-floating > .form-control{
+.form-floating > .form-control {
   height: 2rem;
   padding: 0.25rem;
   line-height: 1;
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
-.form-floating>.form-control:focus,
-.form-floating>.form-control:not(:placeholder-shown){
+.form-floating > .form-control:focus,
+.form-floating > .form-control:not(:placeholder-shown) {
   padding-top: 1.625rem;
   padding-left: 0.6rem;
   height: 2rem;
@@ -80,4 +81,17 @@
 
 form {
   margin-block-end: 0;
+}
+
+@media (min-width: 500px) {
+  .user-container {
+    align-items: center;
+  }
+
+  .card-body,
+  .save-btn,
+  .user-container__title,
+  .user-nav {
+    width: 450px;
+  }
 }

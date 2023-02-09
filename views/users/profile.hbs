@@ -1,4 +1,8 @@
-<nav class="user-nav">
+  <section class="user-container d-flex flex-column">
+    {{#if errorMessage}}
+  <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
+  {{/if}}
+    <nav class="user-nav">
     {{#if (isNotAdmin currentUser)}}
     <a class="user-nav__link inactive-link" href="/purchase-portal">Purchase Portal</a>
     {{/if}}
@@ -7,12 +11,6 @@
     {{/if}}
     <a class="user-nav__link active-link" href="/profile">Profile</a>
 </nav>
-  
-<section class="user-container d-flex flex-column">
-  {{#if errorMessage}}
-  <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
-  {{/if}}
-    
     {{#with currentUser}}
     <h4 class="user-container__title">Hello, {{firstName}} {{lastName}}</h3>
     {{#if pictureURL}}
@@ -32,8 +30,8 @@
               <input type="email" id="floatingInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="email" value="{{email}}" placeholder="E-mail">
               <label for="floatingInput">E-mail</label>
             </div>
-            <div class="card card-body mb-2">
-              <span class="text-center mb-1" id="inputGroup-sizing-sm">Change Password</span>
+            <div class="card mb-2">
+              <span class="text-center mb-1 py-2" id="inputGroup-sizing-sm">Change Password</span>
               <div class="form-floating mb-1">
                 <input type="password" id="floatingInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="oldPassword" placeholder="Enter old password">
                 <label for="floatingInput">Enter old password</label>
@@ -53,7 +51,7 @@
             </div>
             <input type="hidden" name="id" value="{{_id}}">
           </div>
-            <button type="submit" class="btn btn-primary mx-3">Save changes</button>
+            <button type="submit" class="btn btn-primary mx-3 save-btn">Save changes</button>
         </form>
     {{/with}}
 </section>
