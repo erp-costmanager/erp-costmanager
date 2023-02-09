@@ -1,6 +1,6 @@
-const nodemailder = require('nodemailer')
+const nodemailer = require('nodemailer')
 
-const transporter = nodemailder.createTransport({
+const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
         user: process.env.EMAIL_SENDER,
