@@ -63,4 +63,8 @@ module.exports = (hbs) => {
     "isRemovedFilterChecked",
     (filterOption) => filterOption === "removed"
   );
+
+  hbs.registerHelper("isSelectedDepartment", (user, optionValue) =>
+    user.department === optionValue ? "selected" : ""
+  );
 };

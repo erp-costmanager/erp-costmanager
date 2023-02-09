@@ -1,10 +1,17 @@
+const Department = require("../models/Department.model");
 const Purchase = require("../models/Purchase.model");
 
 const getPurchasePortalPage = async (req, res, next) => {
   try {
     const currentUser = req.session.currentUser;
+    const userCompany = req.session.currentUser.company;
+    const userDepartment = req.session.currentUser.department;
+
+    /* const currentDepartment = await Department.findOne({name: userDepartment, company: userCompany}) */
+
     const purchaseRequests = await Purchase.find({
-      company: currentUser.company,
+      company: userCompany,
+      department: userDepartment,
     })
       .sort({ createdAt: -1 })
       .populate("createdBy")
@@ -26,6 +33,7 @@ const postNewPurchase = async (req, res, next) => {
     const createdBy = req.session.currentUser._id;
     const status = "Pending";
     const company = req.session.currentUser.company;
+    const department = req.session.currentUser.department;
 
     if (typeof Number(cost) !== "number" || Number(cost) < 0) {
       try {
@@ -78,6 +86,7 @@ const postNewPurchase = async (req, res, next) => {
       company,
       createdBy,
       status,
+      department,
     });
 
     console.log(
