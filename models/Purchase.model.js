@@ -21,6 +21,22 @@ const purchaseModel = new Schema(
     },
     comment: String,
     reviewedBy: { type: Schema.Types.ObjectId, ref: "User" },
+    department: {
+      type: String,
+      enum: [
+        "Business development",
+        "Customer service",
+        "Engineering",
+        "Finance",
+        "General management",
+        "Human resources",
+        "IT",
+        "Legal",
+        "Marketing",
+        "Operations",
+        "Sales",
+      ],
+    },
   },
   {
     timestamps: true,
