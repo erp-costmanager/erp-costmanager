@@ -1,5 +1,6 @@
 const capitalize = require("../utils/capitalize");
 const bcryptjs = require("bcryptjs");
+const transporter = require("../config/nodemailer");
 
 const Company = require("../models/Company.model");
 const User = require("../models/User.model");
@@ -134,6 +135,51 @@ const postAdminPage = async (req, res, next) => {
 
   try {
     const user = await User.findById(id);
+    console.log(status, role, process);
+    console.log(user.status, user.role);
+    let emailMessage, emailSubject;
+    if (
+      (status && status !== user.status) ||
+      (role && role !== user.role) ||
+      process !== "Save changes"
+    ) {
+      if ((status && user.status !== status) || process === "Reinstate") {
+        if (status === "Approved" || process === "Reinstate") {
+          emailSubject = "Your request at Purchase manager has been approved!";
+          if (role === "Employee" || (!role && user.role === "Employee"))
+            emailMessage = `You have been granted regular access to the purchase portal! You can now create new purchase requests at purchase manager.`;
+          if (role === "Manager" || (!role && user.role === "Manager"))
+            emailMessage = `Your access as manager has been granted. You now have access to approve new purchase requests`;
+          if (role === "Admin" || (!role && user.role === "Admin"))
+            emailMessage =
+              "Your access as an administrator has been granted. You now have access to the admin portal and can validate new users and set their roles in the company";
+        } else if (status === "Disapproved") {
+          emailSubject = "Access to purchase manager denied";
+          emailMessage =
+            "Your request to purchase manager hase been denied. Please contact your company administrator.";
+        }
+      } else if (role !== user.role) {
+        emailSubject = "Your access at Purchase manager has changed!";
+        if (role === "Employee")
+          emailMessage = `You have been granted regular access to the purchase portal! You can now create new purchase requests at purchase manager.`;
+        if (role === "Manager")
+          emailMessage = `You have been granted access as manager. You now have access to approve new purchase requests`;
+        if (role === "Admin")
+          emailMessage =
+            "You have been granted access as administrator. You now have access to the admin portal and can validate new users and set their roles in the company";
+      } else if (process === "Remove") {
+        emailSubject = "Access to purchase manager revoked";
+        emailMessage =
+          "Your access to purchase manager hase been removed. Looks like you're leaveng the company. If this seems to be an error please contact your company administrator.";
+      }
+      await transporter.sendMail({
+        from: "noreply@purchase-manager.com",
+        to: user.email,
+        subject: emailSubject,
+        text: emailMessage,
+      });
+    }
+
     if (process === "Save changes") user.role = role;
     if (process === "Remove") user.status = "Removed";
     if (process === "Reinstate") user.status = "Approved";
