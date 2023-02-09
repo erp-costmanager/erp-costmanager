@@ -6,7 +6,7 @@
   {{#if errorMessage}}
   <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
   {{/if}}
-<p class="collapse-container">
+<p class="collapse-container request-new-purchase-btn">
   <a
     class="btn collapse-container__btn btn-primary "
     data-bs-toggle="collapse"
@@ -19,7 +19,7 @@
   </a>
 
 </p>
-<div class="collapse collapse-container__inside" id="newPurchaseRequest">
+<div class="collapse collapse-container__inside request-new-purchase-btn__card" id="newPurchaseRequest">
   <div class="card card-body">
     <form
       class="new-purchase-form"
@@ -64,7 +64,6 @@
     </label>
     <button class="btn requested-purchases__filter-form__filter-btn">Filter</button>
   </form>
-  {{!-- <div class="requested-purchases__item-list"> --}}
     {{#each purchaseRequests}}
     <p class="collapse-container collapse-container-requested-item">
     <a
@@ -87,7 +86,7 @@
     </a>
 
     </p>
-<div class="collapse collapse-container__inside" id="id{{_id}}">
+<div class="collapse collapse-container__inside collapse-container__purchase-request-item__card" id="id{{_id}}">
   <div class="card card-body">
    <form
       class="purchase-request-form"
@@ -120,6 +119,5 @@
   </div>
 </div>
 {{/each}}
-  {{!-- </div> --}}
 </section>
 </div>
