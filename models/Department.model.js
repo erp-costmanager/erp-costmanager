@@ -21,6 +21,7 @@ const departmentModel = new Schema(
     },
     company: { type: Schema.Types.ObjectId, ref: "Company" },
     users: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    purchases: [{ type: Schema.Types.ObjectId, ref: "Purchase" }],
   },
   {
     timestamps: true,

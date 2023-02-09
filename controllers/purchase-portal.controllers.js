@@ -94,6 +94,17 @@ const postNewPurchase = async (req, res, next) => {
       newPurchase
     );
 
+    const departmentToAddPurchaseTo = await Department.findOne({
+      name: department,
+      company,
+    });
+
+    departmentToAddPurchaseTo.purchases.push(newPurchase._id);
+
+    departmentToAddPurchaseTo.save();
+
+    console.log("Purchase added to department: ", department);
+
     res.redirect("/purchase-portal");
   } catch (error) {
     next(error);
