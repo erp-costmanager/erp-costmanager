@@ -35,6 +35,22 @@ const userSchema = new Schema(
       default: "Pending",
     },
     pictureURL: String,
+    department: {
+      type: String,
+      enum: [
+        "Business development",
+        "Customer service",
+        "Engineering",
+        "Finance",
+        "General management",
+        "Human resources",
+        "IT",
+        "Legal",
+        "Marketing",
+        "Operations",
+        "Sales",
+      ],
+    },
   },
   {
     timestamps: true,

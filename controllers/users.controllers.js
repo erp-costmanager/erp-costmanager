@@ -4,6 +4,7 @@ const transporter = require("../config/nodemailer");
 
 const Company = require("../models/Company.model");
 const User = require("../models/User.model");
+const Department = require("../models/Department.model");
 
 const getProfilePage = (req, res, next) => {
   res.render("users/profile", {
@@ -131,12 +132,12 @@ const filterUserStatus = async (req, res, next) => {
 };
 
 const postAdminPage = async (req, res, next) => {
-  const { status, role, id, process } = req.body;
+  const { status, role, id, process, department } = req.body;
 
   try {
+    const companyId = req.session.currentUser.company;
     const user = await User.findById(id);
-    console.log(status, role, process);
-    console.log(user.status, user.role);
+
     let emailMessage, emailSubject;
     if (
       (status && status !== user.status) ||
@@ -180,7 +181,53 @@ const postAdminPage = async (req, res, next) => {
       });
     }
 
-    if (process === "Save changes") user.role = role;
+    if (process === "Save changes") {
+      user.role = role;
+
+      if (user.department !== department) {
+        const oldDepartment = user.department;
+        const usersOldDepartment = await Department.findOne({
+          name: oldDepartment,
+          company: companyId,
+        });
+
+        if (usersOldDepartment) {
+          usersOldDepartment.users.pull({ _id: user._id });
+
+          await usersOldDepartment.save();
+        }
+
+        const newDepartment = await Department.findOne({
+          name: department,
+          company: companyId,
+        });
+
+        if (!newDepartment) {
+          const createNewDepartment = await Department.create({
+            name: department,
+            company: companyId,
+            users: [user._id],
+          });
+
+          console.log(
+            "A new department was successfully created, and the user added to it: ",
+            createNewDepartment
+          );
+        } else {
+          newDepartment.users.push(user._id);
+
+          await newDepartment.save();
+
+          console.log(
+            "The user was succesfully moved to the new department: ",
+            newDepartment
+          );
+        }
+
+        user.department = department;
+      }
+    }
+    
     if (process === "Remove") user.status = "Removed";
     if (process === "Reinstate") user.status = "Approved";
     if (status) user.status = status;
