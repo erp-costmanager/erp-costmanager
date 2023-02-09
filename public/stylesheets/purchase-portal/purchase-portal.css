@@ -136,7 +136,8 @@
   justify-content: space-between;
 }
 
-.purchase-request-form__floating-input-container {
+.purchase-request-form__floating-input-container,
+.purchase-request-edit-form__floating-input-container {
   width: 100%;
 }
 
@@ -162,6 +163,7 @@
 .purchase-request-form__btns {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 .purchase-request-form__edit-btn {
