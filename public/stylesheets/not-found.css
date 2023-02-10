@@ -1,5 +1,7 @@
 .not-found__container {
     flex-grow: 1;
-    margin: 50px 40px;
+    padding: 50px 40px;
     text-align: center;
+    background-color: var(--light-main-color);
+    color: #fff;
 }
