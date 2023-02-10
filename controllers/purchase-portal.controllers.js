@@ -1,3 +1,5 @@
+const transporter = require("../config/nodemailer");
+const User = require("../models/User.model");
 const Department = require("../models/Department.model");
 const Purchase = require("../models/Purchase.model");
 
@@ -6,8 +8,6 @@ const getPurchasePortalPage = async (req, res, next) => {
     const currentUser = req.session.currentUser;
     const userCompany = req.session.currentUser.company;
     const userDepartment = req.session.currentUser.department;
-
-    /* const currentDepartment = await Department.findOne({name: userDepartment, company: userCompany}) */
 
     const purchaseRequests = await Purchase.find({
       company: userCompany,
@@ -89,11 +89,25 @@ const postNewPurchase = async (req, res, next) => {
       department,
     });
 
+    const managerUsers = await User.find({
+      role: "Manager",
+      company: newPurchase.company,
+      department: newPurchase.department,
+    });
+
+    managerUsers.forEach(async (manager) => {
+      await transporter.sendMail({
+        from: "noreply@purchase-manager.com",
+        to: manager.email,
+        subject: "New Purchase Request",
+        text: `A New Purchase request has been made. Please verify its approval!`,
+      });
+    });
+
     console.log(
       "A new purchase request was successfully created: ",
       newPurchase
     );
-
     const departmentToAddPurchaseTo = await Department.findOne({
       name: department,
       company,
@@ -197,8 +211,10 @@ const postProcessPurchaseRequest = async (req, res, next) => {
   try {
     const { id, action, comment, managerId } = req.body;
 
+    let notifyUser, updatedPurchaseRequest;
+
     if (action === "Approve") {
-      const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(
+      updatedPurchaseRequest = await Purchase.findByIdAndUpdate(
         id,
         {
           status: "Approved",
@@ -208,16 +224,20 @@ const postProcessPurchaseRequest = async (req, res, next) => {
         { new: true }
       );
 
+      notifyUser = true;
+
       console.log(
         "Changing status of purchase request to approved. Details ",
         updatedPurchaseRequest
       );
     } else if (action === "Disapprove") {
-      const updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
+      updatedPurchaseRequest = await Purchase.findByIdAndUpdate(id, {
         status: "Disapproved",
         comment,
         reviewedBy: managerId,
       });
+
+      notifyUser = true;
 
       console.log(
         "Changing status of purchase request to dissaproved. Details ",
@@ -230,6 +250,16 @@ const postProcessPurchaseRequest = async (req, res, next) => {
         "Purchase request successfully deleted: ",
         deletedPurchaseRequest
       );
+    }
+
+    if (notifyUser) {
+      const userToNotify = await User.findById(updatedPurchaseRequest.createdBy);
+      await transporter.sendMail({
+        from: "noreply@purchase-manager.com",
+        to: userToNotify.email,
+        subject: "Your purchase request has been processed!",
+        text: `The Pending status of your purchase request is no more! Go to the Purchase portal to see the details!`,
+      });
     }
   } catch (error) {
     next(error);
