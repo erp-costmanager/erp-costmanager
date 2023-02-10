@@ -2,6 +2,7 @@ const transporter = require("../config/nodemailer");
 const User = require("../models/User.model");
 const Department = require("../models/Department.model");
 const Purchase = require("../models/Purchase.model");
+const Company = require("../models/Company.model")
 
 const getPurchasePortalPage = async (req, res, next) => {
   try {
@@ -112,12 +113,14 @@ const postNewPurchase = async (req, res, next) => {
       name: department,
       company,
     });
-
     departmentToAddPurchaseTo.purchases.push(newPurchase._id);
-
     departmentToAddPurchaseTo.save();
 
     console.log("Purchase added to department: ", department);
+
+    const companyDB = await Company.findById(company);
+    companyDB.purchases.push(newPurchase._id);
+    companyDB.save();
 
     res.redirect("/purchase-portal");
   } catch (error) {
@@ -250,6 +253,20 @@ const postProcessPurchaseRequest = async (req, res, next) => {
         "Purchase request successfully deleted: ",
         deletedPurchaseRequest
       );
+
+      const departmentToAddPurchaseTo = await Department.findOne({
+        name: deletedPurchaseRequest.department,
+        company: deletedPurchaseRequest.company,
+      });
+      departmentToAddPurchaseTo.purchases.pull(deletedPurchaseRequest._id);
+      departmentToAddPurchaseTo.save();
+  
+      console.log("Purchase removed from department: ", deletedPurchaseRequest.department);
+  
+      const companyDB = await Company.findById(deletedPurchaseRequest.company);
+      companyDB.purchases.pull(deletedPurchaseRequest._id);
+      companyDB.save();
+
     }
 
     if (notifyUser) {
