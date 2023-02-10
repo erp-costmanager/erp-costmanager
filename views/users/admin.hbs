@@ -1,0 +1,103 @@
+<section class="company-users">
+<nav class="admin-nav">
+  <a class="admin-nav__link active-link" href="/admin">Admin Portal</a>
+  <a class="admin-nav__link inactive-link" href="/profile">Profile</a>
+</nav>
+
+  <h4 class="company-users__title">Company Users</h3>
+    <h6 class="company-users__filter-title">Filter by status:</h6>
+    <form action="/admin/filterUserStatus" method="post" class="company-users__filter-form">
+     <label for="all-users">All
+     <input type="radio" name="filterOption" value="all" id="all-users" checked{{#if (isAllFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <label for="pending-users">Pending
+     <input type="radio" name="filterOption" value="pending" id="pending-users" {{#if (isPendingFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <label for="approved-users">Approved
+     <input type="radio" name="filterOption" value="approved" id="approved-users" {{#if (isApprovedFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <label for="disapproved-users">Disapproved
+     <input type="radio" name="filterOption" value="disapproved" id="disapproved-users" {{#if (isDisapprovedFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <label for="removed-users">Removed
+     <input type="radio" name="filterOption" value="removed" id="removed-users" {{#if (isRemovedFilterChecked filterOption)}} checked {{/if}}>
+     </label>
+     <button class="btn btn-primary">Filter</button>
+   </form>
+  <div class="company-users__list">
+    {{#each usersList}}
+    <p class="collapse-container">
+      <a
+    class="btn 
+    {{#if (isPending this)}}btn-warning
+    {{else if (isApproved this)}}btn-success
+    {{else if (isDisapproved this)}}btn-danger
+    {{else if (isRemoved this)}}btn-secondary
+    {{/if}}
+     collapse-container__btn btn-primary"
+    data-bs-toggle="collapse"
+    href="#id{{_id}}"
+    role="button"
+    aria-expanded="false"
+    aria-controls="id{{_id}}"
+  >
+    Item: {{firstName}} {{lastName}} | Status: {{status}}
+  </a>
+    </p>
+    <div class="collapse collapse-container__inside" id="id{{_id}}">
+      <div class="card card-body">
+        <form class="user-edit-form" action="/admin/edit" method="post">
+          {{#if pictureURL}}
+          <img src="{{pictureURL}}" class="card-img-top mx-auto" alt="User profile picture">
+          {{/if}}
+          <p><strong>Name:</strong> {{firstName}} {{lastName}}</p>
+          <p><strong>Email:</strong> {{email}}</p>
+          {{#if (isPending this)}}
+          <label for="status"><strong>Status:</strong>
+            <select name="status">
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Disapproved">Disapproved</option>
+            </select>
+          </label>
+          {{/if}}
+          {{#if (isNotRemovedOrDisapproved this)}}
+          <label for="role"><strong>Role:</strong>
+            <select name="role">
+              <option value="Employee"{{#if (isEmployee this)}}selected{{/if}}>Employee</option>
+              <option value="Manager" {{#if (isManager this)}}selected{{/if}}>Manager</option>
+              <option value="Admin" {{#if (isAdmin this)}}selected{{/if}}>Admin</option>
+            </select>
+          </label>
+          <label for="department"><strong>Department:</strong>
+            <select name="department">
+              <option value="Business development" {{isSelectedDepartment this "Business development"}}>Business development</option>
+              <option value="Customer service" {{isSelectedDepartment this "Customer service"}}>Customer service</option>
+              <option value="Engineering" {{isSelectedDepartment this "Engineering"}}>Engineering</option>
+              <option value="Finance" {{isSelectedDepartment this "Finance"}}>Finance</option>
+              <option value="General management" {{isSelectedDepartment this "General management"}}>General management</option>
+              <option value="Human resources" {{isSelectedDepartment this "Human resources"}}>Human resources</option>
+              <option value="IT" {{isSelectedDepartment this "IT"}}>IT</option>
+              <option value="Legal" {{isSelectedDepartment this "Legal"}}>Legal</option>
+              <option value="Marketing" {{isSelectedDepartment this "Marketing"}}>Marketing</option>
+              <option value="Operations" {{isSelectedDepartment this "Operations"}}>Operations</option>
+              <option value="Sales" {{isSelectedDepartment this "Sales"}}>Sales</option>
+            </select>
+          </label>
+          <div class="actions">
+            <input type="submit" value="Save changes" name="process" class="btn btn-primary">
+            <input type="submit" value="Remove" name="process" class="btn btn-danger">
+          </div>
+          {{else}}
+          <p><strong>Role:</strong> {{role}}</p>
+          <div class="actions">
+            <input type="submit" value="Reinstate" name="process" class="btn btn-success">
+          </div>
+          {{/if}}
+          <input type="hidden" name="id" value="{{_id}}">
+        </form>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>

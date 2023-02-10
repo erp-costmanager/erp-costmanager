@@ -1,0 +1,132 @@
+<div class="purchase-portal-container">
+<nav class="purchase-portal-nav" >
+  <a class="purchase-portal-nav__link active-link" href="/purchase-portal">Purchase Portal</a>
+  <a class="purchase-portal-nav__link inactive-link" href="/profile">Profile</a>
+</nav>
+  {{#if errorMessage}}
+  <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
+  {{/if}}
+<p class="collapse-container request-new-purchase-btn">
+  <a
+    class="btn collapse-container__btn btn-primary "
+    data-bs-toggle="collapse"
+    href="#newPurchaseRequest"
+    role="button"
+    aria-expanded="false"
+    aria-controls="newPurchaseRequest"
+  >
+    Request new purchase
+  </a>
+
+</p>
+<div class="collapse collapse-container__inside request-new-purchase-btn__card" id="newPurchaseRequest">
+  <div class="card card-body">
+    <form
+      class="new-purchase-form"
+      action="/purchase-portal/newPurchase"
+      method="post"
+    >
+      <div class="form-floating mb-3 purchase-request-form__floating-input-container">
+      <input type="text" name="item" class="form-control" id="floatingInputItem" placeholder="Item">
+      <label for="floatingInputItem">Item</label>
+      </div>
+      <div class="form-floating mb-3 purchase-request-form__floating-input-container">
+      <input type="number" name="cost" class="form-control" id="floatingInputCost" placeholder="Cost">
+      <label for="floatingInputCost">Cost</label>
+      </div>
+      <div class="form-floating mb-3 purchase-request-form__floating-input-container">
+      <textarea class="form-control" placeholder="Reason for request" id="floatingTextarea" name="reason" id="reason" style="height: 75px;"></textarea>
+      <label for="floatingInputCost">Reason for request</label>
+      </div>
+      <button class="new-purchase-form__btn btn btn-success">Submit</button>
+    </form>
+  </div>
+</div>
+
+<section class="requested-purchases">
+  <h4 class="requested-purchases__title">Purchase requests</h3>
+  <h6 class="requested-purchases__filter-title">Filter by type of request:</h6>
+   <form action="/purchase-portal/filterPurchaseRequests" method="post" class="requested-purchases__filter-form">
+    <label for="all-requests">All
+    <input type="radio" name="filterOption" value="all" id="all-requests" checked{{#if (isAllFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <label for="pending-requests">Pending
+    <input type="radio" name="filterOption" value="pending" id="pending-requests" {{#if (isPendingFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <label for="approved-requests">Approved
+    <input type="radio" name="filterOption" value="approved" id="approved-requests" {{#if (isApprovedFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <label for="disapproved-requests">Disapproved
+    <input type="radio" name="filterOption" value="disapproved" id="disapproved-requests" {{#if (isDisapprovedFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <label for="my-requests">My requests
+    <input type="radio" name="filterOption" value="myRequests" id="my-requests" {{#if (isMyRequestsFilterChecked filterOption)}} checked {{/if}}>
+    </label>
+    <button class="btn requested-purchases__filter-form__filter-btn">Filter</button>
+  </form>
+    {{#each purchaseRequests}}
+    <p class="collapse-container collapse-container-requested-item">
+    <a
+    class="btn 
+    {{#if (isPending this)}}
+    btn-warning 
+    {{else if (isApproved this)}}
+    btn-success
+    {{else}}
+    btn-danger
+    {{/if}}
+    collapse-container__btn collapse-container__purchase-request-item"
+    data-bs-toggle="collapse"
+    href="#id{{_id}}"
+    role="button"
+    aria-expanded="false"
+    aria-controls="id{{_id}}"
+  >
+    Item: {{item}} | Cost: {{cost}} | Status: {{status}}
+    </a>
+
+    </p>
+<div class="collapse collapse-container__inside collapse-container__purchase-request-item__card" id="id{{_id}}">
+  <div class="card card-body">
+   <form
+      class="purchase-request-form"
+      action="/purchase-portal/processPurchaseRequest"
+      method="post"
+    >
+      <output name="item"><strong>Item:</strong> {{item}}</output>
+      <output name="cost"><strong>Cost:</strong> {{cost}}</output>
+      <output name="reason"><strong>Reason for request:</strong> {{reason}}</output>
+      <output><strong>Requested by:</strong> {{createdBy.firstName}} {{createdBy.lastName}}</output>
+      <output><strong>Manager's comment:</strong> {{comment}}</output>
+      {{#if (isApprovedOrDisapproved this)}}
+      <output><strong>Reviewed by:</strong> {{reviewedBy.firstName}} {{reviewedBy.lastName}}</output>
+      {{/if}}
+      {{#if (isPendingAndIsUsersOwnRequest this ../currentUser)}}
+      <div class="purchase-request-form__btns">
+       <input type="submit" name="action" value="Delete" class="btn btn-danger purchase-request-form__delete-btn">
+       <a href="/purchase-portal/edit-purchase/{{_id}}" class="btn btn-info purchase-request-form__edit-btn">Edit</a>
+      </div>
+      {{else if (isPendingAndIsUserManager this ../currentUser)}}
+      <div class="form-floating mb-3 mt-1 purchase-request-edit-form__floating-input-container">
+      <textarea class="form-control" placeholder="Manager's comment" id="floatingTextarea" name="comment" id="comment" style="height: 75px;"></textarea>
+      <label for="comment">Manager's comment</label>
+      </div>
+      <input name="managerId" type="hidden" value="{{../currentUser._id}}">
+      <div class="purchase-request-form__btns">
+      <input type="submit" name="action" value="Approve" class="purchase-request-form__btn btn btn-success">
+      <input type="submit" name="action" value="Disapprove" class="purchase-request-form__btn btn btn-danger">
+      </div>
+
+      {{else}}
+      <output><strong>Status:</strong>
+      {{status}}
+      </output>
+      {{/if}}
+      <input name="id" type="hidden" value="{{_id}}">
+    </form>
+  
+  </div>
+</div>
+{{/each}}
+</section>
+</div>

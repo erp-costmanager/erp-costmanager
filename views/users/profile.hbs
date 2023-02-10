@@ -1,0 +1,57 @@
+  <section class="user-container d-flex flex-column">
+    {{#if errorMessage}}
+  <div class="text-bg-danger p-3 my-2 w-100 text-center">{{errorMessage}}</div>
+  {{/if}}
+    <nav class="user-nav">
+    {{#if (isNotAdmin currentUser)}}
+    <a class="user-nav__link inactive-link" href="/purchase-portal">Purchase Portal</a>
+    {{/if}}
+    {{#if (isAdmin currentUser)}}
+    <a class="user-nav__link inactive-link" href="/admin">Admin Portal</a>
+    {{/if}}
+    <a class="user-nav__link active-link" href="/profile">Profile</a>
+</nav>
+    {{#with currentUser}}
+    <h4 class="user-container__title">Hello, {{firstName}} {{lastName}}</h3>
+    {{#if pictureURL}}
+    <img src="{{pictureURL}}" class="card-img-top mx-auto mt-3" alt="User profile picture">
+    {{/if}}
+    <div class="card card-body bg-info m-3">
+        <form class="user-edit-form" action="/profile" method="post" enctype="multipart/form-data">
+            <div class="form-floating mb-2">
+              <input type="text" id="floatingInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="firstName" value="{{firstName}}" placeholder="First Name">
+              <label for="floatingInput">First Name</label>
+            </div>
+            <div class="form-floating mb-2">
+              <input type="text" id="floatingInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="lastName" value="{{lastName}}" placeholder="Last Name">
+              <label for="floatingInput">Last Name</label>
+            </div>
+            <div class="form-floating mb-2">
+              <input type="email" id="floatingInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="email" value="{{email}}" placeholder="E-mail">
+              <label for="floatingInput">E-mail</label>
+            </div>
+            <div class="card mb-2">
+              <span class="text-center mb-1 py-2" id="inputGroup-sizing-sm">Change Password</span>
+              <div class="form-floating mb-1">
+                <input type="password" id="floatingInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="oldPassword" placeholder="Enter old password">
+                <label for="floatingInput">Enter old password</label>
+              </div>
+              <div class="form-floating mb-1">
+                <input type="password" id="floatingInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="newPassword" placeholder="Enter new password">
+                <label for="floatingInput">Enter new password</label>
+              </div>
+              <div class="form-floating mb-1">
+                <input type="password" id="floatingInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="verifyPassword" placeholder="Confirm new password">
+                <label for="floatingInput">Confirm new password</label>
+              </div>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="file" id="floatingInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="user-profile-image" placeholder="Profile picture">
+              <label for="floatingInput">Profile picture</label>
+            </div>
+            <input type="hidden" name="id" value="{{_id}}">
+          </div>
+            <button type="submit" class="btn btn-primary mx-3 save-btn">Save changes</button>
+        </form>
+    {{/with}}
+</section>

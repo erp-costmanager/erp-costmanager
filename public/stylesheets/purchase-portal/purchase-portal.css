@@ -1,0 +1,181 @@
+.purchase-portal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+
+  background-color: var(--light-main-color);
+}
+
+.purchase-portal-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 20px 0 0;
+  width: 100%;
+
+  background-color: var(--light-main-color);
+}
+
+.purchase-portal-nav__link {
+  text-decoration: none;
+
+  color: #fff;
+}
+
+.active-link {
+  padding: 5px 10px;
+
+  border-radius: 10px;
+  background-color: var(--primary-btn-color);
+}
+
+.inactive-link {
+  padding: 5px 10px;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.collapse-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0 0;
+}
+
+.collapse-container__btn {
+  width: 100%;
+}
+
+.request-new-purchase-btn,
+.request-new-purchase-btn__card {
+  width: 90%;
+}
+
+.collapse-container__purchase-request-item,
+.collapse-container__purchase-request-item__card {
+  width: 100%;
+}
+
+.collapse-container__request-new-purchase-btn:hover,
+.collapse-container__request-new-purchase-btn:active {
+  color: #fff;
+  background-color: var(--primary-btn-color);
+}
+
+.new-purchase-form,
+.purchase-request-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.requested-purchases {
+  margin-top: 20px;
+  width: 90%;
+}
+
+.requested-purchases__title {
+  align-self: stretch;
+  padding-bottom: 5px;
+
+  color: #fff;
+  border-bottom: 1px solid var(--secondary-highlight-color);
+}
+
+.requested-purchases__filter-title,
+.requested-purchases__filter-form {
+  align-self: flex-start;
+  padding: 5px;
+
+  color: #ffff;
+}
+
+.requested-purchases__filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  width: 330px;
+  margin-bottom: 0;
+}
+
+.requested-purchases__filter-form label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.requested-purchases__filter-form__filter-btn {
+  color: #fff;
+  background-color: var(--primary-btn-color);
+  --bs-btn-active-bg: var(--primary-btn-color);
+  --bs-btn-bg: var(--primary-btn-color);
+}
+
+.requested-purchases__filter-form__filter-btn:hover {
+  background-color: var(--primary-btn-color);
+}
+
+.collapse-container__request-new-purchase-btn,
+.collapse-container__request-new-purchase-btn:hover,
+.collapse-container__request-new-purchase-btn:active {
+  color: #fff;
+  background-color: var(--primary-btn-color);
+}
+
+.collapse-container__inside {
+  margin: 10px 0 20px 0;
+}
+
+.new-purchase-form,
+.purchase-request-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.purchase-request-form__floating-input-container,
+.purchase-request-edit-form__floating-input-container {
+  width: 100%;
+}
+
+.new-purchase-form label {
+  padding: 10px;
+}
+
+.form-floating > .form-control {
+  height: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.purchase-request-form output {
+  padding: 5px 0;
+}
+
+.new-purchase-form__btn,
+.purchase-request-form__edit-btn,
+.purchase-request-form__delete-btn {
+  margin: 10px 20px 0 0;
+}
+
+.purchase-request-form__btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.purchase-request-form__edit-btn {
+  color: #fff;
+  background-color: var(--secondary-highlight-color);
+}
+
+@media (min-width: 500px) {
+  .purchase-portal-nav,
+  .collapse-container,
+  .requested-purchases,
+  .request-new-purchase-btn__card {
+    width: 450px;
+  }
+}

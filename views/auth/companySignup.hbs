@@ -1,0 +1,42 @@
+<div class="signup-container bg-secondary">
+  <h2 class="text-light text-center w-75 mt-5">Set up a new account for <span class="text-warning">your</span> company</h2>
+  {{#if errorMessage}}
+    <div
+      class="text-bg-danger p-3 my-2 w-100 text-center"
+    >{{errorMessage}}</div>
+  {{/if}}
+  <div class="card card-body m-3 bg-info">
+    <form class="signup-container__form" action="/companySignup" method="post">
+      <div class="form-floating mb-2" for="company">
+        <input type="text" id="floatingInput" class="form-control" name="company"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Company Name" />
+        <label for="floatingInput">Company Name</label>
+      </div>
+      <div class="form-floating mb-2">
+        <input type="text" id="floatingInput" class="form-control" name="firstName"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Account Administrator's First name"/>
+        <label for="floatingInput">Account Administrator's First name</label>
+      </div>
+      <div class="form-floating mb-2">
+        <input type="text" id="floatingInput" class="form-control" name="lastName"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Last name"/>
+        <label for="floatingInput">Last name</label>
+      </div>
+      <div class="form-floating mb-2">
+        <input type="email" id="floatingInput" class="form-control" name="email"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Email"/>
+        <label for="floatingInput">Email</label>
+      </div>
+      <div class="form-floating mb-2">
+        <input type="password" id="floatingInput" class="form-control" name="password"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter password"/>
+        <label for="floatingInput">Enter password</label>
+      </div>
+      <div class="form-floating mb-2">
+        <input type="password" id="floatingInput" class="form-control" name="verifyPassword"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Confirm password"/>
+        <label for="floatingInput">Confirm password</label>
+      </div>
+      <button class="signup-container__form__log-in-button">Set up company account</button>
+    </form>
+    <p class="text-center text-light mb-2">Already have an account?</p>
+    <a href="/login" class="text-warning text-center" type="button">
+      <i
+        class="fas fa-right-to-bracket"
+      ></i><span class="ms-2">Log in</span></a>
+  </div>
+</div>
