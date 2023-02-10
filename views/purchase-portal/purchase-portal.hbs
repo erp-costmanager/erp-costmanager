@@ -101,7 +101,12 @@
       {{#if (isApprovedOrDisapproved this)}}
       <output><strong>Reviewed by:</strong> {{reviewedBy.firstName}} {{reviewedBy.lastName}}</output>
       {{/if}}
-      {{#if (isPendingAndIsUserManager this ../currentUser)}}
+      {{#if (isPendingAndIsUsersOwnRequest this ../currentUser)}}
+      <div class="purchase-request-form__btns">
+       <input type="submit" name="action" value="Delete" class="btn btn-danger purchase-request-form__delete-btn">
+       <a href="/purchase-portal/edit-purchase/{{_id}}" class="btn btn-info purchase-request-form__edit-btn">Edit</a>
+      </div>
+      {{else if (isPendingAndIsUserManager this ../currentUser)}}
       <div class="form-floating mb-3 mt-1 purchase-request-edit-form__floating-input-container">
       <textarea class="form-control" placeholder="Manager's comment" id="floatingTextarea" name="comment" id="comment" style="height: 75px;"></textarea>
       <label for="comment">Manager's comment</label>
@@ -112,11 +117,6 @@
       <input type="submit" name="action" value="Disapprove" class="purchase-request-form__btn btn btn-danger">
       </div>
 
-      {{else if (isPendingAndIsUsersOwnRequest this ../currentUser)}}
-      <div class="purchase-request-form__btns">
-       <input type="submit" name="action" value="Delete" class="btn btn-danger purchase-request-form__delete-btn">
-       <a href="/purchase-portal/edit-purchase/{{_id}}" class="btn btn-info purchase-request-form__edit-btn">Edit</a>
-      </div>
       {{else}}
       <output><strong>Status:</strong>
       {{status}}
